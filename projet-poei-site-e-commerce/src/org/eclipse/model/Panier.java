@@ -1,4 +1,4 @@
-package org.eclipse.model;
+ package org.eclipse.model;
 
 import java.util.Arrays;
 
@@ -49,7 +49,7 @@ public class Panier {
 
 	// La méthode "toString" sert uniquement au débuggage
 	public String toString() {
-		return "Panier [id=" + id + ", lignesPanier=" + Arrays.toString(lignesPanier) + ", client=" + client + "]";
+		return "Panier [id=" + this.id + ", lignesPanier=" + Arrays.toString(this.lignesPanier) + ", client=" + this.client + "]";
 	}
 
 }

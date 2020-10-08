@@ -2,14 +2,14 @@ package org.eclipse.model;
 
 public class LigneCommande {
 	/** Classe d'association entre Commande et Produit */
-	
+
 	// Attributs
 	private String id;
 	private int quantiteCommandee;
 	private Commande commande;
 	private Produit produit;
-	
-	// Le constructeur
+
+	// Les constructeurs
 	public LigneCommande(String id, int quantiteCommandee, Commande commande, Produit produit) {
 		// Constructeur complet pour la création standard d'une ligne de commande
 		this.id = id;
@@ -17,8 +17,12 @@ public class LigneCommande {
 		this.commande = commande;
 		this.produit = produit;
 	}
+	
+	public LigneCommande() {
+		// Constructeur vide pour le debuggage
+	}
 
-	// Les getteurs et setteurs classiques
+	// Les getters et les setters classiques
 	public String getId() {
 		return this.id;
 	}
@@ -51,10 +55,14 @@ public class LigneCommande {
 		this.produit = produit;
 	}
 
-	// La méthode "toString" sert uniquement au débuggage
+	/*
+	 * La méthode "toString" sert uniquement au débuggage. Pour éviter les boucles
+	 * d'affichage infinies on n'écrit pas directement la commande et le produit
+	 * mais on écrit juste leur id.
+	 */
 	public String toString() {
-		return "LigneCommande [id=" + this.id + ", quantiteCommandee=" + this.quantiteCommandee + ", commande=" + this.commande
-				+ ", produit=" + this.produit + "]";
+		return "LigneCommande [id=" + this.id + ", quantiteCommandee=" + this.quantiteCommandee + ", commande.id="
+				+ this.commande.getId() + ", produit.id=" + this.produit.getId() + "]";
 	}
-	
+
 }

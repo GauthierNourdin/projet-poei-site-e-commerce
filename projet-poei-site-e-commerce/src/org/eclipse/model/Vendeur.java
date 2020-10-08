@@ -1,36 +1,49 @@
 package org.eclipse.model;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Vendeur extends Utilisateur {
 	/** Classe décrivant les méthodes et attributs propres au vendeur */
-	
+
 	// Attributs propres
-	private Produit [] produits;
-	
+	private ArrayList<Produit> produits;
+
 	// Le constructeur
 	public Vendeur(String id, String nom, String prenom, String adresseMail, String numeroTelephone,
-			String identifiantConnexion, String motDePasse, Adresse[] adresses, Produit[] produits) {
+			String identifiantConnexion, String motDePasse, ArrayList<Adresse> adresses, ArrayList<Produit> produits) {
 		// Constructeur complet pour la création standard d'un nouveau vendeur
 		super(id, nom, prenom, adresseMail, numeroTelephone, identifiantConnexion, motDePasse, adresses);
-		this.produits = new Produit [100];
-		/*
-		 * Le tableau des produits commence vide, limitation à 100 produits par vendeur
-		 */
+		this.produits = new ArrayList<Produit>();
+		// Le tableau des produits commence vide.
 	}
-	
-	// Les getteurs et setteurs classiques
-	public Produit[] getProduits() {
+
+	// Les getters et les setters classiques
+	public ArrayList<Produit> getProduits() {
 		return this.produits;
 	}
 
-	public void setProduits(Produit[] produits) {
+	public void setProduits(ArrayList<Produit> produits) {
 		this.produits = produits;
 	}
 
-	// La méthode "toString" sert uniquement au débuggage
+	/*
+	 * La méthode "toString" sert uniquement au débuggage. Pour éviter les boucles
+	 * d'affichage infinies on n'écrit pas directement les produits mais on écrit
+	 * juste leur id.
+	 */
 	public String toString() {
-		return "Vendeur [produits=" + Arrays.toString(this.produits) + ", toString()=" + super.toString() + "]";
+		String idProduits = "";
+		if(this.produits.size() != 0) {
+			idProduits += " [";
+			int i;
+			for (i = 0 ; i < this.produits.size() - 1 ; i++) {
+				idProduits += this.produits.get(i).getId() + ", ";
+			}
+			idProduits += this.produits.get(i).getId() + " ]";
+		} else {
+			idProduits += " [ ]";			
+		}
+		return "Vendeur [produits.id=" + idProduits + ", toString()=" + super.toString() + "]";
 	}
-	
+
 }

@@ -18,7 +18,7 @@ public class LignePanier {
 		this.produit = produit;
 	}
 
-	// Les getteurs et setteurs classiques
+	// Les getters et les setters classiques
 	public String getId() {
 		return this.id;
 	}
@@ -51,10 +51,14 @@ public class LignePanier {
 		this.produit = produit;
 	}
 
-	// La méthode "toString" sert uniquement au débuggage
+	/*
+	 * La méthode "toString" sert uniquement au débuggage. Pour éviter les boucles
+	 * d'affichage infinies on n'écrit pas directement le panier et le produit mais
+	 * on écrit juste leur id.
+	 */
 	public String toString() {
-		return "LigneCommande [id=" + this.id + ", quantiteCommandee=" + this.quantiteCommandee + ", panier=" + this.panier
-				+ ", produit=" + this.produit + "]";
+		return "LigneCommande [id=" + this.id + ", quantiteCommandee=" + this.quantiteCommandee + ", panier.id=" + this.panier.getId()
+				+ ", produit.id=" + this.produit.getId() + "]";
 	}
 	
 }

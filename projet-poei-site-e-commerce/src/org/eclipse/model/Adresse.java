@@ -23,7 +23,7 @@ public class Adresse {
 		this.complementAdresse = complementAdresse;
 	}
 
-	// Les getteurs et setteurs classiques
+	// Les getters et les setters classiques
 	public String getNumeroDansRue() {
 		return this.numeroDansRue;
 	}
@@ -71,8 +71,8 @@ public class Adresse {
 	public void setComplementAdresse(String complementAdresse) {
 		this.complementAdresse = complementAdresse;
 	}
-
-	// La méthode "toString" sert uniquement au débuggage
+	
+	// La méthode "toString" sert uniquement au débuggage.
 	public String toString() {
 		return "Adresse [numeroDansRue=" + this.numeroDansRue + ", rue=" + this.rue + ", ville=" + this.ville + ", codePostal="
 				+ this.codePostal + ", pays=" + this.pays + ", complementAdresse=" + this.complementAdresse + "]";

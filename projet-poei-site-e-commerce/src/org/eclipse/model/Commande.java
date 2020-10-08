@@ -1,7 +1,7 @@
 package org.eclipse.model;
 
 import java.sql.Date;
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Commande {
 	/** Classe permettant d'enregistrer les commandes passés par les utilisateurs */
@@ -9,7 +9,7 @@ public class Commande {
 	// Attributs
 	private String id;
 	private Client client;
-	private LigneCommande[] lignesCommande;
+	private ArrayList<LigneCommande> lignesCommande;
 	private Date dateDeCommande;
 
 	// Le constructeur
@@ -21,14 +21,12 @@ public class Commande {
 		 */
 		this.id = id;
 		this.client = client;
-		this.lignesCommande = new LigneCommande[50];
-		/*
-		 * Limitation à 50 lignes par commande. La ligne de commande commence vide
-		 */
+		this.lignesCommande = new ArrayList<LigneCommande>();
+		// La ligne de commande commence vide.
 		this.dateDeCommande = dateDeCommande;
 	}
 
-	// Les setters et les getters
+	// Les getters et les setters classiques
 	public String getId() {
 		return this.id;
 	}
@@ -45,11 +43,11 @@ public class Commande {
 		this.client = client;
 	}
 
-	public LigneCommande[] getLignesCommande() {
+	public ArrayList<LigneCommande> getLignesCommande() {
 		return this.lignesCommande;
 	}
 
-	public void setLignesCommande(LigneCommande[] lignesCommande) {
+	public void setLignesCommande(ArrayList<LigneCommande> lignesCommande) {
 		this.lignesCommande = lignesCommande;
 	}
 
@@ -61,12 +59,26 @@ public class Commande {
 		this.dateDeCommande = dateDeCommande;
 	}
 
-	// La méthode "toString" sert uniquement au débuggage
+	/*
+	 * La méthode "toString" sert uniquement au débuggage. Pour éviter les boucles
+	 * d'affichage infinies on n'écrit pas directement les lignes de commande et le
+	 * client mais on écrit juste leur id.
+	 */
 	public String toString() {
-		return "Commande [id=" + id + ", client=" + client + ", lignesCommande=" + Arrays.toString(lignesCommande)
-				+ ", dateDeCommande=" + dateDeCommande + "]";
+		String idLignesCommande = "";
+		if(this.lignesCommande.size() != 0) {
+			idLignesCommande += " [";
+			int i;
+			for(i = 0 ; i < this.lignesCommande.size() ; i++) {
+				idLignesCommande += this.lignesCommande.get(i).getId() + ", ";
+				++i;
+			}
+			idLignesCommande += this.lignesCommande.get(i).getId() + " ]";
+		} else {
+			idLignesCommande += " [ ]";			
+		}
+		return "Commande [id=" + this.id + ", client.id=" + this.client.getId() + ", lignesCommande.id=" + idLignesCommande
+				+ ", dateDeCommande=" + this.dateDeCommande + "]";
 	}
-	
-	
 
 }

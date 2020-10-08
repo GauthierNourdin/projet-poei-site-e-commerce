@@ -1,13 +1,13 @@
- package org.eclipse.model;
+package org.eclipse.model;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Panier {
 	/** Classe décrivant le panier qu'utilise le client pour préparer ses achats. */
 
 	// Attributs
 	private String id;
-	private LignePanier[] lignesPanier;
+	private ArrayList<LignePanier> lignesPanier;
 	private Client client;
 
 	// Le constructeur
@@ -18,11 +18,11 @@ public class Panier {
 		 * à 50
 		 */
 		this.id = id;
-		this.lignesPanier = new LignePanier[50];
-		/* Limitation à 50 lignes par panier. La ligne de panier commence vide */
+		this.lignesPanier = new ArrayList<LignePanier>();
+		// La ligne de panier commence vide */
 	}
 
-	// Les getteurs et setteurs classiques
+	// Les getters et les setters classiques
 	public String getId() {
 		return this.id;
 	}
@@ -30,7 +30,7 @@ public class Panier {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+
 	public Client getClient() {
 		return client;
 	}
@@ -39,17 +39,34 @@ public class Panier {
 		this.client = client;
 	}
 
-	public LignePanier[] getLignesPanier() {
+	public ArrayList<LignePanier> getLignesPanier() {
 		return this.lignesPanier;
 	}
 
-	public void setLignesPanier(LignePanier[] lignesPanier) {
+	public void setLignesPanier(ArrayList<LignePanier> lignesPanier) {
 		this.lignesPanier = lignesPanier;
 	}
 
-	// La méthode "toString" sert uniquement au débuggage
+	/*
+	 * La méthode "toString" sert uniquement au débuggage. Pour éviter les boucles
+	 * d'affichage infinies on n'écrit pas directement les lignes de panier et le
+	 * client mais on écrit juste leur id.
+	 */
 	public String toString() {
-		return "Panier [id=" + this.id + ", lignesPanier=" + Arrays.toString(this.lignesPanier) + ", client=" + this.client + "]";
+		String idLignesPanier = "";
+		if (this.lignesPanier.size() != 0) {
+			idLignesPanier += " [";
+			int i;
+			for (i = 0; i < this.lignesPanier.size() - 1; i++) {
+				idLignesPanier += this.lignesPanier.get(i).getId() + ", ";
+				++i;
+			}
+			idLignesPanier += this.lignesPanier.get(i).getId() + " ]";
+		} else {
+			idLignesPanier += " [ ]";
+		}
+		return "Panier [id=" + this.id + ", lignesPanier.id=" + idLignesPanier + ", client.id=" + this.client.getId()
+				+ "]";
 	}
 
 }

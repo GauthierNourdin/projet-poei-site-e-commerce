@@ -36,7 +36,7 @@ public class LigneCommandeService {
 		}
 	}
 
-	// Méthode pour retirer un produit de la liste
+	// Méthode pour retirer une ligne de commande de la liste
 	public boolean remove(LigneCommande ligneCommande) {
 		/*
 		 * On vérifie que la ligne de commande est bien présente dans la liste avant de
@@ -50,7 +50,7 @@ public class LigneCommandeService {
 		}
 	}
 
-	// Méthode pour mettre à jour un produit (même ID !)
+	// Méthode pour mettre à jour une ligne de commande (même ID !)
 	public boolean update(LigneCommande ligneCommande) {
 		/*
 		 * On compare l'id de la ligne de commande dans la liste avec l'id de la ligne

@@ -36,7 +36,7 @@ public class CommandeService {
 		}
 	}
 
-	// Méthode pour retirer un produit de la liste
+	// Méthode pour retirer une commande de la liste
 	public boolean remove(Commande commande) {
 		/*
 		 * On vérifie que la commande est bien présente dans la liste avant de la
@@ -50,7 +50,7 @@ public class CommandeService {
 		}
 	}
 
-	// Méthode pour mettre à jour un produit (même ID !)
+	// Méthode pour mettre à jour une commande (même ID !)
 	public boolean update(Commande commande) {
 		/*
 		 * On compare l'id de la commande dans la liste avec l'id de la commande que l'on a envoyé

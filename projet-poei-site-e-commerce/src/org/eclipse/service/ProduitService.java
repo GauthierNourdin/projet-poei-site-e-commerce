@@ -69,20 +69,20 @@ public class ProduitService {
 	}
 
 	// Méthode pour rendre la liste complète (convention de nommage)
-	public ArrayList<Produit> findAll(){
+	public ArrayList<Produit> findAll() {
 		return this.produits;
 	}
-	
+
 	// Méthode pour trouver dans la liste un produit d'id connu
 	public Produit findById(String id) {
-		for(Produit produitIndividuel : this.produits) {
-			if(produitIndividuel.getId() == id) {
+		for (Produit produitIndividuel : this.produits) {
+			if (produitIndividuel.getId() == id) {
 				return produitIndividuel;
 			}
 		}
 		return null;
 	}
-	
+
 	// La méthode "toString" sert uniquement au débuggage.
 	public String toString() {
 		return "ProduitService [produits=" + this.produits + "]";

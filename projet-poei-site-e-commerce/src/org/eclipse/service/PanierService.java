@@ -36,7 +36,7 @@ public class PanierService {
 		}
 	}
 
-	// Méthode pour retirer un produit de la liste
+	// Méthode pour retirer un panier de la liste
 	public boolean remove(Panier panier) {
 		/*
 		 * On vérifie que le panier est bien présent dans la liste avant de le
@@ -50,7 +50,7 @@ public class PanierService {
 		}
 	}
 
-	// Méthode pour mettre à jour un produit (même ID !)
+	// Méthode pour mettre à jour un panier (même ID !)
 	public boolean update(Panier panier) {
 		/*
 		 * On compare l'id du panier dans la liste avec l'id du panier que l'on a envoyé

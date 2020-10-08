@@ -66,7 +66,7 @@ public class TestCommandeService {
 		if(!commandeService.remove(commande4)) System.out.println("Echec de la suppresion de la commande : cette commande n'est pas présente dans la liste");
 		
 		Date date5 = new Date(1753707750L); 
-		Commande commande5 = new Commande("00000003", client3, date5);;
+		Commande commande5 = new Commande("00000003", client3, date5);
 		if(!commandeService.update(commande5)) System.out.println("Echec de l'update de la commande : cette commande n'est pas présente dans la liste");
 		System.out.println(commandeService);
 		

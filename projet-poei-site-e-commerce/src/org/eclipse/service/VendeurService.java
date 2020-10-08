@@ -36,7 +36,7 @@ public class VendeurService {
 		}
 	}
 
-	// Méthode pour retirer un produit de la liste
+	// Méthode pour retirer un vendeur de la liste
 	public boolean remove(Vendeur vendeur) {
 		/*
 		 * On vérifie que le vendeur est bien présent dans la liste avant de le
@@ -50,7 +50,7 @@ public class VendeurService {
 		}
 	}
 
-	// Méthode pour mettre à jour un produit (même ID !)
+	// Méthode pour mettre à jour un vendeur (même ID !)
 	public boolean update(Vendeur vendeur) {
 		/*
 		 * On compare l'id du vendeur dans la liste avec l'id du vendeur que

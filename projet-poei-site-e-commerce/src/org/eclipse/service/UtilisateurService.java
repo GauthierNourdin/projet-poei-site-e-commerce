@@ -36,7 +36,7 @@ public class UtilisateurService {
 		}
 	}
 
-	// Méthode pour retirer un produit de la liste
+	// Méthode pour retirer un utilisateur de la liste
 	public boolean remove(Utilisateur utilisateur) {
 		/*
 		 * On vérifie que l'utilisateur est bien présent dans la liste avant de le
@@ -50,7 +50,7 @@ public class UtilisateurService {
 		}
 	}
 
-	// Méthode pour mettre à jour un produit (même ID !)
+	// Méthode pour mettre à jour un utilisateur (même ID !)
 	public boolean update(Utilisateur utilisateur) {
 		/*
 		 * On compare l'id de l'utilisateur dans la liste avec l'id de l'utilisateur que l'on a

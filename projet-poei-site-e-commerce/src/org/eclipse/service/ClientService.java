@@ -50,7 +50,7 @@ public class ClientService {
 		}
 	}
 
-	// Méthode pour mettre à jour un produit (même ID !)
+	// Méthode pour mettre à jour un client
 	public boolean update(Client client) {
 		/*
 		 * On compare l'id du client dans la liste avec l'id du client que l'on a envoyé

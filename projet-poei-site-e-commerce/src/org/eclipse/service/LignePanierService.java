@@ -36,7 +36,7 @@ public class LignePanierService {
 		}
 	}
 
-	// Méthode pour retirer un produit de la liste
+	// Méthode pour retirer une ligne de panier de la liste
 	public boolean remove(LignePanier lignePanier) {
 		/*
 		 * On vérifie que la ligne de panier est bien présente dans la liste avant de la
@@ -50,7 +50,7 @@ public class LignePanierService {
 		}
 	}
 
-	// Méthode pour mettre à jour un produit (même ID !)
+	// Méthode pour mettre à jour une ligne de panier (même ID !)
 	public boolean update(LignePanier lignePanier) {
 		/*
 		 * On compare l'id de la ligne de panier dans la liste avec l'id de la ligne de

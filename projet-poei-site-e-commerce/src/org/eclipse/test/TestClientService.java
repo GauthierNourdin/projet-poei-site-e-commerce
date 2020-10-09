@@ -80,11 +80,6 @@ public class TestClientService {
 		clientService.findById("00000002").setIdentifiantConnexion("DominiqueLeBreton");
 		System.out.println(clientService);
 		
-		for(Client clie : clientService.getClients()) {
-			clie.setNumeroTelephone("");
-			clientService.update(clie);
-		}
-		System.out.println(clientService);
 	}
 
 }

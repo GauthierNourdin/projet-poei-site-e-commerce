@@ -1,6 +1,7 @@
 package org.eclipse.service;
 
 import java.util.ArrayList;
+
 import org.eclipse.model.Utilisateur;
 
 public class UtilisateurService {
@@ -50,19 +51,16 @@ public class UtilisateurService {
 		}
 	}
 
-	// Méthode pour mettre à jour un utilisateur (même ID !)
+	// Méthode pour mettre à jour un utilisateur
 	public boolean update(Utilisateur utilisateur) {
 		/*
-		 * On compare l'id de l'utilisateur dans la liste avec l'id de l'utilisateur que l'on a
-		 * envoyé en entrée. Si on obtient une correspondance, on enlève l'utilisateur avec
-		 * cet id de la liste et on rajoute l'utilisateur en entrée. Seul le premier
-		 * produit ayant cet id sera éliminé. La fonction retourne "true" si on a pu
-		 * procéder au remplacement, "false" sinon.
+		 * La méthode retourne true si l'utilisateur à mettre à jour est dans la liste,
+		 * false sinon.
 		 */
-		for (Utilisateur utilisateurIndividuel : this.utilisateurs) {
-			if (utilisateurIndividuel.getId() == utilisateur.getId()) {
-				this.utilisateurs.remove(utilisateurIndividuel);
-				return this.save(utilisateur);
+		for (Utilisateur util: this.utilisateurs) {
+			if (util.getId() == util.getId()) {
+				util = utilisateur;
+				return true;
 			}
 		}
 		return false;
@@ -75,14 +73,22 @@ public class UtilisateurService {
 
 	// Méthode pour trouver dans la liste un utilisateur d'id connu
 	public Utilisateur findById(String id) {
-		for (Utilisateur utilisateurIndividuel : this.utilisateurs) {
-			if (utilisateurIndividuel.getId() == id) {
-				return utilisateurIndividuel;
+		for (Utilisateur util: this.utilisateurs) {
+			if (util.getId() == id) {
+				return util;
 			}
 		}
 		return null;
 	}
 
+	public Utilisateur findByLoginAndPassword(String login, String password) {
+		for(Utilisateur util : utilisateurs)
+			if((util.getNom() == login) && (util.getMotDePasse() == password)) {
+				return util;
+			}
+		return null;
+	}
+	
 	// La méthode "toString" sert uniquement au débuggage.
 	public String toString() {
 		return "UtilisateurService [utilisateurs=" + this.utilisateurs + "]";

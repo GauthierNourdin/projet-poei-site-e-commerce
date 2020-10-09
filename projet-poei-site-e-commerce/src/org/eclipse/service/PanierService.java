@@ -1,7 +1,10 @@
 package org.eclipse.service;
 
 import java.util.ArrayList;
+
+import org.eclipse.model.LignePanier;
 import org.eclipse.model.Panier;
+import org.eclipse.model.Produit;
 
 public class PanierService {
 
@@ -50,19 +53,16 @@ public class PanierService {
 		}
 	}
 
-	// Méthode pour mettre à jour un panier (même ID !)
+	// Méthode pour mettre à jour un panier
 	public boolean update(Panier panier) {
 		/*
-		 * On compare l'id du panier dans la liste avec l'id du panier que l'on a envoyé
-		 * en entrée. Si on obtient une correspondance, on enlève le panier avec cet id
-		 * de la liste et on rajoute le panier en entrée. Seul le premier panier ayant
-		 * cet id sera éliminé. La fonction retourne "true" si on a pu procéder au
-		 * remplacement, "false" sinon.
+		 * La méthode retourne true si le panier à mettre à jour est dans la liste,
+		 * false sinon.
 		 */
-		for (Panier panierIndividuel : this.paniers) {
-			if (panierIndividuel.getId() == panier.getId()) {
-				this.paniers.remove(panierIndividuel);
-				return this.save(panier);
+		for (Panier pani : this.paniers) {
+			if (pani.getId() == panier.getId()) {
+				pani = panier;
+				return true;
 			}
 		}
 		return false;
@@ -75,13 +75,61 @@ public class PanierService {
 
 	// Méthode pour trouver dans la liste un panier d'id connu
 	public Panier findById(String id) {
-		for (Panier panierIndividuel : this.paniers) {
-			if (panierIndividuel.getId() == id) {
-				return panierIndividuel;
+		for (Panier pani : this.paniers) {
+			if (pani.getId() == id) {
+				return pani;
 			}
 		}
 		return null;
 	}
+	
+	// Méthode pour ajouter une ligne de panier au panier d'un client
+	public void ajouterLignePanier(Panier panier, Produit produit, int quantiteSouhaitee, LignePanierService lignePanierService, ClientService clientService) {
+		boolean flag = false; // Boolean pour savoir si on essaie d'ajouter un produit identique
+		for(LignePanier lignPani : panier.getLignesPanier()) {
+			if(lignPani.getProduit().getId() == produit.getId()) {
+				if (quantiteSouhaitee + lignPani.getQuantiteCommandee() < produit.getQuantiteEnStock()) {
+					lignPani.setQuantiteCommandee(produit.getQuantiteEnStock());
+				} else {
+					lignPani.setQuantiteCommandee(quantiteSouhaitee + lignPani.getQuantiteCommandee());
+				}
+				lignePanierService.update(lignPani);
+				panier.
+				this.update(panier)
+				
+				flag = true;
+				break;
+			}
+		}
+		
+		
+		LignePanier lignePanier = new LignePanier(id, quantiteSouhaitee, panier, produit);
+		lignePanierService.save(lignePanier);
+		lignePanierService.update(lignePanier);
+		ArrayList<LignePanier> lignesPanier = panier.getLignesPanier();	 	
+		lignesPanier.add(lignePanier);
+		this.update(panier);
+	}
+	
+
+	// Méthode pour vider complètement un panier
+	public void viderPanier (String id) {
+		Panier panier = this.findById(id);
+		ArrayList<LignePanier> lignesPanier = panier.getLignesPanier();
+		lignesPanier.clear();
+	}
+	
+	
+	// Méthode pour valider un panier et le transformer en une commande
+	public void validerPanier (String id, LignePanierService lignePanierService, PanierService panierService) {
+		
+		
+		
+		this.viderPanier(id)
+		
+	}
+	
+	
 
 	// La méthode "toString" sert uniquement au débuggage.
 	public String toString() {

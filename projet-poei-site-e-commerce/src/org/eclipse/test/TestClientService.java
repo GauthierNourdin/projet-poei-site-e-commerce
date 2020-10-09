@@ -10,9 +10,9 @@ public class TestClientService {
 
 		ArrayList<Client> clientsInitiaux = new ArrayList<Client>();
 		ClientService clientService = new ClientService(clientsInitiaux);
-		
+
 		System.out.println(clientService);
-		
+
 		Adresse adresse1 = new Adresse("8", "Avenue Jacques Chirac", "Aix La Chapelle", "84512", "France", "");
 		Adresse adresse2 = new Adresse("30", "Rue des elfes", "Lannion", "64021", "France", "");
 		Adresse adresse3 = new Adresse("14", "Rue Amiral Ronarc'h", "Quimperlé", "74005", "France", "");
@@ -27,40 +27,64 @@ public class TestClientService {
 		adresses3.add(adresse3);
 		adresses3.add(adresse4);
 		adresses4.add(adresse5);
-		Client client1 = new Client("00000001", "Durouet", "Etienne", "etienneD@yahoo.fr", "0643246167", "DurouetE", "AucuneIdée", adresses1);
-		Client client2 = new Client("00000002", "Lescard", "Dominique", "dominique.lescard@gmail.com", "0643213265", "DominiqueLescard", "VivelaBretagne!", adresses2);
-		Client client3 = new Client("00000003", "Desmoulins", "Francois", "francois.des@sf.fr", "0761621733", "FrancoisDD", "JaimelaBière", adresses3);
-		Client client4 = new Client("00000004", "Bouchard", "Paul", "paul.bouchard@orange.fr", "0673413473", "Paul-Bouchard", "S3ri3us3m3nt", adresses4);
-		
-		if(!clientService.save(client1)) System.out.println("Echec de l'ajout : client identique déjà présent");
-		System.out.println(clientService);
-		
-		if(!clientService.save(client2)) System.out.println("Echec de l'ajout : client identique déjà présent");
-		System.out.println(clientService);
-		
-		if(!clientService.save(client3)) System.out.println("Echec de l'ajout : client identique déjà présent");
-		System.out.println(clientService);
-		
-		if(!clientService.save(client2)) System.out.println("Echec de l'ajout : client identique déjà présent");
+		Client client1 = new Client("00000001", "Durouet", "Etienne", "etienneD@yahoo.fr", "0643246167", "DurouetE",
+				"AucuneIdée", adresses1);
+		Client client2 = new Client("00000002", "Lescard", "Dominique", "dominique.lescard@gmail.com", "0643213265",
+				"DominiqueLescard", "VivelaBretagne!", adresses2);
+		Client client3 = new Client("00000003", "Desmoulins", "Francois", "francois.des@sfr.fr", "0761621733",
+				"FrancoisDD", "JaimelaBière", adresses3);
+		Client client4 = new Client("00000004", "Bouchard", "Paul", "paul.bouchard@orange.fr", "0673413473",
+				"Paul-Bouchard", "S3ri3us3m3nt", adresses4);
 
-		if(!clientService.remove(client1)) System.out.println("Echec de la suppresion du client : ce client n'est pas présent dans la liste");
+		if (!clientService.save(client1))
+			System.out.println("Echec de l'ajout : client identique déjà présent");
+		System.out.println(clientService);
+
+		if (!clientService.save(client2))
+			System.out.println("Echec de l'ajout : client identique déjà présent");
+		System.out.println(clientService);
+
+		if (!clientService.save(client3))
+			System.out.println("Echec de l'ajout : client identique déjà présent");
+		System.out.println(clientService);
+
+		if (!clientService.save(client2))
+			System.out.println("Echec de l'ajout : client identique déjà présent");
 		System.out.println(clientService);
 		
-		if(!clientService.remove(client4)) System.out.println("Echec de la suppresion du client : ce client n'est pas présent dans la liste");
-		
-		Client client5 = new Client("00000003", "Desmoulins", "Xavier", "xavier.des@sf.fr", "0761621733", "FrancoisDD", "JaimelaBière", adresses3);
-		if(!clientService.update(client5)) System.out.println("Echec de l'update du client : ce client n'est pas présent dans la liste");
+		if (!clientService.remove(client1))
+			System.out.println("Echec de la suppression : ce client n'est pas présent dans la liste");
+		System.out.println(clientService);
+
+		if (!clientService.remove(client4))
+			System.out.println("Echec de la suppression : ce client n'est pas présent dans la liste");
 		System.out.println(clientService);
 		
-		Client client6 = new Client("00000004", "Bouchard", "Paul", "paul.bouchard@orange.fr", "0673413473", "Paul-Bouchard", "FaceJohnCena", adresses4);
-		if(!clientService.update(client6)) System.out.println("Echec de l'update du client : ce client n'est pas présent dans la liste");
+		client3.setPrenom("Xavier");
+		client3.setAdresseMail("xavier.des@sfr.fr");
+		if(!clientService.update(client3))
+			System.out.println("Echec de la mise à jour : ce client n'est pas présent dans la liste");
+		System.out.println(clientService);
+
+		client4.setMotDePasse("FaceJohnCena");
+		if (!clientService.update(client4))
+			System.out.println("Echec de la mise à jour : ce client n'est pas présent dans la liste");
+		System.out.println(clientService);
 		
 		ArrayList<Client> clientsAInstantT = clientService.findAll();
 		System.out.println(clientsAInstantT);
+
+		System.out.println("Le client ayant pour id : 00000002 est : " + clientService.findById("00000002"));
+		System.out.println("Le client ayant pour id : 00000004 est : " + clientService.findById("00000004"));
+
+		clientService.findById("00000002").setIdentifiantConnexion("DominiqueLeBreton");
+		System.out.println(clientService);
 		
-		System.out.println("Le produit ayant pour id : 00000002 est : " + clientService.findById("00000002"));
-		System.out.println("Le produit ayant pour id : 00000004 est : " + clientService.findById("00000004"));
-		
+		for(Client clie : clientService.getClients()) {
+			clie.setNumeroTelephone("");
+			clientService.update(clie);
+		}
+		System.out.println(clientService);
 	}
 
 }

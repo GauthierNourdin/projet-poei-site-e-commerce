@@ -7,13 +7,13 @@ public class Client extends Utilisateur {
 
 	// Attributs propres
 	private Panier panier;
-    private ArrayList <Commande> commandes;
-	
+	private ArrayList<Commande> commandes;
+
 	// Le constructeur
 	public Client(String id, String nom, String prenom, String adresseMail, String numeroTelephone,
 			String identifiantConnexion, String motDePasse, ArrayList<Adresse> adresses) {
 		super(id, nom, prenom, adresseMail, numeroTelephone, identifiantConnexion, motDePasse, adresses);
-		this.panier = new Panier(id, this);
+		this.panier = new Panier(this.getId(), this);
 		/* On envoie au panier à créer l'id du client ainsi que l'objet client */
 		this.commandes = new ArrayList<Commande>();
 		// La liste des commandes commence vide.
@@ -43,19 +43,19 @@ public class Client extends Utilisateur {
 	 */
 	public String toString() {
 		String idCommandes = "";
-		if(this.commandes.size() != 0) {
+		if (this.commandes.size() != 0) {
 			idCommandes += " [";
 			int i;
-			for (i = 0 ; i < this.commandes.size() - 1 ; i++) {
+			for (i = 0; i < this.commandes.size() - 1; i++) {
 				idCommandes += this.commandes.get(i).getId() + ", ";
 				++i;
 			}
 			idCommandes += this.commandes.get(i).getId() + " ]";
 		} else {
-			idCommandes += " [ ]";			
+			idCommandes += " [ ]";
 		}
-		return "Client [panier.id=" + this.panier.getId() + ", commandes.id=" + idCommandes + ", toString()=" + super.toString()
-				+ "]";
+		return "Client [panier.id=" + this.panier.getId() + ", commandes.id=" + idCommandes + ", toString()="
+				+ super.toString() + "]";
 	}
 
 }

@@ -10,21 +10,21 @@ public class Produit {
 	private String designation;
 	private double prixUnitaire;
 	private int quantiteEnStock;
-	private String urlImageString;
-	private String descriptionProduitString;
+	private String urlImage;
+	private String descriptionProduit;
 	private Vendeur vendeur;
 	private ArrayList<LigneCommande> lignesCommande;
 
 	// Le constructeur
-	public Produit(String id, String designation, double prixUnitaire, int quantiteEnStock, String urlImageString,
-			String descriptionProduitString, Vendeur vendeur) {
+	public Produit(String id, String designation, double prixUnitaire, int quantiteEnStock, String urlImage,
+			String descriptionProduit, Vendeur vendeur) {
 		// Constructeur complet permettant la création standard d'un produit
 		this.id = id;
 		this.designation = designation;
 		this.prixUnitaire = prixUnitaire;
 		this.quantiteEnStock = quantiteEnStock;
-		this.urlImageString = urlImageString;
-		this.descriptionProduitString = descriptionProduitString;
+		this.urlImage = urlImage;
+		this.descriptionProduit = descriptionProduit;
 		this.vendeur = vendeur;
 		this.lignesCommande = new ArrayList<LigneCommande>();
 		// Le tableau des commandes du produit commence vide.
@@ -63,20 +63,20 @@ public class Produit {
 		this.quantiteEnStock = quantiteEnStock;
 	}
 
-	public String getUrlImageString() {
-		return this.urlImageString;
+	public String getUrlImage() {
+		return this.urlImage;
 	}
 
-	public void setUrlImageString(String urlImageString) {
-		this.urlImageString = urlImageString;
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
 	}
 
-	public String getDescriptionProduitString() {
-		return this.descriptionProduitString;
+	public String getDescriptionProduit() {
+		return this.descriptionProduit;
 	}
 
-	public void setDescriptionProduitString(String descriptionProduitString) {
-		this.descriptionProduitString = descriptionProduitString;
+	public void setDescriptionProduit(String descriptionProduit) {
+		this.descriptionProduit = descriptionProduit;
 	}
 
 	public Vendeur getVendeur() {
@@ -102,10 +102,10 @@ public class Produit {
 	 */
 	public String toString() {
 		String idLignesCommande = "";
-		if(this.lignesCommande.size() != 0) {
+		if (this.lignesCommande.size() != 0) {
 			idLignesCommande += " [";
 			int i;
-			for(i = 0 ; i < this.lignesCommande.size() - 1 ; i++) {
+			for (i = 0; i < this.lignesCommande.size() - 1; i++) {
 				idLignesCommande += this.lignesCommande.get(i).getId() + ", ";
 			}
 			idLignesCommande += this.lignesCommande.get(i).getId() + " ]";
@@ -113,8 +113,8 @@ public class Produit {
 			idLignesCommande += " [ ]";
 		}
 		return "Produit [id=" + this.id + ", designation=" + this.designation + ", prixUnitaire=" + this.prixUnitaire
-				+ ", quantiteEnStock=" + this.quantiteEnStock + ", urlImageString=" + this.urlImageString
-				+ ", descriptionProduitString=" + this.descriptionProduitString + ", vendeur.id=" + this.vendeur.getId()
+				+ ", quantiteEnStock=" + this.quantiteEnStock + ", urlImageString=" + this.urlImage
+				+ ", descriptionProduitString=" + this.descriptionProduit + ", vendeur.id=" + this.vendeur.getId()
 				+ ", lignesCommandes.id=" + idLignesCommande + "]";
 	}
 

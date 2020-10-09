@@ -50,20 +50,16 @@ public class LignePanierService {
 		}
 	}
 
-	// Méthode pour mettre à jour une ligne de panier (même ID !)
+	// Méthode pour mettre à jour une ligne de panier
 	public boolean update(LignePanier lignePanier) {
 		/*
-		 * On compare l'id de la ligne de panier dans la liste avec l'id de la ligne de
-		 * panier que l'on a envoyé en entrée. Si on obtient une correspondance, on
-		 * enlève la ligne de panier avec cet id de la liste et on rajoute la ligne de
-		 * panier en entrée. Seul la première ligne de panier ayant cet id sera éliminé.
-		 * La fonction retourne "true" si on a pu procéder au remplacement, "false"
-		 * sinon.
+		 * La méthode retourne true si la ligne de panier à mettre à jour est dans la
+		 * liste, false sinon.
 		 */
-		for (LignePanier lignePanierIndividuelle : this.lignesPanier) {
-			if (lignePanierIndividuelle.getId() == lignePanier.getId()) {
-				this.lignesPanier.remove(lignePanierIndividuelle);
-				return this.save(lignePanier);
+		for (LignePanier lignPani : this.lignesPanier) {
+			if (lignPani.getId() == lignePanier.getId()) {
+				lignPani = lignePanier;
+				return true;
 			}
 		}
 		return false;
@@ -76,9 +72,9 @@ public class LignePanierService {
 
 	// Méthode pour trouver dans la liste une ligne de panier d'id connu
 	public LignePanier findById(String id) {
-		for (LignePanier lignePanierIndividuelle : this.lignesPanier) {
-			if (lignePanierIndividuelle.getId() == id) {
-				return lignePanierIndividuelle;
+		for (LignePanier lignPani : this.lignesPanier) {
+			if (lignPani.getId() == id) {
+				return lignPani;
 			}
 		}
 		return null;

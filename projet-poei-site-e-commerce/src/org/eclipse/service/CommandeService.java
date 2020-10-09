@@ -1,6 +1,7 @@
 package org.eclipse.service;
 
 import java.util.ArrayList;
+
 import org.eclipse.model.Commande;
 
 public class CommandeService {
@@ -50,19 +51,16 @@ public class CommandeService {
 		}
 	}
 
-	// Méthode pour mettre à jour une commande (même ID !)
+	// Méthode pour mettre à jour une commande
 	public boolean update(Commande commande) {
 		/*
-		 * On compare l'id de la commande dans la liste avec l'id de la commande que l'on a envoyé
-		 * en entrée. Si on obtient une correspondance, on enlève la commande avec cet id
-		 * de la liste et on rajoute la commande en entrée. Seul la première commande ayant
-		 * cet id sera éliminé. La fonction retourne "true" si on a pu procéder au
-		 * remplacement, "false" sinon.
+		 * La méthode retourne true si la commande à mettre à jour est dans la liste,
+		 * false sinon.
 		 */
-		for (Commande commandeIndividuelle : this.commandes) {
-			if (commandeIndividuelle.getId() == commande.getId()) {
-				this.commandes.remove(commandeIndividuelle);
-				return this.save(commande);
+		for (Commande comm : this.commandes) {
+			if (comm.getId() == commande.getId()) {
+				comm = commande;
+				return true;
 			}
 		}
 		return false;
@@ -75,9 +73,9 @@ public class CommandeService {
 
 	// Méthode pour trouver dans la liste une commande d'id connu
 	public Commande findById(String id) {
-		for (Commande commandeIndividuelle : this.commandes) {
-			if (commandeIndividuelle.getId() == id) {
-				return commandeIndividuelle;
+		for (Commande comm : this.commandes) {
+			if (comm.getId() == id) {
+				return comm;
 			}
 		}
 		return null;

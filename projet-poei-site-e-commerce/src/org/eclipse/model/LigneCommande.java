@@ -17,10 +17,6 @@ public class LigneCommande {
 		this.commande = commande;
 		this.produit = produit;
 	}
-	
-	public LigneCommande() {
-		// Constructeur vide pour le debuggage
-	}
 
 	// Les getters et les setters classiques
 	public String getId() {

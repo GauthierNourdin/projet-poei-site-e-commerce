@@ -1,6 +1,7 @@
 package org.eclipse.service;
 
 import java.util.ArrayList;
+
 import org.eclipse.model.LigneCommande;
 
 public class LigneCommandeService {
@@ -50,20 +51,16 @@ public class LigneCommandeService {
 		}
 	}
 
-	// Méthode pour mettre à jour une ligne de commande (même ID !)
+	// Méthode pour mettre à jour une ligne de commande
 	public boolean update(LigneCommande ligneCommande) {
 		/*
-		 * On compare l'id de la ligne de commande dans la liste avec l'id de la ligne
-		 * de commande que l'on a envoyé en entrée. Si on obtient une correspondance, on
-		 * enlève la ligne de commande avec cet id de la liste et on rajoute la ligne de
-		 * commande en entrée. Seul la première ligne de panier ayant cet id sera
-		 * éliminé. La fonction retourne "true" si on a pu procéder au remplacement,
-		 * "false" sinon.
+		 * La méthode retourne true si la ligne de commande à mettre à jour est dans la
+		 * liste, false sinon.
 		 */
-		for (LigneCommande ligneCommandeIndividuelle : this.lignesCommande) {
-			if (ligneCommandeIndividuelle.getId() == ligneCommande.getId()) {
-				this.lignesCommande.remove(ligneCommandeIndividuelle);
-				return this.save(ligneCommande);
+		for (LigneCommande lignComm : this.lignesCommande) {
+			if (lignComm.getId() == ligneCommande.getId()) {
+				lignComm = ligneCommande;
+				return true;
 			}
 		}
 		return false;
@@ -76,9 +73,9 @@ public class LigneCommandeService {
 
 	// Méthode pour trouver dans la liste une ligne de commande d'id connu
 	public LigneCommande findById(String id) {
-		for (LigneCommande ligneCommandeIndividuelle : this.lignesCommande) {
-			if (ligneCommandeIndividuelle.getId() == id) {
-				return ligneCommandeIndividuelle;
+		for (LigneCommande lignComm : this.lignesCommande) {
+			if (lignComm.getId() == id) {
+				return lignComm;
 			}
 		}
 		return null;

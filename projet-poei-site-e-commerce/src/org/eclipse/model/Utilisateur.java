@@ -31,7 +31,7 @@ public class Utilisateur {
 
 	// Les getters et les setters classiques
 	public String getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(String id) {

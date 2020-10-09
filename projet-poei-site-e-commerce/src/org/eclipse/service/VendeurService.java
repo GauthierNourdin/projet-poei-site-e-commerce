@@ -1,6 +1,7 @@
 package org.eclipse.service;
 
 import java.util.ArrayList;
+
 import org.eclipse.model.Vendeur;
 
 public class VendeurService {
@@ -50,24 +51,21 @@ public class VendeurService {
 		}
 	}
 
-	// Méthode pour mettre à jour un vendeur (même ID !)
+	// Méthode pour mettre à jour un vendeur
 	public boolean update(Vendeur vendeur) {
 		/*
-		 * On compare l'id du vendeur dans la liste avec l'id du vendeur que
-		 * l'on a envoyé en entrée. Si on obtient une correspondance, on enlève
-		 * le vendeur avec cet id de la liste et on rajoute le vendeur en entrée.
-		 * Seul le premier vendeur ayant cet id sera éliminé. La fonction retourne
-		 * "true" si on a pu procéder au remplacement, "false" sinon.
+		 * La méthode retourne true si le client à mettre à jour est dans la liste,
+		 * false sinon.
 		 */
-		for (Vendeur vendeurIndividuel : this.vendeurs) {
-			if (vendeurIndividuel.getId() == vendeur.getId()) {
-				this.vendeurs.remove(vendeurIndividuel);
-				return this.save(vendeur);
+		for (Vendeur vend: this.vendeurs) {
+			if (vend.getId() == vend.getId()) {
+				vend = vendeur;
+				return true;
 			}
 		}
 		return false;
 	}
-
+	
 	// Méthode pour rendre la liste complète (convention de nommage)
 	public ArrayList<Vendeur> findAll() {
 		return this.vendeurs;
@@ -75,14 +73,14 @@ public class VendeurService {
 
 	// Méthode pour trouver dans la liste un vendeur d'id connu
 	public Vendeur findById(String id) {
-		for (Vendeur vendeurIndividuel : this.vendeurs) {
-			if (vendeurIndividuel.getId() == id) {
-				return vendeurIndividuel;
+		for (Vendeur vend: this.vendeurs) {
+			if (vend.getId() == id) {
+				return vend;
 			}
 		}
 		return null;
 	}
-
+	
 	// La méthode "toString" sert uniquement au débuggage.
 	public String toString() {
 		return "VendeurService [vendeurs=" + this.vendeurs + "]";

@@ -10,7 +10,7 @@ public class Vendeur extends Utilisateur {
 
 	// Le constructeur
 	public Vendeur(String id, String nom, String prenom, String adresseMail, String numeroTelephone,
-			String identifiantConnexion, String motDePasse, ArrayList<Adresse> adresses, ArrayList<Produit> produits) {
+			String identifiantConnexion, String motDePasse, ArrayList<Adresse> adresses) {
 		// Constructeur complet pour la création standard d'un nouveau vendeur
 		super(id, nom, prenom, adresseMail, numeroTelephone, identifiantConnexion, motDePasse, adresses);
 		this.produits = new ArrayList<Produit>();
@@ -18,6 +18,7 @@ public class Vendeur extends Utilisateur {
 	}
 
 	// Les getters et les setters classiques
+
 	public ArrayList<Produit> getProduits() {
 		return this.produits;
 	}
@@ -33,15 +34,15 @@ public class Vendeur extends Utilisateur {
 	 */
 	public String toString() {
 		String idProduits = "";
-		if(this.produits.size() != 0) {
+		if (this.produits.size() != 0) {
 			idProduits += " [";
 			int i;
-			for (i = 0 ; i < this.produits.size() - 1 ; i++) {
+			for (i = 0; i < this.produits.size() - 1; i++) {
 				idProduits += this.produits.get(i).getId() + ", ";
 			}
 			idProduits += this.produits.get(i).getId() + " ]";
 		} else {
-			idProduits += " [ ]";			
+			idProduits += " [ ]";
 		}
 		return "Vendeur [produits.id=" + idProduits + ", toString()=" + super.toString() + "]";
 	}

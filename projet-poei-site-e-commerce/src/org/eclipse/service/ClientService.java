@@ -53,16 +53,13 @@ public class ClientService {
 	// Méthode pour mettre à jour un client
 	public boolean update(Client client) {
 		/*
-		 * On compare l'id du client dans la liste avec l'id du client que l'on a envoyé
-		 * en entrée. Si on obtient une correspondance, on enlève le client avec cet id
-		 * de la liste et on rajoute le client en entrée. Seul le premier client ayant
-		 * cet id sera éliminé. La fonction retourne "true" si on a pu procéder au
-		 * remplacement, "false" sinon.
+		 * La méthode retourne true si le client à mettre à jour est dans la liste,
+		 * false sinon.
 		 */
-		for (Client clientIndividuel : this.clients) {
-			if (clientIndividuel.getId() == client.getId()) {
-				this.clients.remove(clientIndividuel);
-				return this.save(client);
+		for (Client clie : this.clients) {
+			if (clie.getId() == client.getId()) {
+				clie = client;
+				return true;
 			}
 		}
 		return false;
@@ -73,11 +70,12 @@ public class ClientService {
 		return this.clients;
 	}
 
-	// Méthode pour trouver dans la liste un client d'id connu
+	// Méthode pour trouver dans la liste un client d'id connu. On doit pouvoir le
+	// modifier.
 	public Client findById(String id) {
-		for (Client clientIndividuel : this.clients) {
-			if (clientIndividuel.getId() == id) {
-				return clientIndividuel;
+		for (Client clie : this.clients) {
+			if (clie.getId() == id) {
+				return clie;
 			}
 		}
 		return null;

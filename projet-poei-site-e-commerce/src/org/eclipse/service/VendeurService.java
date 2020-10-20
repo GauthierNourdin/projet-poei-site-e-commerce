@@ -72,7 +72,7 @@ public class VendeurService {
 	}
 
 	// Méthode pour trouver dans la liste un vendeur d'id connu
-	public Vendeur findById(String id) {
+	public Vendeur findById(int id) {
 		for (Vendeur vend: this.vendeurs) {
 			if (vend.getId() == id) {
 				return vend;

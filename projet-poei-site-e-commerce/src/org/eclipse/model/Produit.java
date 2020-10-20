@@ -6,18 +6,18 @@ public class Produit {
 	/** Classe décrivant les produits vendus sur le site */
 
 	// Attributs
-	private String id;
+	private int id;
 	private String designation;
 	private double prixUnitaire;
 	private int quantiteEnStock;
 	private String urlImage;
 	private String descriptionProduit;
-	private Vendeur vendeur;
-	private ArrayList<LigneCommande> lignesCommande;
+	private int idVendeur;
+	private ArrayList<Integer> idLignesCommande;
 
 	// Le constructeur
-	public Produit(String id, String designation, double prixUnitaire, int quantiteEnStock, String urlImage,
-			String descriptionProduit, Vendeur vendeur) {
+	public Produit(int id, String designation, double prixUnitaire, int quantiteEnStock, String urlImage,
+			String descriptionProduit, int idVendeur) {
 		// Constructeur complet permettant la création standard d'un produit
 		this.id = id;
 		this.designation = designation;
@@ -25,17 +25,17 @@ public class Produit {
 		this.quantiteEnStock = quantiteEnStock;
 		this.urlImage = urlImage;
 		this.descriptionProduit = descriptionProduit;
-		this.vendeur = vendeur;
-		this.lignesCommande = new ArrayList<LigneCommande>();
+		this.idVendeur = idVendeur;
+		this.idLignesCommande = new ArrayList<Integer>();
 		// Le tableau des commandes du produit commence vide.
 	}
 
 	// Les getters et les setters classiques
-	public String getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -79,43 +79,28 @@ public class Produit {
 		this.descriptionProduit = descriptionProduit;
 	}
 
-	public Vendeur getVendeur() {
-		return this.vendeur;
+	public int getIdVendeur() {
+		return this.idVendeur;
 	}
 
-	public void setVendeur(Vendeur vendeur) {
-		this.vendeur = vendeur;
+	public void setIdVendeur(int idVendeur) {
+		this.idVendeur = idVendeur;
 	}
 
-	public ArrayList<LigneCommande> getLignesCommande() {
-		return lignesCommande;
+	public ArrayList<Integer> getIdLignesCommande() {
+		return idLignesCommande;
 	}
 
-	public void setLignesCommande(ArrayList<LigneCommande> lignesCommande) {
-		this.lignesCommande = lignesCommande;
+	public void setIdLignesCommande(ArrayList<Integer> idLignesCommande) {
+		this.idLignesCommande = idLignesCommande;
 	}
 
-	/*
-	 * La méthode "toString" sert uniquement au débuggage. Pour éviter les boucles
-	 * d'affichage infinies on n'écrit pas directement les lignes de commandes et le
-	 * vendeur mais on écrit juste leur id.
-	 */
+	// La méthode "toString" sert uniquement au débuggage.
 	public String toString() {
-		String idLignesCommande = "";
-		if (this.lignesCommande.size() != 0) {
-			idLignesCommande += " [";
-			int i;
-			for (i = 0; i < this.lignesCommande.size() - 1; i++) {
-				idLignesCommande += this.lignesCommande.get(i).getId() + ", ";
-			}
-			idLignesCommande += this.lignesCommande.get(i).getId() + " ]";
-		} else {
-			idLignesCommande += " [ ]";
-		}
 		return "Produit [id=" + this.id + ", designation=" + this.designation + ", prixUnitaire=" + this.prixUnitaire
 				+ ", quantiteEnStock=" + this.quantiteEnStock + ", urlImageString=" + this.urlImage
-				+ ", descriptionProduitString=" + this.descriptionProduit + ", vendeur.id=" + this.vendeur.getId()
-				+ ", lignesCommandes.id=" + idLignesCommande + "]";
+				+ ", descriptionProduitString=" + this.descriptionProduit + ", idVendeur=" + this.idVendeur
+				+ ", idLignesCommandes=" + this.idLignesCommande + "]";
 	}
 
 }

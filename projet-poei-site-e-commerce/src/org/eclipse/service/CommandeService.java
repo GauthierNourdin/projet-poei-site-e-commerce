@@ -72,7 +72,7 @@ public class CommandeService {
 	}
 
 	// Méthode pour trouver dans la liste une commande d'id connu
-	public Commande findById(String id) {
+	public Commande findById(int id) {
 		for (Commande comm : this.commandes) {
 			if (comm.getId() == id) {
 				return comm;

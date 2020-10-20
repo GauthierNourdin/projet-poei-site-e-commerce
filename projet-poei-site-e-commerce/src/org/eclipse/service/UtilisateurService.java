@@ -72,7 +72,7 @@ public class UtilisateurService {
 	}
 
 	// Méthode pour trouver dans la liste un utilisateur d'id connu
-	public Utilisateur findById(String id) {
+	public Utilisateur findById(int id) {
 		for (Utilisateur util: this.utilisateurs) {
 			if (util.getId() == id) {
 				return util;

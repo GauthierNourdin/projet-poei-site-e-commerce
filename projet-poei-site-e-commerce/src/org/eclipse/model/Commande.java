@@ -1,54 +1,49 @@
 package org.eclipse.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 
 public class Commande {
 	/** Classe permettant d'enregistrer les commandes passés par les utilisateurs */
 
 	// Attributs
-	private String id;
-	private Client client;
-	private ArrayList<LigneCommande> lignesCommande;
+	private int id;
+	private int idClient;
+	private ArrayList<Integer> idLignesCommande;
 	private Date dateDeCommande;
 
 	// Le constructeur
-	public Commande(String id, Client client, Date dateDeCommande) {
-		/*
-		 * La commande est initialisée avec un id propre, un client associé et une
-		 * dateDeCommande. Le tableau des lignes de commande commence vide avec un
-		 * nombre de lignes limité à 50
-		 */
+	public Commande(int id, int idClient, Date dateDeCommande) {
 		this.id = id;
-		this.client = client;
-		this.lignesCommande = new ArrayList<LigneCommande>();
+		this.idClient = idClient;
+		this.idLignesCommande = new ArrayList<Integer>();
 		// La ligne de commande commence vide.
 		this.dateDeCommande = dateDeCommande;
 	}
 
 	// Les getters et les setters classiques
-	public String getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public Client getClient() {
-		return this.client;
+	public int getIdClient() {
+		return this.idClient;
 	}
 
-	public void setClient(Client client) {
-		this.client = client;
+	public void setIdClient(int client) {
+		this.idClient = client;
 	}
 
-	public ArrayList<LigneCommande> getLignesCommande() {
-		return this.lignesCommande;
+	public ArrayList<Integer> getIdLignesCommande() {
+		return this.idLignesCommande;
 	}
 
-	public void setLignesCommande(ArrayList<LigneCommande> lignesCommande) {
-		this.lignesCommande = lignesCommande;
+	public void setIdLignesCommande(ArrayList<Integer> idLignesCommande) {
+		this.idLignesCommande = idLignesCommande;
 	}
 
 	public Date getDateDeCommande() {
@@ -59,25 +54,9 @@ public class Commande {
 		this.dateDeCommande = dateDeCommande;
 	}
 
-	/*
-	 * La méthode "toString" sert uniquement au débuggage. Pour éviter les boucles
-	 * d'affichage infinies on n'écrit pas directement les lignes de commande et le
-	 * client mais on écrit juste leur id.
-	 */
+	// La méthode "toString" sert uniquement au débuggage.
 	public String toString() {
-		String idLignesCommande = "";
-		if(this.lignesCommande.size() != 0) {
-			idLignesCommande += " [";
-			int i;
-			for(i = 0 ; i < this.lignesCommande.size() ; i++) {
-				idLignesCommande += this.lignesCommande.get(i).getId() + ", ";
-				++i;
-			}
-			idLignesCommande += this.lignesCommande.get(i).getId() + " ]";
-		} else {
-			idLignesCommande += " [ ]";			
-		}
-		return "Commande [id=" + this.id + ", client.id=" + this.client.getId() + ", lignesCommande.id=" + idLignesCommande
+		return "Commande [id=" + this.id + ", idClient" + this.idClient + ", idLignesCommande=" + this.idLignesCommande
 				+ ", dateDeCommande=" + this.dateDeCommande + "]";
 	}
 

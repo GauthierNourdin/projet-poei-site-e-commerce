@@ -72,7 +72,7 @@ public class ProduitService {
 	}
 
 	// Méthode pour trouver dans la liste un produit d'id connu
-	public Produit findById(String id) {
+	public Produit findById(int id) {
 		for (Produit prod: this.produits) {
 			if (prod.getId() == id) {
 				return prod;
@@ -138,7 +138,7 @@ public class ProduitService {
 	public ArrayList<Produit> filterVendeur(ArrayList<Produit> listeProduits, Vendeur vendeur) {
 		ArrayList<Produit> listeProduitsVendeur = new ArrayList<Produit>();
 		for (Produit prod : listeProduits)
-			if (prod.getVendeur() == vendeur) {
+			if (prod.getIdVendeur() == vendeur.getId()) {
 				listeProduitsVendeur.add(prod);
 			}
 		return listeProduitsVendeur;

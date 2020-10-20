@@ -6,56 +6,31 @@ public class Client extends Utilisateur {
 	/** Classe décrivant les méthodes et attributs propres au client */
 
 	// Attributs propres
-	private Panier panier;
-	private ArrayList<Commande> commandes;
+	private ArrayList<Integer> idCommandes;
 
 	// Le constructeur
-	public Client(String id, String nom, String prenom, String adresseMail, String numeroTelephone,
+	public Client(int id, String nom, String prenom, String adresseMail, String numeroTelephone,
 			String identifiantConnexion, String motDePasse, ArrayList<Adresse> adresses) {
 		super(id, nom, prenom, adresseMail, numeroTelephone, identifiantConnexion, motDePasse, adresses);
-		this.panier = new Panier(this.getId(), this);
-		/* On envoie au panier à créer l'id du client ainsi que l'objet client */
-		this.commandes = new ArrayList<Commande>();
+		this.idCommandes = new ArrayList<Integer>();
 		// La liste des commandes commence vide.
 	}
 
 	// Les getters et les setters classiques
-	public Panier getPanier() {
-		return this.panier;
+	public ArrayList<Integer> getIdCommandes() {
+		return this.idCommandes;
 	}
 
-	public void setPanier(Panier panier) {
-		this.panier = panier;
+	public void setIdCommandes(ArrayList<Integer> idCommandes) {
+		this.idCommandes = idCommandes;
 	}
 
-	public ArrayList<Commande> getCommandes() {
-		return this.commandes;
-	}
-
-	public void setCommandes(ArrayList<Commande> commandes) {
-		this.commandes = commandes;
-	}
-
-	/*
-	 * La méthode "toString" sert uniquement au débuggage. Pour éviter les boucles
-	 * d'affichage infinies on n'écrit pas directement les commandes et le panier
-	 * mais on écrit juste leur id.
-	 */
+	// La méthode "toString" sert uniquement au débuggage.
 	public String toString() {
-		String idCommandes = "";
-		if (this.commandes.size() != 0) {
-			idCommandes += " [";
-			int i;
-			for (i = 0; i < this.commandes.size() - 1; i++) {
-				idCommandes += this.commandes.get(i).getId() + ", ";
-				++i;
-			}
-			idCommandes += this.commandes.get(i).getId() + " ]";
-		} else {
-			idCommandes += " [ ]";
-		}
-		return "Client [panier.id=" + this.panier.getId() + ", commandes.id=" + idCommandes + ", toString()="
-				+ super.toString() + "]";
+		return "Client [idCommandes=" + idCommandes + ", getId()=" + getId() + ", getNom()=" + getNom()
+				+ ", getPrenom()=" + getPrenom() + ", getAdresseMail()=" + getAdresseMail() + ", getNumeroTelephone()="
+				+ getNumeroTelephone() + ", getIdentifiantConnexion()=" + getIdentifiantConnexion()
+				+ ", getMotDePasse()=" + getMotDePasse() + ", getAdresses()=" + getAdresses() + "]";
 	}
 
 }

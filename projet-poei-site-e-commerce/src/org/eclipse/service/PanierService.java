@@ -74,7 +74,7 @@ public class PanierService {
 	}
 
 	// Méthode pour trouver dans la liste un panier d'id connu
-	public Panier findById(String idPanier) {
+	public Panier findById(int idPanier) {
 		for (Panier pani : this.paniers) {
 			if (pani.getId() == idPanier) {
 				return pani;

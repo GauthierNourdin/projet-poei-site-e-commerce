@@ -71,7 +71,7 @@ public class LignePanierService {
 	}
 
 	// Méthode pour trouver dans la liste une ligne de panier d'id connu
-	public LignePanier findById(String id) {
+	public LignePanier findById(int id) {
 		for (LignePanier lignPani : this.lignesPanier) {
 			if (lignPani.getId() == id) {
 				return lignPani;

@@ -72,7 +72,7 @@ public class LigneCommandeService {
 	}
 
 	// Méthode pour trouver dans la liste une ligne de commande d'id connu
-	public LigneCommande findById(String id) {
+	public LigneCommande findById(int id) {
 		for (LigneCommande lignComm : this.lignesCommande) {
 			if (lignComm.getId() == id) {
 				return lignComm;

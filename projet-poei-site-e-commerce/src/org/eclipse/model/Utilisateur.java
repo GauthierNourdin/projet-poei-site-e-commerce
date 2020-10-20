@@ -2,11 +2,13 @@ package org.eclipse.model;
 
 import java.util.ArrayList;
 
-public class Utilisateur {
-	/** Classe de base commune à tous les utilisateurs du site */
+public abstract class Utilisateur {
+	/**
+	 *  Classe de base commune à tous les utilisateurs du site. Non utilisable.
+	 */
 
 	// Attributs
-	private String id;
+	private int id;
 	private String nom;
 	private String prenom;
 	private String adresseMail;
@@ -16,7 +18,7 @@ public class Utilisateur {
 	private ArrayList<Adresse> adresses;
 
 	// Le constructeur
-	public Utilisateur(String id, String nom, String prenom, String adresseMail, String numeroTelephone,
+	public Utilisateur(int id, String nom, String prenom, String adresseMail, String numeroTelephone,
 			String identifiantConnexion, String motDePasse, ArrayList<Adresse> adresses) {
 		// Constructeur complet pour la création standard d'un nouvel utilisateur
 		this.id = id;
@@ -30,11 +32,11 @@ public class Utilisateur {
 	}
 
 	// Les getters et les setters classiques
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

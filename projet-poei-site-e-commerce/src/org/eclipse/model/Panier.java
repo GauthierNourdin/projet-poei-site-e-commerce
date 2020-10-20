@@ -6,67 +6,36 @@ public class Panier {
 	/** Classe décrivant le panier qu'utilise le client pour préparer ses achats. */
 
 	// Attributs
-	private String id;
-	private ArrayList<LignePanier> lignesPanier;
-	private Client client;
+	private int id;
+	private ArrayList<Integer> idLignesPanier;
 
 	// Le constructeur
-	public Panier(String id, Client client) {
-		/*
-		 * Le panier est créé en relation avec un client et porte l'id de son client. Le
-		 * tableau des lignes de commande commence vide avec un nombre de lignes limité
-		 * à 50
-		 */
+	public Panier(int id) {
 		this.id = id;
-		this.lignesPanier = new ArrayList<LignePanier>();
+		this.idLignesPanier = new ArrayList<Integer>();
 		// La ligne de panier commence vide */
 	}
 
 	// Les getters et les setters classiques
-	public String getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public Client getClient() {
-		return client;
+	public ArrayList<Integer> getLignesPanier() {
+		return this.idLignesPanier;
 	}
 
-	public void setClient(Client client) {
-		this.client = client;
+	public void setLignesPanier(ArrayList<Integer> idLignesPanier) {
+		this.idLignesPanier = idLignesPanier;
 	}
 
-	public ArrayList<LignePanier> getLignesPanier() {
-		return this.lignesPanier;
-	}
-
-	public void setLignesPanier(ArrayList<LignePanier> lignesPanier) {
-		this.lignesPanier = lignesPanier;
-	}
-
-	/*
-	 * La méthode "toString" sert uniquement au débuggage. Pour éviter les boucles
-	 * d'affichage infinies on n'écrit pas directement les lignes de panier et le
-	 * client mais on écrit juste leur id.
-	 */
+	// La méthode "toString" sert uniquement au débuggage.
 	public String toString() {
-		String idLignesPanier = "";
-		if (this.lignesPanier.size() != 0) {
-			idLignesPanier += " [";
-			int i;
-			for (i = 0; i < this.lignesPanier.size() - 1; i++) {
-				idLignesPanier += this.lignesPanier.get(i).getId() + ", ";
-				++i;
-			}
-			idLignesPanier += this.lignesPanier.get(i).getId() + " ]";
-		} else {
-			idLignesPanier += " [ ]";
-		}
-		return "Panier [id=" + this.id + ", lignesPanier.id=" + idLignesPanier + ", client.id=" + this.client.getId()
-				+ "]";
+		return "Panier [id=" + this.id + ", idLignesPanier=" + this.idLignesPanier + ", ]";
 	}
 
 }

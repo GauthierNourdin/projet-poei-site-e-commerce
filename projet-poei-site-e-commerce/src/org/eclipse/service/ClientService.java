@@ -72,7 +72,7 @@ public class ClientService {
 
 	// Méthode pour trouver dans la liste un client d'id connu. On doit pouvoir le
 	// modifier.
-	public Client findById(String id) {
+	public Client findById(int id) {
 		for (Client clie : this.clients) {
 			if (clie.getId() == id) {
 				return clie;

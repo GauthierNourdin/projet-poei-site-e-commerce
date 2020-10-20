@@ -4,26 +4,25 @@ public class LignePanier {
 	/** Classe d'association entre Panier et Produit */
 	
 	// Attributs
-	private String id;
+	private int id;
 	private int quantiteCommandee;
-	private Panier panier;
-	private Produit produit;
+	private int idPanier;
+	private int idProduit;
 	
 	// Le constructeur
-	public LignePanier(String id, int quantiteCommandee, Panier panier, Produit produit) {
-		// Constructeur complet pour la création standard d'une ligne de commande
+	public LignePanier(int id, int quantiteCommandee, int idPanier, int idProduit) {
 		this.id = id;
 		this.quantiteCommandee = quantiteCommandee;
-		this.panier = panier;
-		this.produit = produit;
+		this.idPanier = idPanier;
+		this.idProduit = idProduit;
 	}
 
 	// Les getters et les setters classiques
-	public String getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -35,30 +34,26 @@ public class LignePanier {
 		this.quantiteCommandee = quantiteCommandee;
 	}
 
-	public Panier getPanier() {
-		return this.panier;
+	public int getIdPanier() {
+		return this.idPanier;
 	}
 
-	public void setPanier(Panier panier) {
-		this.panier = panier;
+	public void setIdPanier(int idPanier) {
+		this.idPanier = idPanier;
 	}
 
-	public Produit getProduit() {
-		return this.produit;
+	public int getIdProduit() {
+		return this.idProduit;
 	}
 
-	public void setProduit(Produit produit) {
-		this.produit = produit;
+	public void setIdProduit(int idProduit) {
+		this.idProduit = idProduit;
 	}
 
-	/*
-	 * La méthode "toString" sert uniquement au débuggage. Pour éviter les boucles
-	 * d'affichage infinies on n'écrit pas directement le panier et le produit mais
-	 * on écrit juste leur id.
-	 */
+	// La méthode "toString" sert uniquement au débuggage.
 	public String toString() {
-		return "LigneCommande [id=" + this.id + ", quantiteCommandee=" + this.quantiteCommandee + ", panier.id=" + this.panier.getId()
-				+ ", produit.id=" + this.produit.getId() + "]";
+		return "LigneCommande [id=" + this.id + ", quantiteCommandee=" + this.quantiteCommandee + ", idPanier" + this.idPanier
+				+ ", idProduit=" + this.idProduit + "]";
 	}
 	
 }

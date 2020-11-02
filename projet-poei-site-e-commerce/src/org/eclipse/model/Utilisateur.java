@@ -2,11 +2,10 @@ package org.eclipse.model;
 
 import java.util.ArrayList;
 
-public abstract class Utilisateur {
+public class Utilisateur {
 	/**
-	 *  Classe de base commune à tous les utilisateurs du site. Non utilisable.
+	 *  Classe de base commune à tous les utilisateurs du site.
 	 */
-
 	// Attributs
 	private int id;
 	private String nom;

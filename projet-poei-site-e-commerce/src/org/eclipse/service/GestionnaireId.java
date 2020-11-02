@@ -2,55 +2,44 @@ package org.eclipse.service;
 
 public class GestionnaireId {
 	/*
-	 *  Les attributs statiques ne doivent être initialisées qu'à la première instance de la classe;
+	 * Ces attributs ne doivent être initialisées qu'une seule fois. Les rendre
+	 * statiques permet de les générer au début de l'exécution.
 	 */
-	private static int idCommande = 1;
-	private static int idLigneCommande = 1;
-	private static int idLignePanier = 1;
-	private static int idProduit = 1;
-	private static int idUtilisateur = 1;
-	
-	public GestionnaireId() {
-		/*
-		 *  Constructeur vide pour éviter de réinitialiser les attributs en cas de création d'autres instances. 
-		 */
+	private static int idCommande = 0;
+	private static int idLigneCommande = 0;
+	private static int idLignePanier = 0;
+	private static int idProduit = 0;
+	private static int idUtilisateur = 0;
+
+	// Constructeur privé pour éviter de créer des instances.
+	private GestionnaireId() {
 	}
 
-	public int giveNewIdCommande() {
-		int newIdCommande = idCommande;
-		idCommande++;
-		return newIdCommande;
-	}
-	
-	public int giveNewIdLigneCommande() {
-		int newIdCommande = idCommande;
-		idCommande++;
-		return newIdCommande;
-	}
-	
-	public int giveNewIdLignePanier() {
-		int newIdCommande = idCommande;
-		idCommande++;
-		return newIdCommande;
+	// Méthodes statiques pour donner de nouvelles id valides
+	public static int giveNewIdCommande() {
+		return ++idCommande;
 	}
 
-	public int giveNewIdProduit() {
-		int newIdCommande = idCommande;
-		idCommande++;
-		return newIdCommande;
+	public static int giveNewIdLigneCommande() {
+		return ++idLigneCommande;
 	}
 
-	public int giveNewIdUtilisateur() {
-		int newIdCommande = idCommande;
-		idCommande++;
-		return newIdCommande;
+	public static int giveNewIdLignePanier() {
+		return ++idLignePanier;
 	}
-	
-	// La méthode "toString" sert uniquement au débuggage.
-	public String toString() {
+
+	public static int giveNewIdProduit() {
+		return ++idProduit;
+	}
+
+	public static int giveNewIdUtilisateur() {
+		return ++idUtilisateur;
+	}
+
+	// La méthode sert uniquement au débuggage.
+	public static String affichageDebuggage() {
 		return "GestionnaireId [idCommande=" + idCommande + ", idLigneCommande=" + idLigneCommande + ", idLignePanier="
-				+ idLignePanier + ", idProduit=" + idProduit + ", idUtilisateur="
-				+ idUtilisateur + " ]";
+				+ idLignePanier + ", idProduit=" + idProduit + ", idUtilisateur=" + idUtilisateur + " ]";
 	}
-	
+
 }

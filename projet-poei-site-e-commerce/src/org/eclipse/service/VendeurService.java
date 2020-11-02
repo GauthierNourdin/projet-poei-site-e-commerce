@@ -5,59 +5,60 @@ import java.util.ArrayList;
 import org.eclipse.model.Vendeur;
 
 public class VendeurService {
+	/*
+	 * Cet attribut ne doit être initialisé qu'une seule fois. Le rendre
+	 * statique permet de le générer au début de l'exécution.
+	 */
+	private static ArrayList<Vendeur> vendeurs;
 
-	// Attributs
-	private ArrayList<Vendeur> vendeurs;
-
-	// Le constructeur
-	public VendeurService(ArrayList<Vendeur> vendeurs) {
-		this.vendeurs = vendeurs;
+	// Constructeur privé pour éviter de créer des instances.
+	private VendeurService() {
 	}
 
-	// Les getters et les setters classiques
-	public ArrayList<Vendeur> getVendeurs() {
-		return this.vendeurs;
+	// Le getter statique et le setter statique adaptés
+	public static ArrayList<Vendeur> getVendeurs() {
+		return vendeurs;
 	}
 
-	public void setVendeurs(ArrayList<Vendeur> vendeurs) {
-		this.vendeurs = vendeurs;
+	public static void setVendeurs(ArrayList<Vendeur> argVendeurs) {
+		vendeurs = argVendeurs;
 	}
 
-	// Méthode pour ajouter un vendeur dans la liste
-	public boolean save(Vendeur vendeur) {
+	// Méthode statique pour ajouter un vendeur dans la liste
+	public static boolean save(Vendeur vendeur) {
 		/*
 		 * On vérifie que le vendeur n'appartient pas déjà à la liste avant de le
 		 * rajouter. La méthode retourne "true" si l'ajout a été accompli, "false"
 		 * sinon.
 		 */
-		if (this.vendeurs.contains(vendeur)) {
+		if (vendeurs.contains(vendeur)) {
 			return false;
 		} else {
-			return this.vendeurs.add(vendeur);
+			return vendeurs.add(vendeur);
 		}
 	}
 
-	// Méthode pour retirer un vendeur de la liste
-	public boolean remove(Vendeur vendeur) {
+	// Méthode statique pour retirer un vendeur de la liste
+	public static boolean remove(Vendeur vendeur) {
 		/*
 		 * On vérifie que le vendeur est bien présent dans la liste avant de le
 		 * supprimer. La méthode retourne "true" si la suppression a été accomplie,
 		 * "false" sinon.
 		 */
-		if (this.vendeurs.contains(vendeur)) {
-			return this.vendeurs.remove(vendeur);
+		if (vendeurs.contains(vendeur)) {
+			return vendeurs.remove(vendeur);
 		} else {
 			return false;
 		}
 	}
 
-	// Méthode pour mettre à jour un vendeur
-	public boolean update(Vendeur vendeur) {
+	// Méthode statique pour mettre à jour un vendeur
+	public static boolean update(Vendeur vendeur) {
 		/*
 		 * La méthode retourne true si le client à mettre à jour est dans la liste,
 		 * false sinon.
 		 */
-		for (Vendeur vend: this.vendeurs) {
+		for (Vendeur vend: vendeurs) {
 			if (vend.getId() == vend.getId()) {
 				vend = vendeur;
 				return true;
@@ -66,14 +67,14 @@ public class VendeurService {
 		return false;
 	}
 	
-	// Méthode pour rendre la liste complète (convention de nommage)
-	public ArrayList<Vendeur> findAll() {
-		return this.vendeurs;
+	// Méthode statique pour rendre la liste complète (convention de nommage)
+	public static ArrayList<Vendeur> findAll() {
+		return vendeurs;
 	}
 
-	// Méthode pour trouver dans la liste un vendeur d'id connu
-	public Vendeur findById(int id) {
-		for (Vendeur vend: this.vendeurs) {
+	// Méthode statique pour trouver dans la liste un vendeur d'id connu
+	public static Vendeur findById(int id) {
+		for (Vendeur vend: vendeurs) {
 			if (vend.getId() == id) {
 				return vend;
 			}
@@ -81,9 +82,9 @@ public class VendeurService {
 		return null;
 	}
 	
-	// La méthode "toString" sert uniquement au débuggage.
-	public String toString() {
-		return "VendeurService [vendeurs=" + this.vendeurs + "]";
+	// La méthode sert uniquement au débuggage.
+	public static String affichageDebuggage() {
+		return "VendeurService [vendeurs=" + vendeurs + "]";
 	}
 
 }

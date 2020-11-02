@@ -5,59 +5,60 @@ import java.util.ArrayList;
 import org.eclipse.model.Commande;
 
 public class CommandeService {
+	/*
+	 * Cet attribut ne doit être initialisé qu'une seule fois. Le rendre
+	 * statique permet de le générer au début de l'exécution.
+	 */
+	private static ArrayList<Commande> commandes;
 
-	// Attributs
-	private ArrayList<Commande> commandes;
-
-	// Le constructeur
-	public CommandeService(ArrayList<Commande> commandes) {
-		this.commandes = commandes;
+	// Constructeur privé pour éviter de créer des instances.
+	private CommandeService() {
 	}
 
-	// Les getters et les setters classiques
-	public ArrayList<Commande> getCommandes() {
-		return this.commandes;
+	// Le getter statique et le setter statique adaptés
+	public static ArrayList<Commande> getCommandes() {
+		return commandes;
 	}
 
-	public void setCommandes(ArrayList<Commande> commandes) {
-		this.commandes = commandes;
+	public static void setCommandes(ArrayList<Commande> argCommandes) {
+		commandes = argCommandes;
 	}
 
-	// Méthode pour ajouter une commande dans la liste
-	public boolean save(Commande commande) {
+	// Méthode statique pour ajouter une commande dans la liste
+	public static boolean save(Commande commande) {
 		/*
 		 * On vérifie que la commande n'appartient pas déjà à la liste avant de la
 		 * rajouter. La méthode retourne "true" si l'ajout a été accompli, "false"
 		 * sinon.
 		 */
-		if (this.commandes.contains(commande)) {
+		if (commandes.contains(commande)) {
 			return false;
 		} else {
-			return this.commandes.add(commande);
+			return commandes.add(commande);
 		}
 	}
 
-	// Méthode pour retirer une commande de la liste
-	public boolean remove(Commande commande) {
+	// Méthode statique pour retirer une commande de la liste
+	public static boolean remove(Commande commande) {
 		/*
 		 * On vérifie que la commande est bien présente dans la liste avant de la
 		 * supprimer. La méthode retourne "true" si la suppression a été accomplie,
 		 * "false" sinon.
 		 */
-		if (this.commandes.contains(commande)) {
-			return this.commandes.remove(commande);
+		if (commandes.contains(commande)) {
+			return commandes.remove(commande);
 		} else {
 			return false;
 		}
 	}
 
-	// Méthode pour mettre à jour une commande
-	public boolean update(Commande commande) {
+	// Méthode statique pour mettre à jour une commande
+	public static boolean update(Commande commande) {
 		/*
 		 * La méthode retourne true si la commande à mettre à jour est dans la liste,
 		 * false sinon.
 		 */
-		for (Commande comm : this.commandes) {
+		for (Commande comm : commandes) {
 			if (comm.getId() == commande.getId()) {
 				comm = commande;
 				return true;
@@ -66,14 +67,14 @@ public class CommandeService {
 		return false;
 	}
 
-	// Méthode pour rendre la liste complète (convention de nommage)
-	public ArrayList<Commande> findAll() {
-		return this.commandes;
+	// Méthode statique pour rendre la liste complète (convention de nommage)
+	public static ArrayList<Commande> findAll() {
+		return commandes;
 	}
 
-	// Méthode pour trouver dans la liste une commande d'id connu
-	public Commande findById(int id) {
-		for (Commande comm : this.commandes) {
+	// Méthode statique pour trouver dans la liste une commande d'id connu
+	public static Commande findById(int id) {
+		for (Commande comm : commandes) {
 			if (comm.getId() == id) {
 				return comm;
 			}
@@ -81,9 +82,9 @@ public class CommandeService {
 		return null;
 	}
 
-	// La méthode "toString" sert uniquement au débuggage.
-	public String toString() {
-		return "ClientService [commandes=" + this.commandes + "]";
+	// La méthode sert uniquement au débuggage.
+	public static String affichageDebuggage() {
+		return "ClientService [commandes=" + commandes + "]";
 	}
 
 }

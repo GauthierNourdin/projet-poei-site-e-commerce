@@ -5,59 +5,60 @@ import java.util.ArrayList;
 import org.eclipse.model.Utilisateur;
 
 public class UtilisateurService {
+	/*
+	 * Cet attribut ne doit être initialisé qu'une seule fois. Le rendre
+	 * statique permet de le générer au début de l'exécution.
+	 */
+	private static ArrayList<Utilisateur> utilisateurs;
 
-	// Attributs
-	private ArrayList<Utilisateur> utilisateurs;
-
-	// Le constructeur
-	public UtilisateurService(ArrayList<Utilisateur> utilisateurs) {
-		this.utilisateurs = utilisateurs;
+	// Constructeur privé pour éviter de créer des instances.
+	private UtilisateurService() {
 	}
 
-	// Les getters et les setters classiques
-	public ArrayList<Utilisateur> getUtilisateurs() {
-		return this.utilisateurs;
+	// Le getter statique et le setter statique adaptés
+	public static ArrayList<Utilisateur> getUtilisateurs() {
+		return utilisateurs;
 	}
 
-	public void setUtilisateurs(ArrayList<Utilisateur> utilisateurs) {
-		this.utilisateurs = utilisateurs;
+	public static void setUtilisateurs(ArrayList<Utilisateur> argUtilisateurs) {
+		utilisateurs = argUtilisateurs;
 	}
 
-	// Méthode pour ajouter un utilisateur dans la liste
-	public boolean save(Utilisateur utilisateur) {
+	// Méthode statique pour ajouter un utilisateur dans la liste
+	public static boolean save(Utilisateur utilisateur) {
 		/*
 		 * On vérifie que l'utilisateur n'appartient pas déjà à la liste avant de le
 		 * rajouter. La méthode retourne "true" si l'ajout a été accompli, "false"
 		 * sinon.
 		 */
-		if (this.utilisateurs.contains(utilisateur)) {
+		if (utilisateurs.contains(utilisateur)) {
 			return false;
 		} else {
-			return this.utilisateurs.add(utilisateur);
+			return utilisateurs.add(utilisateur);
 		}
 	}
 
-	// Méthode pour retirer un utilisateur de la liste
-	public boolean remove(Utilisateur utilisateur) {
+	// Méthode statique pour retirer un utilisateur de la liste
+	public static boolean remove(Utilisateur utilisateur) {
 		/*
 		 * On vérifie que l'utilisateur est bien présent dans la liste avant de le
 		 * supprimer. La méthode retourne "true" si la suppression a été accomplie,
 		 * "false" sinon.
 		 */
-		if (this.utilisateurs.contains(utilisateur)) {
-			return this.utilisateurs.remove(utilisateur);
+		if (utilisateurs.contains(utilisateur)) {
+			return utilisateurs.remove(utilisateur);
 		} else {
 			return false;
 		}
 	}
 
-	// Méthode pour mettre à jour un utilisateur
-	public boolean update(Utilisateur utilisateur) {
+	// Méthode statique pour mettre à jour un utilisateur
+	public static boolean update(Utilisateur utilisateur) {
 		/*
 		 * La méthode retourne true si l'utilisateur à mettre à jour est dans la liste,
 		 * false sinon.
 		 */
-		for (Utilisateur util: this.utilisateurs) {
+		for (Utilisateur util: utilisateurs) {
 			if (util.getId() == util.getId()) {
 				util = utilisateur;
 				return true;
@@ -66,14 +67,14 @@ public class UtilisateurService {
 		return false;
 	}
 
-	// Méthode pour rendre la liste complète (convention de nommage)
-	public ArrayList<Utilisateur> findAll() {
-		return this.utilisateurs;
+	// Méthode statique pour rendre la liste complète (convention de nommage)
+	public static ArrayList<Utilisateur> findAll() {
+		return utilisateurs;
 	}
 
-	// Méthode pour trouver dans la liste un utilisateur d'id connu
-	public Utilisateur findById(int id) {
-		for (Utilisateur util: this.utilisateurs) {
+	// Méthode statique pour trouver dans la liste un utilisateur d'id connu
+	public static Utilisateur findById(int id) {
+		for (Utilisateur util: utilisateurs) {
 			if (util.getId() == id) {
 				return util;
 			}
@@ -81,7 +82,7 @@ public class UtilisateurService {
 		return null;
 	}
 
-	public Utilisateur findByLoginAndPassword(String login, String password) {
+	public static Utilisateur findByLoginAndPassword(String login, String password) {
 		for(Utilisateur util : utilisateurs)
 			if((util.getNom() == login) && (util.getMotDePasse() == password)) {
 				return util;
@@ -89,9 +90,9 @@ public class UtilisateurService {
 		return null;
 	}
 	
-	// La méthode "toString" sert uniquement au débuggage.
-	public String toString() {
-		return "UtilisateurService [utilisateurs=" + this.utilisateurs + "]";
+	// La méthode sert uniquement au débuggage.
+	public static String affichageDebuggage() {
+		return "UtilisateurService [utilisateurs=" + utilisateurs + "]";
 	}
 
 }

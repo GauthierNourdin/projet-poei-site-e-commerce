@@ -7,13 +7,14 @@ public class Panier {
 
 	// Attributs
 	private int id;
-	private ArrayList<Integer> idLignesPanier;
+	private ArrayList<Integer> idLignesPanier = new ArrayList<Integer>();
 
-	// Le constructeur
+	// Les constructeurs
+	public Panier() {
+	}
+	
 	public Panier(int id) {
 		this.id = id;
-		this.idLignesPanier = new ArrayList<Integer>();
-		// La ligne de panier commence vide */
 	}
 
 	// Les getters et les setters classiques

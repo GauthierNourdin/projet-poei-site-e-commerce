@@ -14,9 +14,12 @@ public class Utilisateur {
 	private String numeroTelephone;
 	private String identifiantConnexion;
 	private String motDePasse;
-	private ArrayList<Adresse> adresses;
+	private ArrayList<Adresse> adresses = new ArrayList<Adresse>();
 
-	// Le constructeur
+	// Les constructeurs
+	public Utilisateur() {
+	}
+	
 	public Utilisateur(String nom, String prenom, String adresseMail, String numeroTelephone,
 			String identifiantConnexion, String motDePasse, ArrayList<Adresse> adresses) {
 		this.id = GestionnaireId.giveNewIdUtilisateur();

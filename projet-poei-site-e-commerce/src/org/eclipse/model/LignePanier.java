@@ -9,7 +9,10 @@ public class LignePanier {
 	private int idPanier;
 	private int idProduit;
 	
-	// Le constructeur
+	// Les constructeurs
+	public LignePanier() {
+	}
+	
 	public LignePanier(int quantiteSouhaitee, int idPanier, int idProduit) {
 		this.id = GestionnaireId.giveNewIdLignePanier();
 		this.quantiteSouhaitee = quantiteSouhaitee;

@@ -6,18 +6,18 @@ public class Vendeur extends Utilisateur {
 	/** Classe decrivant les methodes et attributs propres au vendeur */
 
 	// Attributs propres
-	private ArrayList<Integer> idProduits;
+	private ArrayList<Integer> idProduits = new ArrayList<Integer>();
 
 	// Le constructeur
+	public Vendeur() {
+	}
+	
 	public Vendeur(String nom, String prenom, String adresseMail, String numeroTelephone,
 			String identifiantConnexion, String motDePasse, ArrayList<Adresse> adresses) {
 		super(nom, prenom, adresseMail, numeroTelephone, identifiantConnexion, motDePasse, adresses);
-		this.idProduits = new ArrayList<Integer>();
-		// Le tableau des produits commence vide.
 	}
 
 	// Les getters et les setters classiques
-
 	public ArrayList<Integer> getIdProduits() {
 		return this.idProduits;
 	}

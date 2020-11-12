@@ -12,9 +12,11 @@ public class Adresse {
 	private String complementAdresse;
 	
 	// Le constructeur
+	public Adresse() {
+	}
+	
 	public Adresse(String numeroDansRue, String rue, String ville, String codePostal, String pays,
 			String complementAdresse) {
-		// Constructeur complet pour la creation standard d'une adresse
 		this.numeroDansRue = numeroDansRue;
 		this.rue = rue;
 		this.ville = ville;

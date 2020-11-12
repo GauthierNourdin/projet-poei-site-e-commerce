@@ -3,7 +3,9 @@ package org.eclipse.model;
 import java.util.Date;
 
 public class Commentaire {
+	/** Classe permettant d'enregistrer les commentaires sur les produits*/
 
+	// Les attributs
 	private Date date;
 	private int idUtilisateur;
 	private int idProduit;
@@ -11,6 +13,7 @@ public class Commentaire {
 	private int idPrecedent;
 	private String commentaire;
 
+	// Les constructeurs
 	public Commentaire(int idUtilisateur, int idProduit, int idPrecedent, String commentaire) {
 		this.idUtilisateur = idUtilisateur;
 		this.idProduit = idProduit;
@@ -20,6 +23,7 @@ public class Commentaire {
 		this.idPrecedent = idPrecedent;
 	}
 
+	// Les getters et les setters classiques
 	public Date getDate() {
 		return this.date;
 	}

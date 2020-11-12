@@ -6,14 +6,15 @@ public class Client extends Utilisateur {
 	/** Classe decrivant les methodes et attributs propres au client */
 
 	// Attributs propres
-	private ArrayList<Integer> idCommandes;
+	private ArrayList<Integer> idCommandes = new ArrayList<Integer>();
 
-	// Le constructeur
+	// Les constructeurs
+	public Client() {
+	}
+	
 	public Client(String nom, String prenom, String adresseMail, String numeroTelephone,
 			String identifiantConnexion, String motDePasse, ArrayList<Adresse> adresses) {
 		super(nom, prenom, adresseMail, numeroTelephone, identifiantConnexion, motDePasse, adresses);
-		this.idCommandes = new ArrayList<Integer>();
-		// La liste des commandes commence vide.
 	}
 
 	// Les getters et les setters classiques

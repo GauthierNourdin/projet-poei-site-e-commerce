@@ -9,16 +9,18 @@ public class Commande {
 	// Attributs
 	private int id;
 	private int idClient;
-	private ArrayList<Integer> idLignesCommande;
+	private ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
 	private Date dateDeCommande;
 
-	// Le constructeur
-	public Commande(int idClient, Date dateDeCommande) {
+	// Les constructeurs
+	public Commande() {
+		this.dateDeCommande = new Date();
+	}
+	
+	public Commande(int idClient) {
 		this.id = GestionnaireId.giveNewIdCommande();
 		this.idClient = idClient;
-		this.idLignesCommande = new ArrayList<Integer>();
-		// La ligne de commande commence vide.
-		this.dateDeCommande = dateDeCommande;
+		this.dateDeCommande = new Date();
 	}
 
 	// Les getters et les setters classiques

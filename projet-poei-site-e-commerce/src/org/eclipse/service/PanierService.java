@@ -2,6 +2,8 @@ package org.eclipse.service;
 
 import java.util.ArrayList;
 
+import org.eclipse.model.Commande;
+import org.eclipse.model.LigneCommande;
 import org.eclipse.model.LignePanier;
 import org.eclipse.model.Panier;
 import org.eclipse.model.Produit;
@@ -130,7 +132,16 @@ public class PanierService {
 	
 	// Methode statique pour modifier une ligne de panier au panier d'un client
 	public static void modifierLignePanier (Panier panier, LignePanier lignePanier, int quantiteSouhaitee) throws Exception {
-
+		Produit produit = ProduitService.findById(lignePanier.getIdProduit());
+		if (produit == null) {
+			supprimerLignePanier(panier, lignePanier);
+			throw new Exception("Le produit n'est pas valide");
+		}
+		if (quantiteSouhaitee > produit.getQuantiteEnStock()) {
+			lignePanier.setQuantiteSouhaitee(produit.getQuantiteEnStock());
+			throw new Exception("Le produit n'est pas disponible en assez grande quantité");
+		}
+		lignePanier.setQuantiteSouhaitee(quantiteSouhaitee);
 	}
 	
 	// Methode statique pour vider entièrement le panier
@@ -148,20 +159,45 @@ public class PanierService {
 		PanierService.update(panier);
 	}
 	
+	// Methode statique pour verifier qu'un panier est toujours valide
+	public static void verifierPanier(Panier panier, ArrayList<LignePanier> lignesPanier) throws Exception {
+		for (LignePanier lignPani : lignesPanier) {
+			Produit produit = ProduitService.findById(lignPani.getIdProduit());
+			if (produit == null) {
+				supprimerLignePanier(panier, lignPani);
+				throw new Exception("Le produit n'est pas valide");
+			}
+			if (lignPani.getQuantiteSouhaitee() > produit.getQuantiteEnStock()) {
+				modifierLignePanier(panier, lignPani, produit.getQuantiteEnStock());
+				throw new Exception("Le produit n'est pas disponible en assez grande quantité");
+			}
+		}
+	}
+	
 	// Methode statique pour valider le panier et le transformer en commande
 	public static void validerPanier (Panier panier, ArrayList<LignePanier> lignesPanier) throws Exception {
-		for (LignePanier lignPani : lignesPanier) {
+		verifierPanier(panier, lignesPanier);
 		
+		Commande commande = new Commande(panier.getId());
+		ArrayList<LigneCommande> lignesCommande = new ArrayList<LigneCommande>();
+		for (LignePanier lignPani : lignesPanier) {
+			LigneCommande ligneCommande = new LigneCommande(lignPani.getQuantiteSouhaitee(), commande.getId(), lignPani.getIdProduit());
+			try {
+				LigneCommandeService.save(ligneCommande);
+			} catch (Exception e) {
+				throw new Exception("Probleme de sauvegarde de la ligne de commande");
+			}
+			
+			
 			
 		}
-		
 		
 		
 		for (LignePanier lignPani : lignesPanier) {
 			try {
 				LignePanierService.remove(lignPani);
 			} catch (Exception e) {
-				throw new Exception("Problème de la suppression de la ligne de panier");
+				throw new Exception("Probleme de la suppression de la ligne de panier");
 			}
 		}
 		ArrayList<Integer> idLignesPanier = panier.getIdLignesPanier();

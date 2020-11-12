@@ -9,7 +9,10 @@ public class LigneCommande {
 	private int idCommande;
 	private int idProduit;
 
-	// Le constructeur
+	// Les constructeurs
+	public LigneCommande() {
+	}
+	
 	public LigneCommande(int quantiteCommandee, int idCommande, int idProduit) {
 		this.id = GestionnaireId.giveNewIdLigneCommande();
 		this.quantiteCommandee = quantiteCommandee;

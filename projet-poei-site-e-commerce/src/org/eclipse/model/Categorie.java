@@ -1,15 +1,22 @@
 package org.eclipse.model;
 
 public class Categorie {
-
+	/** Classe decrivant les categories utilisables*/
+	
+	// Les attributs
 	int id;
 	String categorie;
 
+	// Les constructeurs
+	public Categorie() {
+	}
+	
 	public Categorie(String categorie) {
 		this.id = GestionnaireId.giveNewIdCategorie();
 		this.categorie = categorie;
 	}
 
+	// Les getters et les setters classiques
 	public int getId() {
 		return this.id;
 	}

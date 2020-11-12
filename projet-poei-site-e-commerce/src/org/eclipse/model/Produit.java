@@ -15,10 +15,13 @@ public class Produit {
 	private String descriptionProduit;
 	private int idVendeur;
 	private Date dateDebut;
-	private ArrayList<Integer> idCategories; 
-	private ArrayList<Integer> idLignesCommande;
+	private ArrayList<Integer> idCategories = new ArrayList<Integer>(); 
+	private ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
 
-	// Le constructeur
+	// Les constructeurs
+	public Produit() {
+	}
+	
 	public Produit(String designation, double prixUnitaire, int quantiteEnStock, String urlImage,
 			String descriptionProduit, int idVendeur, ArrayList<Integer> idCategories) {
 		this.id = GestionnaireId.giveNewIdProduit();
@@ -29,9 +32,7 @@ public class Produit {
 		this.descriptionProduit = descriptionProduit;
 		this.idVendeur = idVendeur;
 		this.idCategories = idCategories;
-		this.idLignesCommande = new ArrayList<Integer>();
 		this.dateDebut = new Date();
-		// Le tableau des commandes du produit commence vide.
 	}
 
 	// Les getters et les setters classiques

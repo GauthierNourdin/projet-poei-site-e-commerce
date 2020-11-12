@@ -6,16 +6,16 @@ import org.eclipse.model.LigneCommande;
 
 public class LigneCommandeService {
 	/*
-	 * Cet attribut ne doit être initialisé qu'une seule fois. Le rendre
-	 * statique permet de le générer au début de l'exécution.
+	 * Cet attribut ne doit etre initialise qu'une seule fois. Le rendre
+	 * statique permet de le generer au debut de l'execution.
 	 */
-	private static ArrayList<LigneCommande> lignesCommande;
+	private static ArrayList<LigneCommande> lignesCommande = new ArrayList<LigneCommande>();
 
-	// Constructeur privé pour éviter de créer des instances.
+	// Constructeur prive pour eviter de creer des instances.
 	private LigneCommandeService() {
 	}
 
-	// Le getter statique et le setter statique adaptés
+	// Le getter statique et le setter statique adaptes, ne servent qu'aux tests et au dÃ©buggage.
 	public static ArrayList<LigneCommande> getLignesCommande() {
 		return lignesCommande;
 	}
@@ -24,55 +24,41 @@ public class LigneCommandeService {
 		lignesCommande = argLignesCommande;
 	}
 
-	// Méthode statique pour ajouter une ligne de commande dans la liste
-	public static boolean save(LigneCommande ligneCommande) {
-		/*
-		 * On vérifie que la ligne de commande n'appartient pas déjà à la liste avant de
-		 * la rajouter. La méthode retourne "true" si l'ajout a été accompli, "false"
-		 * sinon.
-		 */
+	// Methode statique pour ajouter une ligne de commande dans la liste
+	public static void save(LigneCommande ligneCommande) throws Exception {
 		if (lignesCommande.contains(ligneCommande)) {
-			return false;
+			throw new Exception("La ligne de commande appartient deja a la liste");
 		} else {
-			return lignesCommande.add(ligneCommande);
+			lignesCommande.add(ligneCommande);
 		}
 	}
 
-	// Méthode statique pour retirer une ligne de commande de la liste
-	public static boolean remove(LigneCommande ligneCommande) {
-		/*
-		 * On vérifie que la ligne de commande est bien présente dans la liste avant de
-		 * la supprimer. La méthode retourne "true" si la suppression a été accomplie,
-		 * "false" sinon.
-		 */
+	// Methode statique pour retirer une ligne de commande de la liste
+	public static void remove(LigneCommande ligneCommande) throws Exception {
 		if (lignesCommande.contains(ligneCommande)) {
-			return lignesCommande.remove(ligneCommande);
+			lignesCommande.remove(ligneCommande);
 		} else {
-			return false;
+			throw new Exception("La ligne de commande n'appartient pas a la liste");
 		}
 	}
 
-	// Méthode statique pour mettre à jour une ligne de commande
-	public static boolean update(LigneCommande ligneCommande) {
-		/*
-		 * La méthode retourne true si la ligne de commande à mettre à jour est dans la
-		 * liste, false sinon.
-		 */
+	// Methode statique pour mettre a jour une ligne de commande
+	public static void update(LigneCommande ligneCommande) throws Exception {
 		for (LigneCommande lignComm : lignesCommande) {
 			if (lignComm.getId() == ligneCommande.getId()) {
 				lignComm = ligneCommande;
-				return true;
+				return;
 			}
 		}
-		return false;
+		throw new Exception("La ligne de commande n'appartient pas a la liste");
 	}
 
-	// Méthode statique pour rendre la liste complète (convention de nommage)
+	// Methode statique pour rendre la liste complete (convention de nommage)
 	public static ArrayList<LigneCommande> findAll() {
 		return lignesCommande;
 	}
 
-	// Méthode statique pour trouver dans la liste une ligne de commande d'id connu
+	// Methode statique pour trouver dans la liste une ligne de commande d'id connu
 	public static LigneCommande findById(int id) {
 		for (LigneCommande lignComm : lignesCommande) {
 			if (lignComm.getId() == id) {
@@ -82,7 +68,7 @@ public class LigneCommandeService {
 		return null;
 	}
 
-	// La méthode sert uniquement au débuggage.
+	// La methode sert uniquement au debuggage.
 	public static String affichageDebuggage() {
 		return "LigneCommandeService [lignesCommande=" + lignesCommande + "]";
 	}

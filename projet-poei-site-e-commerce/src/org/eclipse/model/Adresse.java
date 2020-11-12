@@ -14,7 +14,7 @@ public class Adresse {
 	// Le constructeur
 	public Adresse(String numeroDansRue, String rue, String ville, String codePostal, String pays,
 			String complementAdresse) {
-		// Constructeur complet pour la création standard d'une adresse
+		// Constructeur complet pour la creation standard d'une adresse
 		this.numeroDansRue = numeroDansRue;
 		this.rue = rue;
 		this.ville = ville;
@@ -72,7 +72,7 @@ public class Adresse {
 		this.complementAdresse = complementAdresse;
 	}
 	
-	// La méthode "toString" sert uniquement au débuggage.
+	// La methode "toString" sert uniquement au debuggage.
 	public String toString() {
 		return "Adresse [numeroDansRue=" + this.numeroDansRue + ", rue=" + this.rue + ", ville=" + this.ville + ", codePostal="
 				+ this.codePostal + ", pays=" + this.pays + ", complementAdresse=" + this.complementAdresse + "]";

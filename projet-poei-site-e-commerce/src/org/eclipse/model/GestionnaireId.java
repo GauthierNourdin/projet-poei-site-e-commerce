@@ -1,21 +1,28 @@
-package org.eclipse.service;
+package org.eclipse.model;
 
 public class GestionnaireId {
+	/**
+	 * Cette classe Ã  attributs et mÃ©thodes statiques sert en absence de base de
+	 * donnÃ©es MySQL Ã  gÃ©nÃ©rer des id valides
+	 */
+
 	/*
-	 * Ces attributs ne doivent être initialisées qu'une seule fois. Les rendre
-	 * statiques permet de les générer au début de l'exécution.
+	 * Ces attributs ne doivent etre initialisees qu'une seule fois. Les rendre
+	 * statiques permet de les generer au debut de l'execution.
 	 */
 	private static int idCommande = 0;
 	private static int idLigneCommande = 0;
 	private static int idLignePanier = 0;
 	private static int idProduit = 0;
 	private static int idUtilisateur = 0;
+	private static int idCategorie = 0;
+	private static int idCommentaire = 0;
 
-	// Constructeur privé pour éviter de créer des instances.
+	// Constructeur prive pour eviter de creer des instances.
 	private GestionnaireId() {
 	}
 
-	// Méthodes statiques pour donner de nouvelles id valides
+	// Methodes statiques pour donner de nouvelles id valides
 	public static int giveNewIdCommande() {
 		return ++idCommande;
 	}
@@ -35,8 +42,16 @@ public class GestionnaireId {
 	public static int giveNewIdUtilisateur() {
 		return ++idUtilisateur;
 	}
+	
+	public static int giveNewIdCategorie() {
+		return ++idCategorie;
+	}
+	
+	public static int giveNewIdCommentaire() {
+		return ++idCommentaire;
+	}
 
-	// La méthode sert uniquement au débuggage.
+	// La methode sert uniquement au debuggage.
 	public static String affichageDebuggage() {
 		return "GestionnaireId [idCommande=" + idCommande + ", idLigneCommande=" + idLigneCommande + ", idLignePanier="
 				+ idLignePanier + ", idProduit=" + idProduit + ", idUtilisateur=" + idUtilisateur + " ]";

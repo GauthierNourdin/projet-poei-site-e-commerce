@@ -3,7 +3,7 @@ package org.eclipse.model;
 import java.util.ArrayList;
 
 public class Panier {
-	/** Classe décrivant le panier qu'utilise le client pour préparer ses achats. */
+	/** Classe decrivant le panier qu'utilise le client pour preparer ses achats. */
 
 	// Attributs
 	private int id;
@@ -25,15 +25,15 @@ public class Panier {
 		this.id = id;
 	}
 
-	public ArrayList<Integer> getLignesPanier() {
+	public ArrayList<Integer> getIdLignesPanier() {
 		return this.idLignesPanier;
 	}
 
-	public void setLignesPanier(ArrayList<Integer> idLignesPanier) {
+	public void setIdLignesPanier(ArrayList<Integer> idLignesPanier) {
 		this.idLignesPanier = idLignesPanier;
 	}
 
-	// La méthode "toString" sert uniquement au débuggage.
+	// La methode "toString" sert uniquement au debuggage.
 	public String toString() {
 		return "Panier [id=" + this.id + ", idLignesPanier=" + this.idLignesPanier + ", ]";
 	}

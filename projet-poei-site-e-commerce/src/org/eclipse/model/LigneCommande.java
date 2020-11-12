@@ -9,9 +9,9 @@ public class LigneCommande {
 	private int idCommande;
 	private int idProduit;
 
-	// Les constructeurs
-	public LigneCommande(int id, int quantiteCommandee, int idCommande, int idProduit) {
-		this.id = id;
+	// Le constructeur
+	public LigneCommande(int quantiteCommandee, int idCommande, int idProduit) {
+		this.id = GestionnaireId.giveNewIdLigneCommande();
 		this.quantiteCommandee = quantiteCommandee;
 		this.idCommande = idCommande;
 		this.idProduit = idProduit;
@@ -50,7 +50,7 @@ public class LigneCommande {
 		this.idProduit = idProduit;
 	}
 
-	// La méthode "toString" sert uniquement au débuggage.
+	// La methode "toString" sert uniquement au debuggage.
 	public String toString() {
 		return "LigneCommande [id=" + this.id + ", quantiteCommandee=" + this.quantiteCommandee + ", idCommande="
 				+ this.idCommande + ", idProduit=" + this.idProduit + "]";

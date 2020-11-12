@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Utilisateur {
 	/**
-	 *  Classe de base commune à tous les utilisateurs du site.
+	 *  Classe de base commune a tous les utilisateurs du site.
 	 */
 	// Attributs
 	private int id;
@@ -17,10 +17,9 @@ public class Utilisateur {
 	private ArrayList<Adresse> adresses;
 
 	// Le constructeur
-	public Utilisateur(int id, String nom, String prenom, String adresseMail, String numeroTelephone,
+	public Utilisateur(String nom, String prenom, String adresseMail, String numeroTelephone,
 			String identifiantConnexion, String motDePasse, ArrayList<Adresse> adresses) {
-		// Constructeur complet pour la création standard d'un nouvel utilisateur
-		this.id = id;
+		this.id = GestionnaireId.giveNewIdUtilisateur();
 		this.nom = nom;
 		this.prenom = prenom;
 		this.adresseMail = adresseMail;
@@ -95,7 +94,7 @@ public class Utilisateur {
 		this.adresses = adresses;
 	}
 
-	// La méthode "toString" sert uniquement au débuggage.
+	// La methode "toString" sert uniquement au debuggage.
 	public String toString() {
 		return "Utilisateur [id=" + this.id + ", nom=" + this.nom + ", prenom=" + this.prenom + ", adresseMail="
 				+ this.adresseMail + ", numeroTelephone=" + this.numeroTelephone + ", identifiantConnexion="

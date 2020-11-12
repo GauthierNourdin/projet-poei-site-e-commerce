@@ -6,16 +6,16 @@ import org.eclipse.model.Utilisateur;
 
 public class UtilisateurService {
 	/*
-	 * Cet attribut ne doit être initialisé qu'une seule fois. Le rendre
-	 * statique permet de le générer au début de l'exécution.
+	 * Cet attribut ne doit etre initialise qu'une seule fois. Le rendre
+	 * statique permet de le generer au debut de l'execution.
 	 */
-	private static ArrayList<Utilisateur> utilisateurs;
+	private static ArrayList<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();
 
-	// Constructeur privé pour éviter de créer des instances.
+	// Constructeur prive pour eviter de creer des instances.
 	private UtilisateurService() {
 	}
 
-	// Le getter statique et le setter statique adaptés
+	// Le getter statique et le setter statique adaptes, ne servent qu'aux tests et au dÃ©buggage.
 	public static ArrayList<Utilisateur> getUtilisateurs() {
 		return utilisateurs;
 	}
@@ -24,55 +24,41 @@ public class UtilisateurService {
 		utilisateurs = argUtilisateurs;
 	}
 
-	// Méthode statique pour ajouter un utilisateur dans la liste
-	public static boolean save(Utilisateur utilisateur) {
-		/*
-		 * On vérifie que l'utilisateur n'appartient pas déjà à la liste avant de le
-		 * rajouter. La méthode retourne "true" si l'ajout a été accompli, "false"
-		 * sinon.
-		 */
+	// Methode statique pour ajouter un utilisateur dans la liste
+	public static void save(Utilisateur utilisateur) throws Exception {
 		if (utilisateurs.contains(utilisateur)) {
-			return false;
+			throw new Exception("L'utilisateur appartient deja a la liste");
 		} else {
-			return utilisateurs.add(utilisateur);
+			utilisateurs.add(utilisateur);
 		}
 	}
 
-	// Méthode statique pour retirer un utilisateur de la liste
-	public static boolean remove(Utilisateur utilisateur) {
-		/*
-		 * On vérifie que l'utilisateur est bien présent dans la liste avant de le
-		 * supprimer. La méthode retourne "true" si la suppression a été accomplie,
-		 * "false" sinon.
-		 */
+	// Methode statique pour retirer un utilisateur de la liste
+	public static void remove(Utilisateur utilisateur) throws Exception {
 		if (utilisateurs.contains(utilisateur)) {
-			return utilisateurs.remove(utilisateur);
+			utilisateurs.remove(utilisateur);
 		} else {
-			return false;
+			throw new Exception("L'utilisateur n'appartient pas a la liste");
 		}
 	}
 
-	// Méthode statique pour mettre à jour un utilisateur
-	public static boolean update(Utilisateur utilisateur) {
-		/*
-		 * La méthode retourne true si l'utilisateur à mettre à jour est dans la liste,
-		 * false sinon.
-		 */
+	// Methode statique pour mettre a jour un utilisateur
+	public static void update(Utilisateur utilisateur) throws Exception {
 		for (Utilisateur util: utilisateurs) {
 			if (util.getId() == util.getId()) {
 				util = utilisateur;
-				return true;
+				return;
 			}
 		}
-		return false;
+		throw new Exception("L'utilisateur n'appartient pas a la liste");
 	}
 
-	// Méthode statique pour rendre la liste complète (convention de nommage)
+	// Methode statique pour rendre la liste complete (convention de nommage)
 	public static ArrayList<Utilisateur> findAll() {
 		return utilisateurs;
 	}
 
-	// Méthode statique pour trouver dans la liste un utilisateur d'id connu
+	// Methode statique pour trouver dans la liste un utilisateur d'id connu
 	public static Utilisateur findById(int id) {
 		for (Utilisateur util: utilisateurs) {
 			if (util.getId() == id) {
@@ -90,7 +76,7 @@ public class UtilisateurService {
 		return null;
 	}
 	
-	// La méthode sert uniquement au débuggage.
+	// La methode sert uniquement au debuggage.
 	public static String affichageDebuggage() {
 		return "UtilisateurService [utilisateurs=" + utilisateurs + "]";
 	}

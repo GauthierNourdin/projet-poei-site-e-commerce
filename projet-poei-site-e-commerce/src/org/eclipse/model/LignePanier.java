@@ -5,14 +5,14 @@ public class LignePanier {
 	
 	// Attributs
 	private int id;
-	private int quantiteCommandee;
+	private int quantiteSouhaitee;
 	private int idPanier;
 	private int idProduit;
 	
 	// Le constructeur
-	public LignePanier(int id, int quantiteCommandee, int idPanier, int idProduit) {
-		this.id = id;
-		this.quantiteCommandee = quantiteCommandee;
+	public LignePanier(int quantiteSouhaitee, int idPanier, int idProduit) {
+		this.id = GestionnaireId.giveNewIdLignePanier();
+		this.quantiteSouhaitee = quantiteSouhaitee;
 		this.idPanier = idPanier;
 		this.idProduit = idProduit;
 	}
@@ -26,12 +26,12 @@ public class LignePanier {
 		this.id = id;
 	}
 
-	public int getQuantiteCommandee() {
-		return this.quantiteCommandee;
+	public int getQuantiteSouhaitee() {
+		return this.quantiteSouhaitee;
 	}
 
-	public void setQuantiteCommandee(int quantiteCommandee) {
-		this.quantiteCommandee = quantiteCommandee;
+	public void setQuantiteSouhaitee(int quantiteSouhaitee) {
+		this.quantiteSouhaitee = quantiteSouhaitee;
 	}
 
 	public int getIdPanier() {
@@ -50,9 +50,9 @@ public class LignePanier {
 		this.idProduit = idProduit;
 	}
 
-	// La méthode "toString" sert uniquement au débuggage.
+	// La methode "toString" sert uniquement au debuggage.
 	public String toString() {
-		return "LigneCommande [id=" + this.id + ", quantiteCommandee=" + this.quantiteCommandee + ", idPanier" + this.idPanier
+		return "LigneCommande [id=" + this.id + ", quantiteCommandee=" + this.quantiteSouhaitee + ", idPanier" + this.idPanier
 				+ ", idProduit=" + this.idProduit + "]";
 	}
 	

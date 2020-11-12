@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.ArrayList;
 
 public class Commande {
-	/** Classe permettant d'enregistrer les commandes passés par les utilisateurs */
+	/** Classe permettant d'enregistrer les commandes passes par les utilisateurs */
 
 	// Attributs
 	private int id;
@@ -13,8 +13,8 @@ public class Commande {
 	private Date dateDeCommande;
 
 	// Le constructeur
-	public Commande(int id, int idClient, Date dateDeCommande) {
-		this.id = id;
+	public Commande(int idClient, Date dateDeCommande) {
+		this.id = GestionnaireId.giveNewIdCommande();
 		this.idClient = idClient;
 		this.idLignesCommande = new ArrayList<Integer>();
 		// La ligne de commande commence vide.
@@ -54,7 +54,7 @@ public class Commande {
 		this.dateDeCommande = dateDeCommande;
 	}
 
-	// La méthode "toString" sert uniquement au débuggage.
+	// La methode "toString" sert uniquement au debuggage.
 	public String toString() {
 		return "Commande [id=" + this.id + ", idClient" + this.idClient + ", idLignesCommande=" + this.idLignesCommande
 				+ ", dateDeCommande=" + this.dateDeCommande + "]";

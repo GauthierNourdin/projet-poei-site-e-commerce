@@ -1,20 +1,21 @@
 package org.eclipse.service;
 
 import java.util.ArrayList;
+
 import org.eclipse.model.LignePanier;
 
 public class LignePanierService {
 	/*
-	 * Cet attribut ne doit être initialisé qu'une seule fois. Le rendre
-	 * statique permet de le générer au début de l'exécution.
+	 * Cet attribut ne doit etre initialise qu'une seule fois. Le rendre
+	 * statique permet de le generer au debut de l'execution.
 	 */
-	private static ArrayList<LignePanier> lignesPanier;
+	private static ArrayList<LignePanier> lignesPanier = new ArrayList<LignePanier>();
 
-	// Constructeur privé pour éviter de créer des instances.
+	// Constructeur prive pour eviter de creer des instances.
 	private LignePanierService() {
 	}
 
-	// Le getter statique et le setter statique adaptés
+	// Le getter statique et le setter statique adaptes, ne servent qu'aux tests et au dÃ©buggage.
 	public static ArrayList<LignePanier> getLignesPaniers() {
 		return lignesPanier;
 	}
@@ -23,55 +24,41 @@ public class LignePanierService {
 		lignesPanier = argLignesPaniers;
 	}
 
-	// Méthode statique pour ajouter une ligne de panier dans la liste
-	public static boolean save(LignePanier lignePanier) {
-		/*
-		 * On vérifie que la ligne de panier n'appartient pas déjà à la liste avant de
-		 * la rajouter. La méthode retourne "true" si l'ajout a été accompli, "false"
-		 * sinon.
-		 */
+	// Methode statique pour ajouter une ligne de panier dans la liste
+	public static void save(LignePanier lignePanier) throws Exception {
 		if (lignesPanier.contains(lignePanier)) {
-			return false;
+			throw new Exception("La ligne de panier appartient deja a la liste");
 		} else {
-			return lignesPanier.add(lignePanier);
+			lignesPanier.add(lignePanier);
 		}
 	}
 
-	// Méthode statique pour retirer une ligne de panier de la liste
-	public static boolean remove(LignePanier lignePanier) {
-		/*
-		 * On vérifie que la ligne de panier est bien présente dans la liste avant de la
-		 * supprimer. La méthode retourne "true" si la suppression a été accomplie,
-		 * "false" sinon.
-		 */
+	// Methode statique pour retirer une ligne de panier de la liste
+	public static void remove(LignePanier lignePanier) throws Exception {
 		if (lignesPanier.contains(lignePanier)) {
-			return lignesPanier.remove(lignePanier);
+			lignesPanier.remove(lignePanier);
 		} else {
-			return false;
+			throw new Exception("La ligne de panier n'appartient pas a la liste");
 		}
 	}
 
-	// Méthode statique pour mettre à jour une ligne de panier
-	public static boolean update(LignePanier lignePanier) {
-		/*
-		 * La méthode retourne true si la ligne de panier à mettre à jour est dans la
-		 * liste, false sinon.
-		 */
+	// Methode statique pour mettre a jour une ligne de panier
+	public static void update(LignePanier lignePanier) throws Exception {
 		for (LignePanier lignPani : lignesPanier) {
 			if (lignPani.getId() == lignePanier.getId()) {
 				lignPani = lignePanier;
-				return true;
+				return;
 			}
 		}
-		return false;
+		throw new Exception("La ligne de panier n'appartient pas a la liste");
 	}
 
-	// Méthode statique pour rendre la liste complète (convention de nommage)
+	// Methode statique pour rendre la liste complete (convention de nommage)
 	public static ArrayList<LignePanier> findAll() {
 		return lignesPanier;
 	}
 
-	// Méthode statique pour trouver dans la liste une ligne de panier d'id connu
+	// Methode statique pour trouver dans la liste une ligne de panier d'id connu
 	public static LignePanier findById(int id) {
 		for (LignePanier lignPani : lignesPanier) {
 			if (lignPani.getId() == id) {
@@ -80,8 +67,8 @@ public class LignePanierService {
 		}
 		return null;
 	}
-
-	// La méthode sert uniquement au débuggage.
+	
+	// La methode sert uniquement au debuggage.
 	public static String affichageDebuggage() {
 		return "LignePanierService [lignesPanier=" + lignesPanier + "]";
 	}

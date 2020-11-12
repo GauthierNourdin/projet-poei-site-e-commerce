@@ -2,6 +2,7 @@ package org.eclipse.service;
 
 import java.util.ArrayList;
 
+import org.eclipse.model.Client;
 import org.eclipse.model.Commande;
 import org.eclipse.model.LigneCommande;
 import org.eclipse.model.LignePanier;
@@ -179,7 +180,13 @@ public class PanierService {
 		verifierPanier(panier, lignesPanier);
 		
 		Commande commande = new Commande(panier.getId());
-		ArrayList<LigneCommande> lignesCommande = new ArrayList<LigneCommande>();
+		
+		Client client = ClientService.findById(panier.getId());
+		ArrayList<Integer> idCommandes = client.getIdCommandes();
+		idCommandes.add(commande.getId());
+		client.setIdCommandes(idCommandes);
+		
+		ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
 		for (LignePanier lignPani : lignesPanier) {
 			LigneCommande ligneCommande = new LigneCommande(lignPani.getQuantiteSouhaitee(), commande.getId(), lignPani.getIdProduit());
 			try {
@@ -187,11 +194,15 @@ public class PanierService {
 			} catch (Exception e) {
 				throw new Exception("Probleme de sauvegarde de la ligne de commande");
 			}
+			idLignesCommande.add(ligneCommande.getId());
 			
-			
-			
+			Produit produit = ProduitService.findById(lignPani.getIdProduit());
+			ArrayList<Integer> produitIdLignesCommande = produit.getIdLignesCommande();
+			produitIdLignesCommande.add(ligneCommande.getId());
+			produit.setIdLignesCommande(produitIdLignesCommande);
 		}
 		
+		commande.setIdLignesCommande(idLignesCommande);
 		
 		for (LignePanier lignPani : lignesPanier) {
 			try {

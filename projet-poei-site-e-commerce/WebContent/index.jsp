@@ -12,9 +12,13 @@
 <title>Page d'accueil</title>
 </head>
 <body>
-<div class="alert alert-warning" role="alert">
-  A simple warning alert—check it out!
-</div>
-<i class="fas fa-adjust"></i>
+<h2>Liste Produits</h2> 
+<div>Prochainement...</div>
+<h2>Liens vers les pages d'inscription et de connexion</h2>
+<!-- En attendant de créer une barre de navigation correcte ... -->
+<a href="/client/connexion">Connexion client</a>
+<a href="/vendeur/connexion">Connexion vendeur</a>
+<a href="/client/inscription">Inscription client</a>
+<a href="/vendeur/inscription">Inscription vendeur</a>
 </body>
 </html>

@@ -15,7 +15,7 @@ public class Produit {
 	private String descriptionProduit;
 	private int idVendeur;
 	private Date dateDebut;
-	private ArrayList<Integer> idCategories = new ArrayList<Integer>(); 
+	private ArrayList<Integer> idCategories = new ArrayList<Integer>();
 	private ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
 
 	// Les constructeurs

@@ -12,5 +12,17 @@
 <title>Connexion client</title>
 </head>
 <body>
+	<form method="post" action="/client/connexion">
+		<div>
+			<label for="identifiant">Identifiant de connexion</label> 
+			<input type="text" id="identifiant" name="identifiant" required>
+		</div>
+		<div>
+			<label for="motdepasse">Mot de passe</label> 
+			<input type="password" id="motdepasse" name="motdepasse" required>
+		</div>
+		<div><c:out value="${erreurDeConnexion}"/></div>
+		<input type="submit" value="Se connecter" />
+	</form>
 </body>
 </html>

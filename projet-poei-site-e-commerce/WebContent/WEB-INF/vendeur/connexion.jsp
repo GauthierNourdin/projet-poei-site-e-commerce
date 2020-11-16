@@ -12,5 +12,17 @@
 <title>Connexion vendeur</title>
 </head>
 <body>
+	<form method="post" action="vendeur/connexion">
+		<div>
+			<label for="identifiant">Identifiant de connexion</label> 
+			<input type="text" id="identifiant" name="identifiant" required>
+		</div>
+		<div>
+			<label for="motDePasse">Mot de passe</label> 
+			<input type="password" id="motDePasse" name="motDePasse" required>
+		</div>
+		<div><c:out value="${erreurConnexion}"/></div>
+		<input type="submit" value="Se connecter" />
+	</form>
 </body>
 </html>

@@ -21,14 +21,14 @@ public class PanierFilter implements Filter {
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse res = (HttpServletResponse) response;
-		HttpSession session = req.getSession();
-		Vendeur vendeurConnected = (Vendeur) session.getAttribute("vendeur");
-		if (vendeurConnected == null)
+//		HttpServletRequest req = (HttpServletRequest) request;
+//		HttpServletResponse res = (HttpServletResponse) response;
+//		HttpSession session = req.getSession();
+//		Vendeur vendeurConnected = (Vendeur) session.getAttribute("vendeur");
+//		if (vendeurConnected == null)
 			chain.doFilter(request, response);
-		else
-			res.sendRedirect(req.getContextPath() + "/vendeur/produits");
+//		else
+//			res.sendRedirect(req.getContextPath() + "/vendeur/produits");
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {

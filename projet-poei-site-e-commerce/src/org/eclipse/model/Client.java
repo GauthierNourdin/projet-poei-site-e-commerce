@@ -13,8 +13,8 @@ public class Client extends Utilisateur {
 	}
 	
 	public Client(String nom, String prenom, String adresseMail, String numeroTelephone,
-			String identifiantConnexion, String motDePasse, ArrayList<Adresse> adresses) {
-		super(nom, prenom, adresseMail, numeroTelephone, identifiantConnexion, motDePasse, adresses);
+			String identifiantConnexion, String motDePasse, ArrayList<Integer> idAdresses) {
+		super(nom, prenom, adresseMail, numeroTelephone, identifiantConnexion, motDePasse, idAdresses);
 	}
 
 	// Les getters et les setters classiques
@@ -28,10 +28,10 @@ public class Client extends Utilisateur {
 
 	// La methode "toString" sert uniquement au debuggage.
 	public String toString() {
-		return "Client [idCommandes=" + idCommandes + ", getId()=" + getId() + ", getNom()=" + getNom()
-				+ ", getPrenom()=" + getPrenom() + ", getAdresseMail()=" + getAdresseMail() + ", getNumeroTelephone()="
-				+ getNumeroTelephone() + ", getIdentifiantConnexion()=" + getIdentifiantConnexion()
-				+ ", getMotDePasse()=" + getMotDePasse() + ", getAdresses()=" + getAdresses() + "]";
+		return "Client [idCommandes=" + idCommandes + ", id=" + getId() + ", nom=" + getNom()
+				+ ", prenom=" + getPrenom() + ", adresseMail=" + getAdresseMail() + ", numeroTelephone="
+				+ getNumeroTelephone() + ", identifiantConnexion=" + getIdentifiantConnexion()
+				+ ", motDePasse=" + getMotDePasse() + ", idAdresses=" + getIdAdresses() + "]";
 	}
 
 }

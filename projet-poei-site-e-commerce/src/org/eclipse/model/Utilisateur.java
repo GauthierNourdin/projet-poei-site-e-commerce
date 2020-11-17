@@ -14,14 +14,14 @@ public class Utilisateur {
 	private String numeroTelephone;
 	private String identifiantConnexion;
 	private String motDePasse;
-	private ArrayList<Adresse> adresses = new ArrayList<Adresse>();
+	private ArrayList<Integer> idAdresses = new ArrayList<Integer>();
 
 	// Les constructeurs
 	public Utilisateur() {
 	}
 	
 	public Utilisateur(String nom, String prenom, String adresseMail, String numeroTelephone,
-			String identifiantConnexion, String motDePasse, ArrayList<Adresse> adresses) {
+			String identifiantConnexion, String motDePasse, ArrayList<Integer> idAdresses) {
 		this.id = GestionnaireId.giveNewIdUtilisateur();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -29,7 +29,7 @@ public class Utilisateur {
 		this.numeroTelephone = numeroTelephone;
 		this.identifiantConnexion = identifiantConnexion;
 		this.motDePasse = motDePasse;
-		this.adresses = adresses;
+		this.idAdresses = idAdresses;
 	}
 
 	// Les getters et les setters classiques
@@ -89,19 +89,19 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 	}
 
-	public ArrayList<Adresse> getAdresses() {
-		return this.adresses;
+	public ArrayList<Integer> getIdAdresses() {
+		return this.idAdresses;
 	}
 
-	public void setAdresses(ArrayList<Adresse> adresses) {
-		this.adresses = adresses;
+	public void setIdAdresses(ArrayList<Integer> idAdresses) {
+		this.idAdresses = idAdresses;
 	}
 
 	// La methode "toString" sert uniquement au debuggage.
 	public String toString() {
 		return "Utilisateur [id=" + this.id + ", nom=" + this.nom + ", prenom=" + this.prenom + ", adresseMail="
 				+ this.adresseMail + ", numeroTelephone=" + this.numeroTelephone + ", identifiantConnexion="
-				+ this.identifiantConnexion + ", motDePasse=" + this.motDePasse + ", adresses" + this.adresses + "]";
+				+ this.identifiantConnexion + ", motDePasse=" + this.motDePasse + ", adresses" + this.idAdresses + "]";
 	}
 
 }

@@ -1,16 +1,27 @@
 package org.eclipse.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.eclipse.model.Adresse;
-import org.eclipse.model.Categorie;
 
 public class AdresseService {
 	/*
 	 * Cet attribut ne doit etre initialise qu'une seule fois. Le rendre
 	 * statique permet de le generer au debut de l'execution.
 	 */
-	private static ArrayList<Adresse> adresses = new ArrayList<Adresse>();
+	private static ArrayList<Adresse> adresses = new ArrayList<Adresse>(Arrays.asList(
+			new Adresse("22", "Rue du Point du jour", "Brest", "29200", "France",
+					"", 1),
+			new Adresse("10", "Place d'Italie", "Paris", "75013",
+					"France", "", 1),
+			new Adresse("18", "Winston Churchill Street", "London", "",
+					"England", "44th floor, Appartment 4406", 2),
+			new Adresse("7", "West Road", "Lostman Town", "8409",
+					"Nevada", "Cell 013", 3),
+			new Adresse("19", "Stirling Street", "Edinburgh", "0774",
+					"Scotland", "", 4)
+			));
 
 	// Constructeur prive pour eviter de creer des instances.
 	private AdresseService() {

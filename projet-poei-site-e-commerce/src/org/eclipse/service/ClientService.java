@@ -1,6 +1,7 @@
 package org.eclipse.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.eclipse.model.Client;
 import org.eclipse.model.Panier;
@@ -10,8 +11,11 @@ public class ClientService {
 	 * Cet attribut ne doit etre initialise qu'une seule fois. Le rendre statique
 	 * permet de le generer au debut de l'execution.
 	 */
-	private static ArrayList<Client> clients = new ArrayList<Client>();
-
+	private static ArrayList<Client> clients = new ArrayList<Client>(Arrays.asList(
+			new Client("Bouchard", "Gerard", "gerard.bouchard@yahoomail.com", "0405678916",
+					"GerardBouchard", "Quel?Joli!Nom", new ArrayList<Integer>(Arrays.asList(1, 2)))
+			));
+	
 	// Constructeur prive pour eviter de creer des instances.
 	private ClientService() {
 	}

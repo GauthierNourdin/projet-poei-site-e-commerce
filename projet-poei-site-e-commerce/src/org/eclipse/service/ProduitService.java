@@ -1,6 +1,7 @@
 package org.eclipse.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.eclipse.model.LigneCommande;
 import org.eclipse.model.Produit;
@@ -10,7 +11,20 @@ public class ProduitService {
 	 * Cet attribut ne doit etre initialise qu'une seule fois. Le rendre
 	 * statique permet de le generer au debut de l'execution.
 	 */
-	private static ArrayList<Produit> produits = new ArrayList<Produit>();
+	private static ArrayList<Produit> produits = new ArrayList<Produit>(Arrays.asList(
+			new Produit("Figurine Mario", 59.99, 4, "/images/mario-figurine.jpg",
+					"Figurine en resine a l'echelle 1:12", 2, new ArrayList<Integer>(Arrays.asList(1,2))),
+			new Produit("Figurine Link", 19.99, 11, "/images/link-figurine.jpg",
+					"Figurine en resine a l'echelle 1:25", 3, new ArrayList<Integer>(Arrays.asList(1,2))),
+			new Produit("Livre Hyrule Historia", 25.99, 2, "/images/loz-hyrule-historia",
+					"Livre en parfait etat", 2, new ArrayList<Integer>(Arrays.asList(2,3))),
+			new Produit("Poster Mass Effect 2", 39.99, 0, "/images/mass-effect-2-poster.jpg",
+					"Poster Mural 66*38 cm", 2, new ArrayList<Integer>(Arrays.asList(2,4))),
+			new Produit("Figurine Lucky Luke", 99.99, 4, "/images/lucky-luke-figurine.jpg",
+					"Figurine en resine a l'echelle 1:12", 2, new ArrayList<Integer>(Arrays.asList(1,5))),
+			new Produit("Epee William Wallace", 599.99, 2, "/images/epee-william-wallace",
+					"Reproduction en metal de l'epee du film", 4, new ArrayList<Integer>(Arrays.asList(6,7)))
+			));
 
 	// Constructeur prive pour eviter de creer des instances.
 	private ProduitService() {

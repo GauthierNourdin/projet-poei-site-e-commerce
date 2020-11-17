@@ -1,6 +1,7 @@
 package org.eclipse.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.eclipse.model.Client;
 import org.eclipse.model.Commande;
@@ -14,7 +15,9 @@ public class PanierService {
 	 * Cet attribut ne doit etre initialise qu'une seule fois. Le rendre
 	 * statique permet de le generer au debut de l'execution.
 	 */
-	private static ArrayList<Panier> paniers = new ArrayList<Panier>();
+	private static ArrayList<Panier> paniers = new ArrayList<Panier>(Arrays.asList(
+			new Panier(1)
+			));
 
 	// Constructeur prive pour eviter de creer des instances.
 	private PanierService() {

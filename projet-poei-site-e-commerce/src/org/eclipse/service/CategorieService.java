@@ -1,6 +1,8 @@
 package org.eclipse.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.eclipse.model.Categorie;
 
 public class CategorieService {
@@ -8,7 +10,15 @@ public class CategorieService {
 	 * Cet attribut ne doit etre initialise qu'une seule fois. Le rendre
 	 * statique permet de le generer au debut de l'execution.
 	 */
-	private static ArrayList<Categorie> categories = new ArrayList<Categorie>();
+	private static ArrayList<Categorie> categories = new ArrayList<Categorie>(Arrays.asList(
+			new Categorie("figurine"),
+			new Categorie("jeu video"),
+			new Categorie("livre"),
+			new Categorie("poster"),
+			new Categorie("bande dessinee"),
+			new Categorie("film"),
+			new Categorie("reproduction d'arme")
+			));
 
 	// Constructeur prive pour eviter de creer des instances.
 	private CategorieService() {

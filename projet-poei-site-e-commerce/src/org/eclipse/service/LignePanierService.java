@@ -1,7 +1,9 @@
 package org.eclipse.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
+import org.eclipse.model.Commentaire;
 import org.eclipse.model.LignePanier;
 
 public class LignePanierService {
@@ -9,7 +11,9 @@ public class LignePanierService {
 	 * Cet attribut ne doit etre initialise qu'une seule fois. Le rendre
 	 * statique permet de le generer au debut de l'execution.
 	 */
-	private static ArrayList<LignePanier> lignesPanier = new ArrayList<LignePanier>();
+	private static ArrayList<LignePanier> lignesPanier = new ArrayList<LignePanier>(Arrays.asList(
+			new LignePanier(3, 1, 2, 24.99)
+			));
 
 	// Constructeur prive pour eviter de creer des instances.
 	private LignePanierService() {

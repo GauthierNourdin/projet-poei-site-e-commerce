@@ -1,6 +1,7 @@
 package org.eclipse.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.eclipse.model.Produit;
 import org.eclipse.model.Vendeur;
@@ -10,7 +11,14 @@ public class VendeurService {
 	 * Cet attribut ne doit etre initialisequ'une seule fois. Le rendre
 	 * statique permet de le generer au debut de l'execution.
 	 */
-	private static ArrayList<Vendeur> vendeurs = new ArrayList<Vendeur>();
+	private static ArrayList<Vendeur> vendeurs = new ArrayList<Vendeur>(Arrays.asList(
+			new Vendeur("Shepard", "John", "john.shepard@normandy.com", "0194102891",
+					"CaptainSR2", "IHateCerberus", new ArrayList<Integer>(Arrays.asList(3))),
+			new Vendeur("Dalton", "Joe", "joe.dalton@nevadahsp.us", "0614582185",
+					"JoeDalton", "LuckyLuke", new ArrayList<Integer>(Arrays.asList(4))),
+			new Vendeur("Wallace", "William", "william.wallace@scotland.sco", "0702616851",
+					"TheScotlandGuardian", "Stirling", new ArrayList<Integer>(Arrays.asList(5)))
+			));
 
 	// Constructeur prive pour eviter de creer des instances.
 	private VendeurService() {

@@ -1,6 +1,7 @@
 package org.eclipse.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.eclipse.model.Commentaire;
 
@@ -9,7 +10,9 @@ public class CommentaireService {
 	 * Cet attribut ne doit etre initialise qu'une seule fois. Le rendre
 	 * statique permet de le generer au debut de l'execution.
 	 */
-	private static ArrayList<Commentaire> commentaires = new ArrayList<Commentaire>();
+	private static ArrayList<Commentaire> commentaires = new ArrayList<Commentaire>(Arrays.asList(
+			new Commentaire(1, 2, -1, "La figurine est trop petite a mon gout.")
+			));
 
 	// Constructeur prive pour eviter de creer des instances.
 	private CommentaireService() {

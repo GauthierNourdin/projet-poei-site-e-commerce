@@ -10,19 +10,23 @@ public class Adresse {
 	private String codePostal;
 	private String pays;
 	private String complementAdresse;
+	private int idUtilisateur;
+	private int id;
 	
 	// Le constructeur
 	public Adresse() {
 	}
 	
 	public Adresse(String numeroDansRue, String rue, String ville, String codePostal, String pays,
-			String complementAdresse) {
+			String complementAdresse, int idUtilisateur) {
 		this.numeroDansRue = numeroDansRue;
 		this.rue = rue;
 		this.ville = ville;
 		this.codePostal = codePostal;
 		this.pays = pays;
 		this.complementAdresse = complementAdresse;
+		this.idUtilisateur = idUtilisateur;
+		this.id = GestionnaireId.giveNewIdAdresse();
 	}
 
 	// Les getters et les setters classiques
@@ -74,10 +78,26 @@ public class Adresse {
 		this.complementAdresse = complementAdresse;
 	}
 	
+	public int getIdUtilisateur() {
+		return this.idUtilisateur;
+	}
+
+	public void setIdUtilisateur(int idClient) {
+		this.idUtilisateur = idClient;
+	}
+	
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	// La methode "toString" sert uniquement au debuggage.
 	public String toString() {
 		return "Adresse [numeroDansRue=" + this.numeroDansRue + ", rue=" + this.rue + ", ville=" + this.ville + ", codePostal="
-				+ this.codePostal + ", pays=" + this.pays + ", complementAdresse=" + this.complementAdresse + "]";
+				+ this.codePostal + ", pays=" + this.pays + ", complementAdresse=" + this.complementAdresse + ", idClient=" + this.idUtilisateur + ", id=" + this.id + "]";
 	}
 	
 }

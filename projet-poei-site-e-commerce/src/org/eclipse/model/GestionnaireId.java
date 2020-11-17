@@ -10,6 +10,7 @@ public class GestionnaireId {
 	 * Ces attributs ne doivent etre initialisees qu'une seule fois. Les rendre
 	 * statiques permet de les generer au debut de l'execution.
 	 */
+	private static int idAdresse = 0;
 	private static int idCommande = 0;
 	private static int idLigneCommande = 0;
 	private static int idLignePanier = 0;
@@ -23,6 +24,10 @@ public class GestionnaireId {
 	}
 
 	// Methodes statiques pour donner de nouvelles id valides
+	public static int giveNewIdAdresse() {
+		return ++idAdresse;
+	}
+	
 	public static int giveNewIdCommande() {
 		return ++idCommande;
 	}

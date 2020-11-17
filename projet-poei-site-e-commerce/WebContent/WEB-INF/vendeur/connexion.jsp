@@ -12,7 +12,8 @@
 <title>Connexion vendeur</title>
 </head>
 <body>
-	<form method="post" action="vendeur/connexion">
+<%@ include file="/html/choixheader.html"%>
+	<form method="post" action="/projet-poei-site-e-commerce/vendeur/connexion">
 		<div>
 			<label for="identifiant">Identifiant de connexion</label> 
 			<input type="text" id="identifiant" name="identifiant" required>

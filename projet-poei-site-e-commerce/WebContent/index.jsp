@@ -12,13 +12,9 @@
 <title>Page d'accueil</title>
 </head>
 <body>
+<%@ include file="/html/choixheader.html"%>
+<h2>Barre de recherche</h2>
 <h2>Liste Produits</h2> 
-<div>Prochainement...</div>
-<h2>Liens vers les pages d'inscription et de connexion</h2>
-<!-- En attendant de créer une barre de navigation correcte ... -->
-<a href="/client/connexion">Connexion client</a>
-<a href="/vendeur/connexion">Connexion vendeur</a>
-<a href="/client/inscription">Inscription client</a>
-<a href="/vendeur/inscription">Inscription vendeur</a>
+<div>Pour chaque produit il faut une image et un nom cliquable et un prix unitaire</div>
 </body>
 </html>

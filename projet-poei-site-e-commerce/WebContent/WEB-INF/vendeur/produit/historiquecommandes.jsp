@@ -12,5 +12,6 @@
 <title>Histoire des commandes du produit</title>
 </head>
 <body>
+<%@ include file="/html/choixheader.html"%>
 </body>
 </html>

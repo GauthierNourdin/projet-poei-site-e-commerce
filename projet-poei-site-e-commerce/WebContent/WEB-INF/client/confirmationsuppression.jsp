@@ -12,5 +12,6 @@
 <title>Confirmation de la suppression du compte client</title>
 </head>
 <body>
+<%@ include file="/html/choixheader.html"%>
 </body>
 </html>

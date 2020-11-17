@@ -12,5 +12,6 @@
 <title>Liste des commandes</title>
 </head>
 <body>
+<%@ include file="/html/choixheader.html"%>
 </body>
 </html>

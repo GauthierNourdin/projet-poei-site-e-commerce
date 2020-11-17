@@ -12,8 +12,9 @@
 <title>Suppression vendeur</title>
 </head>
 <body>
+<%@ include file="/html/choixheader.html"%>
 <h2>Attention la suppression du compte est définitive et entraîne la suppression de vos produits. Pour confirmer vueillez rentrer vos identifiants.</h2>
-	<form method="post" action="vendeur/suppression">
+	<form method="post" action="/projet-poei-site-e-commerce/vendeur/suppression">
 		<div>
 			<label for="identifiant">Identifiant de connexion</label> 
 			<input type="text" id="identifiant" name="identifiant" required>
@@ -26,6 +27,7 @@
 		<input type="submit" value="Se connecter" />
 	</form>
 	<div><c:out value="${erreurSuppression}"/></div>
-	<a href="vendeur/produits">Retour à mes produits</a>
+	<c:url var="retourproduits" value="/vendeur/produits"></c:url>
+	<a href="${ retourproduits }">Retour à mes produits</a>
 </body>
 </html>

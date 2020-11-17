@@ -7,12 +7,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.eclipse.model.Produit;
+import org.eclipse.service.ProduitService;
+
 @WebServlet("/vendeur/produit/suppression")
 public class VendeurProduitSuppressionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher("/vendeur/produit/suppression.jsp").forward(request, response);
+		int idProduit = Integer.parseInt(request.getParameter("idProduit"));
+		Produit produit = ProduitService.findById(idProduit);
+		request.setAttribute("produit", produit);
+		this.getServletContext().getRequestDispatcher("WEB-INF/vendeur/produit/suppression.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

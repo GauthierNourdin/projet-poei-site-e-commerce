@@ -12,6 +12,7 @@
 <title>Deconnexion vendeur</title>
 </head>
 <body>
+<%@ include file="/html/choixheader.html"%>
 	<c:out value="Merci beaucoup ${ vendeur.prenom } ${ vendeur.nom } d'utiliser notre site ! A bientot"/>
 	<a href="index"> </a>
 </body>

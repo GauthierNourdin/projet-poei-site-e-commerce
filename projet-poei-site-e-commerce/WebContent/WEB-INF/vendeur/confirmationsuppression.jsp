@@ -12,5 +12,7 @@
 <title>Confirmation de la suppression du compte vendeur</title>
 </head>
 <body>
+<%@ include file="/html/choixheader.html"%>
+<c:out value="Au revoir ${ prenom } ${ nom } ! Votre compte a ete bien supprime !"></c:out>
 </body>
 </html>

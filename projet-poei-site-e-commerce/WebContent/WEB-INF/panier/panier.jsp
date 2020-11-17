@@ -12,5 +12,6 @@
 <title>Panier</title>
 </head>
 <body>
+<%@ include file="/html/choixheader.html"%>
 </body>
 </html>

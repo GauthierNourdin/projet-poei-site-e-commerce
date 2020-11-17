@@ -12,5 +12,9 @@
 <title>Liste des produits</title>
 </head>
 <body>
+<%@ include file="/html/choixheader.html"%>
+<h2>Liste de produits à afficher</h2>
+<div>Pour chaque produit il faut une image et un nom cliquable, un prix unitaire, un bouton pour modifier et un bouton pour supprimer</div>
+<h2>Formulaire pour ajouter un produit</h2>
 </body>
 </html>

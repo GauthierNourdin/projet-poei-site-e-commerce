@@ -13,7 +13,7 @@ public class ClientService {
 	 */
 	private static ArrayList<Client> clients = new ArrayList<Client>(Arrays.asList(
 			new Client("Bouchard", "Gerard", "gerard.bouchard@yahoomail.com", "0405678916",
-					"GerardBouchard", "Quel?Joli!Nom", new ArrayList<Integer>(Arrays.asList(1, 2)))
+					"GerardBouchard", "QuelJoliNom", new ArrayList<Integer>(Arrays.asList(1, 2)))
 			));
 	
 	// Constructeur prive pour eviter de creer des instances.

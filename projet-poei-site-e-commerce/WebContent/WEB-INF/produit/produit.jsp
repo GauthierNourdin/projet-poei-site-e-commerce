@@ -9,8 +9,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title></title>
+<title>Produit</title>
 </head>
 <body>
+<%@ include file="/html/choixheader.html"%>
 </body>
 </html>

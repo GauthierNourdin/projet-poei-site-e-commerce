@@ -12,5 +12,6 @@
 <title>Commentaires sur le produit</title>
 </head>
 <body>
+<%@ include file="/html/choixheader.html"%>
 </body>
 </html>

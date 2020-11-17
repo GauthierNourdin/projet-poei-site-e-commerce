@@ -1,0 +1,11 @@
+<c:choose>
+<c:when test="${ sessionScope.client != null && sessionScope.vendeur == null }">
+	<%@ include file="/html/headerClient.html"%>
+</c:when>
+<c:when test="${ sessionScope.client == null && sessionScope.vendeur != null }">
+	<%@ include file="/html/headerVendeur.html"%>
+</c:when>
+<c:otherwise>
+	<%@ include file="/html/headerInvite.html"%>
+</c:otherwise>
+</c:choose>

@@ -12,7 +12,7 @@ public class InscriptionVendeurServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher("/vendeur/inscription.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("WEB-INF/vendeur/inscription.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -29,7 +29,6 @@ public class PrivateFilter implements Filter {
 		Client clientConnected = (Client) session.getAttribute("client");
 		Vendeur vendeurConnected = (Vendeur) session.getAttribute("vendeur");
 		String chemin = req.getServletPath();
-		System.out.println("clientConnected = " + clientConnected + ", vendeurConnected = " + vendeurConnected + ", chemin = " + chemin);
 		
 		if (clientConnected != null || vendeurConnected != null || chemin.equals("") || chemin.equals("/index")
 				|| chemin.equals("/produit/produit") || chemin.equals("/client/connexion")

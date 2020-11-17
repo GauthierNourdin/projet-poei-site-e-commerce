@@ -24,7 +24,7 @@ public class IndexServlet extends HttpServlet {
 			Panier panier = new Panier();
 			session.setAttribute("panier", panier);
 		}
-		ArrayList<Produit> produits = ProduitService.findAll();
+		ArrayList<Produit> produits = ProduitService.findDisponibles();
 		request.setAttribute("produits", produits);
 		this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 	}

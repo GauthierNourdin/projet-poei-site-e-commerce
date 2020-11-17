@@ -13,5 +13,6 @@
 </head>
 <body>
 <%@ include file="/html/choixheader.html"%>
+<c:out value="${ produit.id } ${ produit.designation } ${ produit.prixUnitaire } ${ produit.quantiteEnStock } ${ produit.urlImage } ${ produit.descriptionProduit. }"/>
 </body>
 </html>

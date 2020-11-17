@@ -29,8 +29,7 @@ public class AuthentificationVendeurServlet extends HttpServlet {
 		if (vendeur != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("vendeur", vendeur);
-			this.getServletContext().getRequestDispatcher("/WEB-INF/vendeur/produits.jsp").forward(request,
-					response);
+			response.sendRedirect("produits");
 		} else {
 			request.setAttribute("erreurConnexion", "L'identifiant ou le mot de passe est incorrect.");
 			this.getServletContext().getRequestDispatcher("/WEB-INF/vendeur/connexion.jsp").forward(request, response);

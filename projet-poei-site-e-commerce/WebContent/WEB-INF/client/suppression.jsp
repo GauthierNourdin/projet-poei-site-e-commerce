@@ -13,5 +13,21 @@
 </head>
 <body>
 <%@ include file="/html/choixheader.html"%>
+<h2>Attention la suppression du compte est définitive et entraîne la suppression de vos commandes et de votre panier. Pour confirmer vueillez rentrer vos identifiants.</h2>
+	<form method="post" action="/projet-poei-site-e-commerce/vendeur/suppression">
+		<div>
+			<label for="identifiant">Identifiant de connexion</label> 
+			<input type="text" id="identifiant" name="identifiant" required>
+		</div>
+		<div>
+			<label for="motDePasse">Mot de passe</label> 
+			<input type="password" id="motDePasse" name="motDePasse" required>
+		</div>
+		<div><c:out value="${erreurConnexion}"/></div>
+		<input type="submit" value="Se connecter" />
+	</form>
+	<div><c:out value="${erreurSuppression}"/></div>
+	<c:url var="retourproduits" value="/vendeur/produits"></c:url>
+	<a href="${ retourproduits }">Retour à mes produits</a>
 </body>
 </html>

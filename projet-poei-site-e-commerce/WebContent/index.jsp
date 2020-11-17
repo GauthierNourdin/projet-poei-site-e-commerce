@@ -15,6 +15,10 @@
 <%@ include file="/html/choixheader.html"%>
 <h2>Barre de recherche</h2>
 <h2>Liste Produits</h2> 
+<c:forEach items="${ produits }" var="produit">
+<c:out value="${ produit['id'] } ${ produit['designation'] } ${ produit['prixUnitaire'] } ${ produit['quantiteEnStock'] } ${ produit['urlImage'] } ${ produit['descriptionProduit'] }"/>
+<br>
+</c:forEach>
 <div>Pour chaque produit il faut une image et un nom cliquable et un prix unitaire</div>
 </body>
 </html>

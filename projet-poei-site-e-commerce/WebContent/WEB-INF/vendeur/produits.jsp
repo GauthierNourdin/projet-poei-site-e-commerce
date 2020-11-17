@@ -14,6 +14,19 @@
 <body>
 <%@ include file="/html/choixheader.html"%>
 <h2>Liste de produits à afficher</h2>
+
+<c:forEach items="${ produits }" var="produit">
+<c:out value="${ produit['id'] } ${ produit['designation'] } ${ produit['prixUnitaire'] } ${ produit['quantiteEnStock'] } ${ produit['urlImage'] } ${ produit['descriptionProduit'] }"/>
+<br>
+<!-- 	<div class="media">
+	  <img src="..." class="mr-3" alt="...">
+	  <div class="media-body">
+	    <h5 class="mt-0">Media heading</h5>
+	    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+	  </div>
+	</div> -->
+</c:forEach>
+
 <div>Pour chaque produit il faut une image et un nom cliquable, un prix unitaire, un bouton pour modifier et un bouton pour supprimer</div>
 <h2>Formulaire pour ajouter un produit</h2>
 </body>

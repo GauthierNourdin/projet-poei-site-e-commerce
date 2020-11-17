@@ -27,7 +27,8 @@ public class VendeurFilter implements Filter {
 //		HttpSession session = req.getSession();
 //		Client clientConnected = (Client) session.getAttribute("client");
 //		Vendeur vendeurConnected = (Vendeur) session.getAttribute("vendeur");
-//		if (clientConnected == null && vendeurConnected != null)
+//		String chemin = req.getServletPath();
+//		if (clientConnected == null && (vendeurConnected != null || chemin.equals("/client/connexion") || chemin.equals("/client/inscription")))
 			chain.doFilter(request, response);
 //		else
 //			res.sendRedirect(req.getContextPath());

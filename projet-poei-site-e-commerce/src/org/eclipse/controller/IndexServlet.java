@@ -14,7 +14,7 @@ import org.eclipse.model.Panier;
 import org.eclipse.model.Produit;
 import org.eclipse.service.ProduitService;
 
-@WebServlet({"/index", "/", ""})
+@WebServlet({"/index", ""})
 public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

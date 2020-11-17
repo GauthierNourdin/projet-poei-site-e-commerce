@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.eclipse.model.Utilisateur;
 import org.eclipse.model.Vendeur;
 import org.eclipse.service.VendeurService;
 

@@ -8,16 +8,18 @@ public class LigneCommande {
 	private int quantiteCommandee;
 	private int idCommande;
 	private int idProduit;
+	private double prixUnitaire;
 
 	// Les constructeurs
 	public LigneCommande() {
 	}
 	
-	public LigneCommande(int quantiteCommandee, int idCommande, int idProduit) {
+	public LigneCommande(int quantiteCommandee, int idCommande, int idProduit, double prixUnitaire) {
 		this.id = GestionnaireId.giveNewIdLigneCommande();
 		this.quantiteCommandee = quantiteCommandee;
 		this.idCommande = idCommande;
 		this.idProduit = idProduit;
+		this.prixUnitaire = prixUnitaire;
 	}
 
 	// Les getters et les setters classiques
@@ -52,11 +54,19 @@ public class LigneCommande {
 	public void setIdProduit(int idProduit) {
 		this.idProduit = idProduit;
 	}
+	
+	public double getPrixUnitaire() {
+		return prixUnitaire;
+	}
+
+	public void setPrixUnitaire(double prixUnitaire) {
+		this.prixUnitaire = prixUnitaire;
+	}
 
 	// La methode "toString" sert uniquement au debuggage.
 	public String toString() {
 		return "LigneCommande [id=" + this.id + ", quantiteCommandee=" + this.quantiteCommandee + ", idCommande="
-				+ this.idCommande + ", idProduit=" + this.idProduit + "]";
+				+ this.idCommande + ", idProduit=" + this.idProduit + ", prixUnitaire=" + this.prixUnitaire + "]";
 	}
 
 }

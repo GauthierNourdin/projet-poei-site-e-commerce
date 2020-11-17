@@ -101,9 +101,9 @@ public class PanierService {
 		if (!flagSurAjout) {
 			LignePanier newLignePanier;
 			if (quantiteSouhaitee > produit.getQuantiteEnStock()) {
-				newLignePanier = new LignePanier(produit.getQuantiteEnStock(), panier.getId(), produit.getId());
+				newLignePanier = new LignePanier(produit.getQuantiteEnStock(), panier.getId(), produit.getId(), produit.getPrixUnitaire());
 			} else {
-				newLignePanier = new LignePanier(quantiteSouhaitee, panier.getId(), produit.getId());
+				newLignePanier = new LignePanier(quantiteSouhaitee, panier.getId(), produit.getId(), produit.getPrixUnitaire());
 			}
 			try {
 				LignePanierService.save(newLignePanier);
@@ -131,7 +131,7 @@ public class PanierService {
 	}
 	
 	
-	// Methode statique pour modifier une ligne de panier au panier d'un client
+	// Methode statique pour modifier la quantite souhaitee de produit d'une ligne de panier au panier d'un client
 	public static void modifierLignePanier (Panier panier, LignePanier lignePanier, int quantiteSouhaitee) throws Exception {
 		Produit produit = ProduitService.findById(lignePanier.getIdProduit());
 		if (produit == null) {
@@ -169,8 +169,13 @@ public class PanierService {
 				throw new Exception("Le produit n'est pas valide");
 			}
 			if (lignPani.getQuantiteSouhaitee() > produit.getQuantiteEnStock()) {
-				modifierLignePanier(panier, lignPani, produit.getQuantiteEnStock());
+				lignPani.setQuantiteSouhaitee(produit.getQuantiteEnStock());
+				LignePanierService.update(lignPani);
 				throw new Exception("Le produit n'est pas disponible en assez grande quantité");
+			}
+			if (lignPani.getPrixUnitaire() != produit.getPrixUnitaire()) {
+				lignPani.setPrixUnitaire(produit.getPrixUnitaire());
+				LignePanierService.update(lignPani);
 			}
 		}
 	}
@@ -188,7 +193,7 @@ public class PanierService {
 		
 		ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
 		for (LignePanier lignPani : lignesPanier) {
-			LigneCommande ligneCommande = new LigneCommande(lignPani.getQuantiteSouhaitee(), commande.getId(), lignPani.getIdProduit());
+			LigneCommande ligneCommande = new LigneCommande(lignPani.getQuantiteSouhaitee(), commande.getId(), lignPani.getIdProduit(), lignPani.getPrixUnitaire());
 			try {
 				LigneCommandeService.save(ligneCommande);
 			} catch (Exception e) {

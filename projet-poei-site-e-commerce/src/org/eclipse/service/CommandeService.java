@@ -3,6 +3,7 @@ package org.eclipse.service;
 import java.util.ArrayList;
 
 import org.eclipse.model.Commande;
+import org.eclipse.model.LigneCommande;
 
 public class CommandeService {
 	/*
@@ -68,6 +69,29 @@ public class CommandeService {
 		return null;
 	}
 
+	// Methode statique pour retourner la liste des commandes d'un client
+	public static ArrayList<Commande> findCommandeByClient(int idClient) {
+		ArrayList<Commande> resCommandes = new ArrayList<Commande>();
+		for (Commande comm : commandes) {
+			if (comm.getIdClient() == idClient) {
+				resCommandes.add(comm);
+			}
+		}
+		return resCommandes;
+	}
+	
+	// Methode statique pour retourner la liste des lignes de commandes associes à une commande
+	public static ArrayList<LigneCommande> findLignesCommandeOfCommande(int idCommande) {
+		ArrayList<LigneCommande> resLignesCommande = new ArrayList<LigneCommande>();
+		ArrayList<LigneCommande> lignesCommande = LigneCommandeService.findAll();
+		for(LigneCommande lignComm : lignesCommande) {
+			if (lignComm.getIdCommande() == idCommande) {
+				resLignesCommande.add(lignComm);
+			}
+		}
+		return resLignesCommande;
+	}
+	
 	// La methode sert uniquement au debuggage.
 	public static String affichageDebuggage() {
 		return "ClientService [commandes=" + commandes + "]";

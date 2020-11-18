@@ -14,7 +14,7 @@
 <body>
 <%@ include file="/html/choixheader.html"%>
 <h3>Ajouter un produit</h3>
-<form method="post" action="/projet-poei-site-e-commerce/vendeur/produits">
+<form method="post" action="${ pageContext.request.contextPath }/vendeur/produits">
 	<div>
 		<label for="designation">Nom</label> 
 		<input type="text" id="designation" name="designation" value="${ designationsaisie }" required>
@@ -46,7 +46,7 @@
 	<c:url var="pagemodification" value="/vendeur/produit/modification?idproduit=${ produit['id'] }"></c:url>
 	<c:url var="pagesuppression" value="/vendeur/produit/suppression?idproduit=${ produit['id'] }"></c:url>
 	<div class="media">
-	  <img src="${ produit['urlImage'] }" alt="Image manquante" class="align-self-center mr-3" style="width:150px;">
+	  <img src="${ pageContext.request.contextPath }/${ produit['urlImage'] }" alt="Image manquante" class="align-self-center mr-3" style="width:150px;">
 	  <div class="media-body">
 	    <h4>${ produit['designation'] }</h4>
 	    <p>${ produit['prixUnitaire'] }€</p>

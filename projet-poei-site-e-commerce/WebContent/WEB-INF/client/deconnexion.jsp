@@ -13,7 +13,8 @@
 </head>
 <body>
 <%@ include file="/html/choixheader.html"%>
-	<c:out value="Merci beaucoup ${ prenom } ${ nom } d'utiliser notre site ! A bientot !"/>
-	<a href="index"> </a>
+<p><c:out value="Merci beaucoup ${ prenom } ${ nom } d'utiliser notre site ! A bientot !"/></p>
+<c:url var="retourhome" value="/home"></c:url>
+<p><a href="${ retourhome }">Retour à la page d'accueil</a></p>
 </body>
 </html>

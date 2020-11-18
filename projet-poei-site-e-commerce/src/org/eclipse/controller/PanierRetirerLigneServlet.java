@@ -7,16 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet({"/", ""})
-public class IndexServlet extends HttpServlet {
+@WebServlet("/panier/retirerligne")
+public class PanierRetirerLigneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect("/home");
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		// Méthode appelée par javax pour retirer dynamiquement une ligne du panier
 	}
 
 }

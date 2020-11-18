@@ -18,7 +18,7 @@
 <table class="table table-bordered">
       <tr>
 		<td>
- 			<img alt="Image manquante" src="${ produit.urlImage }" style="width:30%">
+ 			<img alt="Image manquante" src="${ pageContext.request.contextPath }/${ produit.urlImage }" style="width:30%">
 <!-- 			<img alt="Image manquante" src="images/mario-figurine.jpg" style="width:30%> -->
 		</td>
         <td>
@@ -26,11 +26,13 @@
         	<c:choose>
         	<c:when test="${ produit.quantiteEnStock > 0}">
         		<p>Il reste ${ produit.quantiteEnStock } exemplaires en stock</p>
-        		<form class="form-inline" action="/projet-poei-site-e-commerce/produit/produit?idProduit=${ produit.id }" method="post">
-				  <label for="quantite" class="mr-sm-2">Quantitee souhaitee :</label>
-				  <input type="number" class="form-control mb-2 mr-sm-2" width="50px" id="quantite">
- 				 <button type="submit" class="btn btn-primary mb-2">Ajouter au panier</button>
+        		<c:if test="${ sessionScope.client != null }">
+        			<form class="form-inline" action="${ pageContext.request.contextPath }/produit/produit?idProduit=${ produit.id }" method="post">
+				  	<label for="quantite" class="mr-sm-2">Quantite souhaitee :</label>
+				  	<input type="number" class="form-control mb-2 mr-sm-2" width="50px" id="quantite">
+ 				 	<button type="submit" class="btn btn-primary mb-2">Ajouter au panier</button>
 				</form>
+				</c:if>
         	</c:when>
         	<c:otherwise>
         		<p>Produit epuise. Desole.

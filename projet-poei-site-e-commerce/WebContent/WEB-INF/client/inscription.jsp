@@ -13,57 +13,70 @@
 </head>
 <body>
 <%@ include file="/html/choixheader.html"%>
-<form method="post" action="client/inscription">
+<form method="post" action="${ pageContext.request.contextPath }/client/inscription">
   <div class="form-group">
-    <label for="inputPrenom">Prenom</label>
-    <input type="text" class="form-control" id="inputPrenom">
+    <label for="inputprenom">Prenom</label>
+    <input type="text" class="form-control" id="inputprenom" name="inputprenom" value="${ prenomsaisie }" required>
+    <c:out value="${ prenomerreur }" />
   </div>
   <div class="form-group">
     <label for="inputnom">Nom</label>
-    <input type="text" class="form-control" id="inputnom">
+    <input type="text" class="form-control" id="inputnom" name="inputnom" value="${ nomsaisie }" required>
+    <c:out value="${ nomerreur }" />
   </div>
   <div class="form-group">
-    <label for="inputEmail">Email</label>
-    <input type="email" class="form-control" id="inputEmail">
+    <label for="inputemail">Email</label>
+    <input type="email" class="form-control" id="inputemail" name="inputemail" value="${ emailsaisie }" required>
+    <c:out value="${ emailerreur }" />
   </div>
   <div class="form-group">
-    <label for="inputIndentifiant">Identifiant</label>
-    <input type="text" class="form-control" id="inputIndentifiant">
+    <label for="inputidentifiant">Identifiant</label>
+    <input type="text" class="form-control" id="inputidentifiant" name="inputidentifiant" value="${ identifiantsaisie }" required>
+    <c:out value="${ identifianterreur }" />
   </div>
    <div class="form-group">
-    <label for="inputTelephone">Numero de telephone</label>
-    <input type="text" class="form-control" id="inputTelephone">
+    <label for="inputtelephone">Numero de telephone</label>
+    <input type="text" class="form-control" id="inputtelephone" name="inputtelephone" value="${ telephonesaisie }" required>
+    <c:out value="${ telephoneerreur }" />
   </div>
   <div class="form-group">
-    <label for="inputPassword">Password</label>
-    <input type="password" class="form-control" id="inputPassword">
+    <label for="inputpassword">Password</label>
+    <input type="password" class="form-control" id="inputpassword" name="inputpassword" value="${ passwordsaisie }" required>
+    <c:out value="${ passworderreur }" />
   </div>
   <h4>Adresse</h4>
   <div class="form-group">
-    <label for="inputNumeroRue">Numero de rue</label>
-    <input type="number" class="form-control" id="inputNumeroRue">
+    <label for="inputnumerorue">Numero de rue</label>
+    <input type="text" class="form-control" id="inputnumerorue" name="inputnumerorue" value="${ numeroruesaisie }" required>
+    <c:out value="${ numerorueerreur }" />
   </div>
   <div class="form-group">
-    <label for="inputNomRue">Nom de rue</label>
-    <input type="text" class="form-control" id="inputNomRue">
+    <label for="inputnomrue">Nom de rue</label>
+    <input type="text" class="form-control" id="inputnomrue" name="inputnomrue" value="${ nomruesaisie }" required>
+    <c:out value="${ nomrueerreur }" />
   </div>
   <div class="form-group">
-    <label for="inputComplementAdresse">Complement d'adresse</label>
-    <input type="text" class="form-control" id="inputComplementAdresse">
+    <label for="inputcomplementadresse">Complement d'adresse</label>
+    <input type="text" class="form-control" id="inputcomplementadresse" name="inputcomplementadresse" value="${ complementadressesaisie }">
+    <c:out value="${ complementadresseerreur }" />
   </div>
   <div class="form-group">
-    <label for="inputVille">Ville</label>
-    <input type="text" class="form-control" id="inputVille">
+    <label for="inputville">Ville</label>
+    <input type="text" class="form-control" id="inputville" name="inputville" value="${ villesaisie }" required>
+    <c:out value="${ villeerreur }" />
   </div>
   <div class="form-group">
-    <label for="inputCodePostal">Code postal</label>
-    <input type="number" class="form-control" id="inputCodePostal">
+    <label for="inputcodepostal">Code postal</label>
+    <input type="text" class="form-control" id="inputcodepostal" name="inputcodepostal" value="${ codepostalsaisie }" required>
+    <c:out value="${ codepostalerreur }" />
   </div>
   <div class="form-group">
-    <label for="inputPays">Pays</label>
-    <input type="text" class="form-control" id="inputPays">
+    <label for="inputpays">Pays</label>
+    <input type="text" class="form-control" id="inputpays" name="inputpays" value="${ payssaisie }" required>
+    <c:out value="${ payserreur }" />
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+<p><c:out value="${ erreurinscription }"/></p>
 </body>
 </html>

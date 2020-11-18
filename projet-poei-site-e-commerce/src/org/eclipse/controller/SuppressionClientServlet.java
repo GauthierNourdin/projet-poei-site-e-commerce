@@ -6,6 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.eclipse.model.Client;
+import org.eclipse.service.ClientService;
 
 @WebServlet("/client/suppression")
 public class SuppressionClientServlet extends HttpServlet {
@@ -16,7 +20,25 @@ public class SuppressionClientServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		String identifiant = request.getParameter("identifiant");
+		String motDePasse = request.getParameter("motDePasse");
+		HttpSession session = request.getSession();
+		Client client = (Client) session.getAttribute("vendeur");
+		
+		if(client.getIdentifiantConnexion().equals(identifiant) && client.getMotDePasse().equals(motDePasse) ) {
+			try {
+				session.setAttribute("nom", client.getNom());
+				session.setAttribute("prenom", client.getPrenom());
+				ClientService.retirerClient(client);
+				this.getServletContext().getRequestDispatcher("/WEB-INF/client/confirmationsuppression.jsp").forward(request, response);
+			} catch (Exception e) {
+				session.setAttribute("erreurSuppression", e.getMessage());
+				this.getServletContext().getRequestDispatcher("/WEB-INF/client/suppression.jsp").forward(request, response);
+			}
+		} else {
+			request.setAttribute("erreurConnexion", "L'identifiant ou le mot de passe est incorrect.");
+			this.getServletContext().getRequestDispatcher("/WEB-INF/client/suppression.jsp").forward(request, response);
+		}
 	}
 
 }

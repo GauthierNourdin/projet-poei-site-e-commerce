@@ -13,7 +13,7 @@
 </head>
 <body>
 <%@ include file="/html/choixheader.html"%>
-	<form method="post" action="/projet-poei-site-e-commerce/client/connexion">
+	<form method="post" action="${ pageContext.request.contextPath }/client/connexion">
 		<div>
 			<label for="identifiant">Identifiant de connexion</label> 
 			<input type="text" id="identifiant" name="identifiant" required>

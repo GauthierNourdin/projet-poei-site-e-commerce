@@ -14,7 +14,7 @@
 <body>
 <%@ include file="/html/choixheader.html"%>
 <h2>Attention la suppression du compte est définitive et entraîne la suppression de vos produits. Pour confirmer vueillez rentrer vos identifiants.</h2>
-	<form method="post" action="/projet-poei-site-e-commerce/vendeur/suppression">
+	<form method="post" action="${ pageContext.request.contextPath }/vendeur/suppression">
 		<div>
 			<label for="identifiant">Identifiant de connexion</label> 
 			<input type="text" id="identifiant" name="identifiant" required>

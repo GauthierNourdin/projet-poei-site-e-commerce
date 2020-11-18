@@ -13,7 +13,7 @@
 </head>
 <body>
 <%@ include file="/html/choixheader.html"%>
-<form method="post" action="/projet-poei-site-e-commerce/vendeur/produit/modification?idproduit=${ produit['id'] }">
+<form method="post" action="${ pageContext.request.contextPath }/vendeur/produit/modification?idproduit=${ produit['id'] }">
 	<div>
 		<label for="designation">Nom</label> 
 		<input type="text" id="designation" name="designation" value="${ produit['designation'] }" required>

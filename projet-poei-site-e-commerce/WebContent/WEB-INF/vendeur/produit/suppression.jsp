@@ -23,7 +23,7 @@
 	    <p>${ produit['descriptionProduit'] }</p>
 	</div>
 </div>
-<form method="post" action="/projet-poei-site-e-commerce/vendeur/produit/suppression?idproduit=${ produit['id'] }">
+<form method="post" action="${ pageContext.request.contextPath }/vendeur/produit/suppression?idproduit=${ produit['id'] }">
 	<div>
 		<label for="identifiant">Identifiant de connexion</label> 
 		<input type="text" id="identifiant" name="identifiant" required>

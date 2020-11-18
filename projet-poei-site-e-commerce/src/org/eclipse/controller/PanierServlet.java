@@ -16,6 +16,7 @@ public class PanierServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Méthodes pour vider et valider le panier
 		doGet(request, response);
 	}
 

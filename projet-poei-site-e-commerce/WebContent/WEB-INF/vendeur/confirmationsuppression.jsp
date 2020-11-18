@@ -13,6 +13,8 @@
 </head>
 <body>
 <%@ include file="/html/choixheader.html"%>
-<c:out value="Au revoir ${ prenom } ${ nom } ! Votre compte a ete bien supprime !"></c:out>
+<p><c:out value="Au revoir ${ prenom } ${ nom } ! Votre compte a ete bien supprime !"></c:out><p>
+<c:url var="retourhome" value="/home"></c:url>
+<p><a href="${ retourhome }">Retour à la page d'accueil</a></p>
 </body>
 </html>

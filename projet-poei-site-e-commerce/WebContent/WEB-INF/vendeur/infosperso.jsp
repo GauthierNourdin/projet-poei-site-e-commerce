@@ -13,7 +13,5 @@
 </head>
 <body>
 <%@ include file="/html/choixheader.html"%>
-	
-
 </body>
 </html>

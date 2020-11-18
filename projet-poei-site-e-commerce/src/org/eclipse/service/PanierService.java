@@ -88,7 +88,7 @@ public class PanierService {
 		return resLignesPanier;
 	}
 	
-	// Methode statique pour ajouter une ligne de panier au panier d'un client
+	// Methode statique pour ajouter une ligne de panier au panier d'un client via un produit
 	public static void ajouterLignePanier (Panier panier, Produit produit, ArrayList<LignePanier> lignesPanier, int quantiteSouhaitee) throws Exception {
 		boolean flagSurAjout = false;
 		for (LignePanier lignPani : lignesPanier) {

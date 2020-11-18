@@ -16,13 +16,13 @@ public class ProduitService {
 					"Figurine en resine a l'echelle 1:12", 1, new ArrayList<Integer>(Arrays.asList(1,2))),
 			new Produit("Figurine Link", 19.99, 11, "/images/link-figurine.jpg",
 					"Figurine en resine a l'echelle 1:25", 2, new ArrayList<Integer>(Arrays.asList(1,2))),
-			new Produit("Livre Hyrule Historia", 25.99, 2, "/images/loz-hyrule-historia",
+			new Produit("Livre Hyrule Historia", 25.99, 2, "/images/loz-hyrule-historia.jpg",
 					"Livre en parfait etat", 1, new ArrayList<Integer>(Arrays.asList(2,3))),
 			new Produit("Poster Mass Effect 2", 39.99, 0, "/images/mass-effect-2-poster.jpg",
 					"Poster Mural 66*38 cm", 1, new ArrayList<Integer>(Arrays.asList(2,4))),
 			new Produit("Figurine Lucky Luke", 99.99, 3, "/images/lucky-luke-figurine.jpg",
 					"Figurine en resine a l'echelle 1:12", 1, new ArrayList<Integer>(Arrays.asList(1,5))),
-			new Produit("Epee William Wallace", 599.99, 1, "/images/epee-william-wallace",
+			new Produit("Epee William Wallace", 599.99, 1, "/images/epee-william-wallace.jpg",
 					"Reproduction en metal de l'epee du film", 3, new ArrayList<Integer>(Arrays.asList(6,7)))
 			));
 
@@ -121,6 +121,7 @@ public class ProduitService {
 		for (Produit prod : produits) {
 			if (prod.getQuantiteEnStock() > 0) {
 				disponibles.add(prod);
+				
 			}
 		}
 		return disponibles;

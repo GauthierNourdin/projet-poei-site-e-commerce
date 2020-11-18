@@ -13,21 +13,49 @@
 </head>
 <body>
 <%@ include file="/html/choixheader.html"%>
-<h2>Liste de produits à afficher</h2>
-
+<h3>Ajouter un produit</h3>
+<form method="post" action="/projet-poei-site-e-commerce/vendeur/produits">
+	<div>
+		<label for="designation">Nom</label> 
+		<input type="text" id="designation" name="designation" value="${ designationsaisie }" required>
+		<c:out value="${ designationerreur }"/>
+	</div>
+	<div>
+		<label for="prixunitaire">Prix unitaire</label> 
+		<input type="number" id="prixunitaire" name="prixunitaire" value="${ prixunitairesaisie }" step="0.01" required>
+		<c:out value="${ prixunitaireerreur }"/>
+	</div>
+	<div>
+		<label for="quantiteenstock">Quantité en stock</label> 
+		<input type="number" id="quantiteenstock" name="quantiteenstock" value="${ quantiteenstocksaisie }" required>
+		<c:out value="${ quantiteenstockerreur }"/>
+	</div>
+	<div>
+		<label for="urlimage">Lien url de l'image</label> 
+		<input type="text" id="urlimage" name="urlimage" value="${ urlimagesaisie }" required>
+		<c:out value="${ urlimageerreur }"/>
+	</div>
+	<div>
+		<label for="descriptionproduit">Description du produit</label> 
+		<input type="text" id="descriptionproduit" name="descriptionproduit" value="${ descriptionproduitsaisie }">
+	</div>
+	<input type="submit" value="Ajouter un produit"/>
+</form>
+<hr>
 <c:forEach items="${ produits }" var="produit">
-<c:out value="${ produit['id'] } ${ produit['designation'] } ${ produit['prixUnitaire'] } ${ produit['quantiteEnStock'] } ${ produit['urlImage'] } ${ produit['descriptionProduit'] }"/>
-<br>
-<!-- 	<div class="media">
-	  <img src="..." class="mr-3" alt="...">
+	<c:url var="pagemodification" value="/vendeur/produit/modification?idproduit=${ produit['id'] }"></c:url>
+	<c:url var="pagesuppression" value="/vendeur/produit/suppression?idproduit=${ produit['id'] }"></c:url>
+	<div class="media">
+	  <img src="${ produit['urlImage'] }" alt="Image manquante" class="align-self-center mr-3" style="width:150px;">
 	  <div class="media-body">
-	    <h5 class="mt-0">Media heading</h5>
-	    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+	    <h4>${ produit['designation'] }</h4>
+	    <p>${ produit['prixUnitaire'] }€</p>
+	    <p>${ produit['quantiteEnStock'] } en stock</p>
+	    <p>${ produit['descriptionProduit'] }</p>
+	    <a href="${ pagemodification }" class="btn btn-primary" role="button"><i class="fas fa-edit"></i></a>
+	    <a href="${ pagesuppression }" class="btn btn-danger" role="button"><i class="fas fa-trash-alt"></i></a>
 	  </div>
-	</div> -->
+	</div>
 </c:forEach>
-
-<div>Pour chaque produit il faut une image et un nom cliquable, un prix unitaire, un bouton pour modifier et un bouton pour supprimer</div>
-<h2>Formulaire pour ajouter un produit</h2>
 </body>
 </html>

@@ -14,11 +14,24 @@
 <body>
 <%@ include file="/html/choixheader.html"%>
 <h2>Barre de recherche</h2>
-<h2>Liste Produits</h2> 
-<c:forEach items="${ produits }" var="produit">
-<c:out value="${ produit['id'] } ${ produit['designation'] } ${ produit['prixUnitaire'] } ${ produit['quantiteEnStock'] } ${ produit['urlImage'] } ${ produit['descriptionProduit'] }"/>
-<br>
+<p>Prochainement</p>
+<div class="card-deck">
+	<c:forEach items="${ produits }" var="produit">
+	<c:url var="pageproduit" value="/produit/produit?idproduit=${ produit['id'] }"></c:url>
+	<div class="card" style="width:300px;">
+		<a href="${ pageproduit }">
+  			<img class="card-img-top" src="${ produit['urlImage'] }" alt="Image manquante">
+  		</a>
+  		<div class="card-body text-center">
+  			<h3 class="card-title">
+  				<a href="${ pageproduit }">
+    				<c:out value="${ produit['designation'] }"/>
+    			</a>
+    		</h3>
+    		<p class="card-text"><c:out value="${ produit['prixUnitaire'] }"/>€</p>
+  		</div>
+	</div>
 </c:forEach>
-<div>Pour chaque produit il faut une image et un nom cliquable et un prix unitaire</div>
+</div>
 </body>
 </html>

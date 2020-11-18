@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.eclipse.model.Client;
-import org.eclipse.model.Vendeur;
 
 @WebServlet("/client/deconnexion")
 public class DeconnexionClientServlet extends HttpServlet {

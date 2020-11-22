@@ -6,23 +6,34 @@ public class Client extends Utilisateur {
 	/** Classe decrivant les methodes et attributs propres au client */
 
 	// Attributs propres
+	private int idClient;
 	private ArrayList<Integer> idCommandes = new ArrayList<Integer>();
 	private ArrayList<Integer> idLignesPanier = new ArrayList<Integer>();
 
 	// Les constructeurs
 	public Client() {
+		this.idClient = GestionnaireId.giveNewIdClient();
 	}
 	
 	public Client(String nom, String prenom, String adresseMail, String numeroTelephone,
 			String identifiantConnexion, String motDePasse, ArrayList<Integer> idAdresses) {
 		super(nom, prenom, adresseMail, numeroTelephone, identifiantConnexion, motDePasse, idAdresses);
+		this.idClient = GestionnaireId.giveNewIdClient();
 	}
 
 	// Les getters et les setters classiques
+	public int getIdClient() {
+		return this.idClient;
+	}
+
+	public void setIdClient(int idClient) {
+		this.idClient = idClient;
+	}
+
 	public ArrayList<Integer> getIdCommandes() {
 		return this.idCommandes;
 	}
-
+	
 	public void setIdCommandes(ArrayList<Integer> idCommandes) {
 		this.idCommandes = idCommandes;
 	}
@@ -37,7 +48,7 @@ public class Client extends Utilisateur {
 
 	// La methode "toString" sert uniquement au debuggage.
 	public String toString() {
-		return "Client [idCommandes=" + this.idCommandes + ", idLignesPanier=" + this.idLignesPanier + ", id=" + getId() + ", nom=" + getNom()
+		return "Client [idCommandes=" + this.idCommandes + ", idLignesPanier=" + this.idLignesPanier + ", idClient=" + this.idClient + ", nom=" + getNom()
 				+ ", prenom=" + getPrenom() + ", adresseMail=" + getAdresseMail() + ", numeroTelephone="
 				+ getNumeroTelephone() + ", identifiantConnexion=" + getIdentifiantConnexion()
 				+ ", motDePasse=" + getMotDePasse() + ", idAdresses=" + getIdAdresses() + "]";

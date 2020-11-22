@@ -54,7 +54,7 @@ public class VendeurService {
 	// Methode statique pour mettre a jour un vendeur
 	public static void update(Vendeur vendeur) throws Exception {
 		for (Vendeur vend: vendeurs) {
-			if (vend.getId() == vend.getId()) {
+			if (vend.getIdVendeur() == vend.getIdVendeur()) {
 				vend = vendeur;
 				return;
 			}
@@ -70,7 +70,7 @@ public class VendeurService {
 	// Methode statique pour trouver dans la liste un vendeur d'id connu
 	public static Vendeur findById(int id) {
 		for (Vendeur vend: vendeurs) {
-			if (vend.getId() == id) {
+			if (vend.getIdVendeur() == id) {
 				return vend;
 			}
 		}

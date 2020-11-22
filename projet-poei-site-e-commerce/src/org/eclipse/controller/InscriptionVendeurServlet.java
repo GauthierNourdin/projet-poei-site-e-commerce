@@ -88,7 +88,7 @@ public class InscriptionVendeurServlet extends HttpServlet {
 		if(testValidite) {
 			Adresse adresse = new Adresse(numeroDansRue, rue, ville, codePostal, pays, complementAdresse, 0);
 			Vendeur vendeur = new Vendeur(nom, prenom, adresseMail, numeroTelephone, identifiantConnexion, motDePasse, new ArrayList<Integer>(Arrays.asList(adresse.getId())));
-			adresse.setIdUtilisateur(vendeur.getId());
+			adresse.setIdUtilisateur(vendeur.getIdVendeur());
 			try {
 				AdresseService.save(adresse);
 			} catch (Exception e) {

@@ -15,7 +15,8 @@ public class GestionnaireId {
 	private static int idLigneCommande = 0;
 	private static int idLignePanier = 0;
 	private static int idProduit = 0;
-	private static int idUtilisateur = 0;
+	private static int idClient = 0;
+	private static int idVendeur = 0;
 	private static int idCategorie = 0;
 	private static int idCommentaire = 0;
 
@@ -44,8 +45,12 @@ public class GestionnaireId {
 		return ++idProduit;
 	}
 
-	public static int giveNewIdUtilisateur() {
-		return ++idUtilisateur;
+	public static int giveNewIdClient() {
+		return ++idClient;
+	}
+	
+	public static int giveNewIdVendeur() {
+		return ++idVendeur;
 	}
 	
 	public static int giveNewIdCategorie() {
@@ -59,7 +64,7 @@ public class GestionnaireId {
 	// La methode sert uniquement au debuggage.
 	public static String affichageDebuggage() {
 		return "GestionnaireId [idCommande=" + idCommande + ", idLigneCommande=" + idLigneCommande + ", idLignePanier="
-				+ idLignePanier + ", idProduit=" + idProduit + ", idUtilisateur=" + idUtilisateur + " ]";
+				+ idLignePanier + ", idProduit=" + idProduit + ", idClient=" + idClient + ", idVendeur=" + idVendeur + " ]";
 	}
 
 }

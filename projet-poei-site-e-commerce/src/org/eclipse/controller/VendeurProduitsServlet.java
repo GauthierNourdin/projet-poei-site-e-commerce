@@ -22,7 +22,7 @@ public class VendeurProduitsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Vendeur vendeur = (Vendeur) session.getAttribute("vendeur");
-		ArrayList<Produit> produits = ProduitService.findByVendeur(vendeur.getId());
+		ArrayList<Produit> produits = ProduitService.findByVendeur(vendeur.getIdVendeur());
 		request.setAttribute("produits", produits);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/vendeur/produits.jsp").forward(request, response);
 	}
@@ -56,7 +56,7 @@ public class VendeurProduitsServlet extends HttpServlet {
 			descriptionProduit = "";
 		}
 		if (testValidite) {
-			Produit produit = new Produit(designation, prixUnitaire, quantiteEnStock, urlImage, descriptionProduit, vendeur.getId(), new ArrayList<Integer>());
+			Produit produit = new Produit(designation, prixUnitaire, quantiteEnStock, urlImage, descriptionProduit, vendeur.getIdVendeur(), new ArrayList<Integer>());
 			try {
 				ProduitService.save(produit);
 			} catch (Exception e) {

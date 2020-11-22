@@ -54,7 +54,7 @@ public class ClientService {
 	// Methode statique pour mettre a jour un client
 	public static void update(Client client) throws Exception {
 		for (Client clie : clients) {
-			if (clie.getId() == client.getId()) {
+			if (clie.getIdClient() == client.getIdClient()) {
 				clie = client;
 				return;
 			}
@@ -70,7 +70,7 @@ public class ClientService {
 	// Methode statique pour trouver dans la liste un client d'id connu.
 	public static Client findById(int id) {
 		for (Client clie : clients) {
-			if (clie.getId() == id) {
+			if (clie.getIdClient() == id) {
 				return clie;
 			}
 		}
@@ -114,9 +114,9 @@ public class ClientService {
 		if (!flagSurAjout) {
 			LignePanier newLignePanier;
 			if (quantiteSouhaitee > produit.getQuantiteEnStock()) {
-				newLignePanier = new LignePanier(produit.getQuantiteEnStock(), client.getId(), produit.getId(), produit.getPrixUnitaire());
+				newLignePanier = new LignePanier(produit.getQuantiteEnStock(), client.getIdClient(), produit.getId(), produit.getPrixUnitaire());
 			} else {
-				newLignePanier = new LignePanier(quantiteSouhaitee, client.getId(), produit.getId(), produit.getPrixUnitaire());
+				newLignePanier = new LignePanier(quantiteSouhaitee, client.getIdClient(), produit.getId(), produit.getPrixUnitaire());
 			}
 			try {
 				LignePanierService.save(newLignePanier);
@@ -218,7 +218,7 @@ public class ClientService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Commande commande = new Commande(client.getId());
+		Commande commande = new Commande(client.getIdClient());
 		ArrayList<Integer> idCommandes = client.getIdCommandes();
 		idCommandes.add(commande.getId());
 		client.setIdCommandes(idCommandes);

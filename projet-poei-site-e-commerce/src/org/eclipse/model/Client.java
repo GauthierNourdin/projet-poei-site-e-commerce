@@ -7,6 +7,7 @@ public class Client extends Utilisateur {
 
 	// Attributs propres
 	private ArrayList<Integer> idCommandes = new ArrayList<Integer>();
+	private ArrayList<Integer> idLignesPanier = new ArrayList<Integer>();
 
 	// Les constructeurs
 	public Client() {
@@ -25,10 +26,18 @@ public class Client extends Utilisateur {
 	public void setIdCommandes(ArrayList<Integer> idCommandes) {
 		this.idCommandes = idCommandes;
 	}
+	
+	public ArrayList<Integer> getIdLignesPanier() {
+		return idLignesPanier;
+	}
+
+	public void setIdLignesPanier(ArrayList<Integer> idLignesPanier) {
+		this.idLignesPanier = idLignesPanier;
+	}
 
 	// La methode "toString" sert uniquement au debuggage.
 	public String toString() {
-		return "Client [idCommandes=" + idCommandes + ", id=" + getId() + ", nom=" + getNom()
+		return "Client [idCommandes=" + this.idCommandes + ", idLignesPanier=" + this.idLignesPanier + ", id=" + getId() + ", nom=" + getNom()
 				+ ", prenom=" + getPrenom() + ", adresseMail=" + getAdresseMail() + ", numeroTelephone="
 				+ getNumeroTelephone() + ", identifiantConnexion=" + getIdentifiantConnexion()
 				+ ", motDePasse=" + getMotDePasse() + ", idAdresses=" + getIdAdresses() + "]";

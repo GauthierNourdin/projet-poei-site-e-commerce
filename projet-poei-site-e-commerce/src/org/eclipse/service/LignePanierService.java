@@ -3,7 +3,6 @@ package org.eclipse.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.eclipse.model.Commentaire;
 import org.eclipse.model.LignePanier;
 
 public class LignePanierService {

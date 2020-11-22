@@ -109,7 +109,7 @@ public class InscriptionClientServlet extends HttpServlet {
 				this.getServletContext().getRequestDispatcher("/WEB-INF/client/inscription.jsp").forward(request, response);
 			}
 			try {
-				ClientService.ajouterClient(client);
+				ClientService.save(client);
 			} catch (Exception e) {
 				e.printStackTrace();
 				request.setAttribute("prenomsaisie", prenom);

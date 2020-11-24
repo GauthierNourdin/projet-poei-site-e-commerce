@@ -24,8 +24,8 @@ public class ProduitServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Méthode pour ajouter un produit au panier puis le mettre a jour
-		response.sendRedirect("../panier/panier");
+        // Méthode pour ajouter ou modifier un produit au panier puis le mettre a jour
+		response.sendRedirect("../client/panier");
 	}
 
 }

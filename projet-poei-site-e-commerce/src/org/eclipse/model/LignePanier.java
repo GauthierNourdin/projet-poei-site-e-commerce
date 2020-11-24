@@ -1,7 +1,7 @@
 package org.eclipse.model;
 
 public class LignePanier {
-	/** Classe d'association entre Panier et Produit */
+	/** Classe d'association entre Client et Produit */
 	
 	// Attributs
 	private int id;

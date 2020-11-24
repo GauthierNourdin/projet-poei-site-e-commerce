@@ -7,12 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/panier/panier")
+@WebServlet("/client/panier")
 public class PanierServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher("/WEB-INF/panier/panier.jsp").forward(request, response);
+		// Remplissage du panier avec les lignes de panier associées au client.
+		this.getServletContext().getRequestDispatcher("/WEB-INF/client/panier.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

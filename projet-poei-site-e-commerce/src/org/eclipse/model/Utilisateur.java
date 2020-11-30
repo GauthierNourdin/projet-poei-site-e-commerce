@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 public abstract class Utilisateur {
 	/**
-	 *  Classe de base commune a tous les utilisateurs du site.
+	 *  Classe de base commune a tous les utilisateurs du site. Abstraite.
 	 */
 	// Attributs
+	private int idUtilisateur;
 	private String nom;
 	private String prenom;
 	private String adresseMail;
@@ -16,11 +17,32 @@ public abstract class Utilisateur {
 	private ArrayList<Integer> idAdresses = new ArrayList<Integer>();
 
 	// Les constructeurs
+	// Constructeur vide
 	public Utilisateur() {
 	}
 	
+	// Constructeur pour le delete
+	public Utilisateur(int idUtilisateur) {
+		this.idUtilisateur = idUtilisateur;
+	}
+
+	// Constructeur pour le save
 	public Utilisateur(String nom, String prenom, String adresseMail, String numeroTelephone,
 			String identifiantConnexion, String motDePasse, ArrayList<Integer> idAdresses) {
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresseMail = adresseMail;
+		this.numeroTelephone = numeroTelephone;
+		this.identifiantConnexion = identifiantConnexion;
+		this.motDePasse = motDePasse;
+		this.idAdresses = idAdresses;
+	}
+	
+	// Constructeur pour l'update, le findById et le findAll
+	public Utilisateur(int idUtilisateur, String nom, String prenom, String adresseMail, String numeroTelephone,
+			String identifiantConnexion, String motDePasse, ArrayList<Integer> idAdresses) {
+		super();
+		this.idUtilisateur = idUtilisateur;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.adresseMail = adresseMail;
@@ -33,6 +55,14 @@ public abstract class Utilisateur {
 	// Les getters et les setters classiques
 	public String getNom() {
 		return this.nom;
+	}
+
+	public int getIdUtilisateur() {
+		return idUtilisateur;
+	}
+
+	public void setIdUtilisateur(int idUtilisateur) {
+		this.idUtilisateur = idUtilisateur;
 	}
 
 	public void setNom(String nom) {
@@ -89,7 +119,7 @@ public abstract class Utilisateur {
 
 	// La methode "toString" sert uniquement au debuggage.
 	public String toString() {
-		return "Utilisateur [nom=" + this.nom + ", prenom=" + this.prenom + ", adresseMail="
+		return "Utilisateur [idUtilisateur=" + this.idUtilisateur + ", nom=" + this.nom + ", prenom=" + this.prenom + ", adresseMail="
 				+ this.adresseMail + ", numeroTelephone=" + this.numeroTelephone + ", identifiantConnexion="
 				+ this.identifiantConnexion + ", motDePasse=" + this.motDePasse + ", adresses" + this.idAdresses + "]";
 	}

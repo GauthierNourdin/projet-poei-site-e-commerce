@@ -11,14 +11,14 @@ public class Commentaire {
 	private int idProduit;
 	private int id;
 	private int idPrecedent;
-	private String commentaire;
+	private String texte;
 
 	// Les constructeurs
-	public Commentaire(int idUtilisateur, int idProduit, int idPrecedent, String commentaire) {
+	public Commentaire(int idUtilisateur, int idProduit, int idPrecedent, String texte) {
 		this.idUtilisateur = idUtilisateur;
 		this.idProduit = idProduit;
 		this.id = GestionnaireId.giveNewIdCommentaire();
-		this.commentaire = commentaire;
+		this.texte = texte;
 		this.date = new Date();
 		this.idPrecedent = idPrecedent;
 	}
@@ -56,12 +56,12 @@ public class Commentaire {
 		this.id = id;
 	}
 
-	public String getCommentaire() {
-		return this.commentaire;
+	public String getTexte() {
+		return this.texte;
 	}
 
-	public void setCommentaire(String commentaire) {
-		this.commentaire = commentaire;
+	public void setTexte(String texte) {
+		this.texte = texte;
 	}
 	
 	public int getIdPrecedent() {
@@ -75,7 +75,7 @@ public class Commentaire {
 	// La methode "toString" sert uniquement au debuggage.
 	public String toString() {
 		return "Commentaire [date=" + this.date + ", idUtilisateur=" + this.idUtilisateur + ", idProduit="
-				+ this.idProduit + ", id=" + this.id + ", idPrecedent=" + this.idPrecedent + ", commentaire=" + this.commentaire + "]";
+				+ this.idProduit + ", id=" + this.id + ", idPrecedent=" + this.idPrecedent + ", texte=" + this.texte + "]";
 	}
 
 }

@@ -25,7 +25,7 @@ public class ProduitService {
 			new Produit("Epee William Wallace", 599.99, 1, "/images/epee-william-wallace.jpg",
 					"Reproduction en metal de l'epee du film", 3, new ArrayList<Integer>(Arrays.asList(6,7)))
 			));
-
+ 
 	// Constructeur prive pour eviter de creer des instances.
 	private ProduitService() {
 	}

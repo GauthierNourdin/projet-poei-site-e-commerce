@@ -19,12 +19,33 @@ public class Produit {
 	private ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
 
 	// Les constructeurs
+	// Constructeur vide
 	public Produit() {
 	}
 	
+	// Constructeur pour le delete
+	public Produit(int id) {
+		this.id = id;
+	}
+
+	// Constructeur pour l'update, le findById et le findAll
+	public Produit(int id, String designation, double prixUnitaire, int quantiteEnStock, String urlImage,
+			String descriptionProduit, int idVendeur, Date dateDebut, ArrayList<Integer> idCategories, ArrayList<Integer> idLignesCommande) {
+		this.id = id;
+		this.designation = designation;
+		this.prixUnitaire = prixUnitaire;
+		this.quantiteEnStock = quantiteEnStock;
+		this.urlImage = urlImage;
+		this.descriptionProduit = descriptionProduit;
+		this.idVendeur = idVendeur;
+		this.dateDebut = dateDebut;
+		this.idCategories = idCategories;
+		this.idLignesCommande = idLignesCommande;
+	}
+
+	// Constructeur pour le save
 	public Produit(String designation, double prixUnitaire, int quantiteEnStock, String urlImage,
 			String descriptionProduit, int idVendeur, ArrayList<Integer> idCategories) {
-		this.id = GestionnaireId.giveNewIdProduit();
 		this.designation = designation;
 		this.prixUnitaire = prixUnitaire;
 		this.quantiteEnStock = quantiteEnStock;
@@ -33,6 +54,7 @@ public class Produit {
 		this.idVendeur = idVendeur;
 		this.idCategories = idCategories;
 		this.dateDebut = new Date();
+		this.idCategories = idCategories;
 	}
 
 	// Les getters et les setters classiques

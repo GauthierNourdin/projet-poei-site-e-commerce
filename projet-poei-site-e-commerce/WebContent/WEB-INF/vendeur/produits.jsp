@@ -3,14 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ include file="/WEB-INF/lib/BootstrapAndFontAwesome.html"%>
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Liste des produits</title>
-</head>
+<c:set var="pagetitle" value="Mes produits"/>
+<%@ include file="/html/head.jsp"%>
 <body>
 <%@ include file="/html/choixheader.html"%>
 <h3>Ajouter un produit</h3>
@@ -46,7 +42,7 @@
 	<c:url var="pagemodification" value="/vendeur/produit/modification?idproduit=${ produit['id'] }"></c:url>
 	<c:url var="pagesuppression" value="/vendeur/produit/suppression?idproduit=${ produit['id'] }"></c:url>
 	<div class="media">
-	  <img src="${ pageContext.request.contextPath }/${ produit['urlImage'] }" alt="Image manquante" class="align-self-center mr-3" style="width:150px;">
+	  <img src="<c:url value="${ produit['urlImage'] }"/>" alt="${ produit['designation'] }" class="align-self-center mr-3" style="width:150px;">
 	  <div class="media-body">
 	    <h4>${ produit['designation'] }</h4>
 	    <p>${ produit['prixUnitaire'] }€</p>

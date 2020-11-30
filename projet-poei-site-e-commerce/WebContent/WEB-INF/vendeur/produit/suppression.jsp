@@ -3,14 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ include file="/WEB-INF/lib/BootstrapAndFontAwesome.html"%>
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Suppression produit</title>
-</head>
+<c:set var="pagetitle" value="Suppression produit"/>
+<%@ include file="/html/head.jsp"%>
 <body>
 <%@ include file="/html/choixheader.html"%>
 <h2>Attention la suppression de produit est définitive et fortement déconseillée. Pour confirmer vueillez rentrer vos identifiants.</h2>

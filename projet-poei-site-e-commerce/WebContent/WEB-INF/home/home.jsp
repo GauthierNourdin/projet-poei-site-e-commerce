@@ -3,24 +3,27 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ include file="/WEB-INF/lib/BootstrapAndFontAwesome.html"%>
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Page d'accueil</title>
-</head>
+<c:set var="pagetitle" value="Page d'accueil"/>
+<%@ include file="/html/head.jsp"%>
 <body>
 <%@ include file="/html/choixheader.html"%>
 <h2>Barre de recherche</h2>
+<form method="post" action="${ pageContext.request.contextPath }/home">
+	<div>
+		<label for="nom">Recherche de produit : </label> 
+		<input type="text" id="nom" name="nom" value="${ nomSaisi }">
+	</div>
+	<input type="submit" value="Rechercher"/>
+</form>
 <p>Prochainement</p>
 <div class="card-columns"> <%-- pas satisfaisant, remplace par flex --%>
 	<c:forEach items="${ produits }" var="produit">
 	<c:url var="pageproduit" value="/produit/produit?idproduit=${ produit['id'] }"></c:url>
-	<div class="card" style="width:400px">
+	<div class="card" style="width:400px">	
 		<a href="${ pageproduit }">
-   			<img class="card-img-top" src="${ pageContext.request.contextPath }/${ produit['urlImage'] }" alt="Image manquante">
+     	<img class="card-img-top" src="<c:url value="${ produit['urlImage'] }"/>" alt="${ produit['designation'] }"/>
   		</a>
   		<div class="card-body text-center">
   			<h3 class="card-title">
@@ -31,6 +34,6 @@
     		<p class="card-text"><c:out value="${ produit['prixUnitaire'] }"/>€</p>
   		</div>
 	</div>
-</c:forEach>
+	</c:forEach>
 </div>
 </body>

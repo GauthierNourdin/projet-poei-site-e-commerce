@@ -30,13 +30,14 @@ public class PrivateFilter implements Filter {
 		Vendeur vendeurConnected = (Vendeur) session.getAttribute("vendeur");
 		String chemin = req.getServletPath();
 		
-		if (clientConnected != null || vendeurConnected != null || chemin.equals("") || chemin.equals("/index")
-				|| chemin.equals("/produit/produit") || chemin.equals("/client/connexion")
-				|| chemin.equals("/vendeur/connexion") || chemin.equals("/client/inscription")
-				|| chemin.equals("/vendeur/inscription") || chemin.equals("/panier/panier"))
+//		if (clientConnected != null || vendeurConnected != null || chemin.equals("") || chemin.equals("/index") || chemin.equals("/home")
+//				|| chemin.equals("/produit/produit") || chemin.equals("/client/connexion")
+//				|| chemin.equals("/vendeur/connexion") || chemin.equals("/client/inscription")
+//				|| chemin.equals("/vendeur/inscription") || chemin.equals("/panier/panier"))
 			chain.doFilter(request, response);
-		else
-			res.sendRedirect(req.getContextPath());
+//		else
+//			System.out.println(req.getContextPath());
+//			res.sendRedirect(req.getContextPath());
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {

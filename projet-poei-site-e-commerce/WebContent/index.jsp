@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ include file="/WEB-INF/lib/BootstrapAndFontAwesome.html"%>
+<html lang="fr">
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +11,8 @@
 <title>Page de bienvenue</title>
 </head>
 <body>
-<p>Bienvenue cher visiteur !</p>
+<%@ include file="/html/choixheader.html"%>
+<h2>Bienvenue cher visiteur !</h2>
 <c:url var="retourhome" value="/home"></c:url>
 <p><a href="${ retourhome }">Aller a la page d'accueil</a></p>
 </body>

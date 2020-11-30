@@ -114,9 +114,9 @@ public class ClientService {
 		if (!flagSurAjout) {
 			LignePanier newLignePanier;
 			if (quantiteSouhaitee > produit.getQuantiteEnStock()) {
-				newLignePanier = new LignePanier(produit.getQuantiteEnStock(), client.getIdClient(), produit.getId(), produit.getPrixUnitaire());
+				newLignePanier = new LignePanier(produit.getQuantiteEnStock(), client.getIdClient(), produit.getId());
 			} else {
-				newLignePanier = new LignePanier(quantiteSouhaitee, client.getIdClient(), produit.getId(), produit.getPrixUnitaire());
+				newLignePanier = new LignePanier(quantiteSouhaitee, client.getIdClient(), produit.getId());
 			}
 			try {
 				LignePanierService.save(newLignePanier);
@@ -197,10 +197,6 @@ public class ClientService {
 				LignePanierService.update(lignPani);
 				throw new Exception("Le produit n'est pas disponible en assez grande quantité");
 			}
-			if (lignPani.getPrixUnitaire() != produit.getPrixUnitaire()) {
-				lignPani.setPrixUnitaire(produit.getPrixUnitaire());
-				LignePanierService.update(lignPani);
-			}
 		}
 	}
 	
@@ -225,16 +221,16 @@ public class ClientService {
 		
 		ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
 		for (LignePanier lignPani : lignesPanier) {
-			LigneCommande ligneCommande = new LigneCommande(lignPani.getQuantiteSouhaitee(), commande.getId(), lignPani.getIdProduit(), lignPani.getPrixUnitaire());
+			Produit produit = ProduitService.findById(lignPani.getIdProduit());
+			produit.setQuantiteEnStock(produit.getQuantiteEnStock() - lignPani.getQuantiteSouhaitee());
+			
+			LigneCommande ligneCommande = new LigneCommande(lignPani.getQuantiteSouhaitee(), commande.getId(), lignPani.getIdProduit(), produit.getPrixUnitaire());
 			try {
 				LigneCommandeService.save(ligneCommande);
 			} catch (Exception e) {
 				throw new Exception("Probleme de sauvegarde de la ligne de commande");
 			}
 			idLignesCommande.add(ligneCommande.getId());
-			
-			Produit produit = ProduitService.findById(lignPani.getIdProduit());
-			produit.setQuantiteEnStock(produit.getQuantiteEnStock() - lignPani.getQuantiteSouhaitee());
 			
 			ArrayList<Integer> produitIdLignesCommande = produit.getIdLignesCommande();
 			produitIdLignesCommande.add(ligneCommande.getId());

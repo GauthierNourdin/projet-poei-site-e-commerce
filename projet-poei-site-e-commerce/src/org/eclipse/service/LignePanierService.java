@@ -11,7 +11,7 @@ public class LignePanierService {
 	 * statique permet de le generer au debut de l'execution.
 	 */
 	private static ArrayList<LignePanier> lignesPanier = new ArrayList<LignePanier>(Arrays.asList(
-			new LignePanier(3, 1, 2, 24.99)
+			new LignePanier(3, 1, 2)
 			));
 
 	// Constructeur prive pour eviter de creer des instances.

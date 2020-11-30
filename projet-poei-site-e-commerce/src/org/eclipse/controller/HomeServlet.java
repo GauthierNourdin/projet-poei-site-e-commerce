@@ -12,18 +12,26 @@ import javax.servlet.http.HttpServletResponse;
 import org.eclipse.model.Produit;
 import org.eclipse.service.ProduitService;
 
-@WebServlet({"/home"})
+@WebServlet({"/home", "/index", ""})
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Produit> produits = ProduitService.findDisponibles();
 		request.setAttribute("produits", produits);
-		this.getServletContext().getRequestDispatcher("/home/home.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/home/home.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Méthode pour rechercher par nom un produit
+		String nom = request.getParameter("nom");
+		
+		ArrayList<Produit> produits = ProduitService.findDisponibles();
+		produits = ProduitService.filterName(produits, nom);
+		request.setAttribute("produits", produits);
+		request.setAttribute("nomSaisi", nom);
+		
+		this.getServletContext().getRequestDispatcher("/WEB-INF/home/home.jsp").forward(request, response);
 	}
 
 }

@@ -10,18 +10,33 @@ public class LigneCommande {
 	private int idProduit;
 	private double prixUnitaire;
 
-	// Les constructeurs
+	// Les constructeur
+	// Constructeur vide
 	public LigneCommande() {
 	}
+
+	// Constructeur pour le delete
+	public LigneCommande(int id) {
+		this.id = id;
+	}
 	
+	// Constructeur pour le save
 	public LigneCommande(int quantiteCommandee, int idCommande, int idProduit, double prixUnitaire) {
-		this.id = GestionnaireId.giveNewIdLigneCommande();
 		this.quantiteCommandee = quantiteCommandee;
 		this.idCommande = idCommande;
 		this.idProduit = idProduit;
 		this.prixUnitaire = prixUnitaire;
 	}
-
+	
+	// Constructeur pour l'update, le findById et le findAll	
+	public LigneCommande(int id, int quantiteCommandee, int idCommande, int idProduit, double prixUnitaire) {
+		this.id = id;
+		this.quantiteCommandee = quantiteCommandee;
+		this.idCommande = idCommande;
+		this.idProduit = idProduit;
+		this.prixUnitaire = prixUnitaire;
+	}
+	
 	// Les getters et les setters classiques
 	public int getId() {
 		return this.id;

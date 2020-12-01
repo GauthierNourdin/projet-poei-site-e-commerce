@@ -6,7 +6,7 @@ public class Commentaire {
 	/** Classe permettant d'enregistrer les commentaires sur les produits*/
 
 	// Les attributs
-	private Date date;
+	private Date date = new Date();
 	private int idUtilisateur;
 	private int idProduit;
 	private int id;
@@ -14,13 +14,33 @@ public class Commentaire {
 	private String texte;
 
 	// Les constructeurs
-	public Commentaire(int idUtilisateur, int idProduit, int idPrecedent, String texte) {
+	// Constructeur vide
+	public Commentaire() {
+	}
+	
+	// Constructeur pour le delete
+	public Commentaire(int id) {
+		this.id = id;
+	}
+	
+	// Constructeur pour le save
+	public Commentaire(int idUtilisateur, int idProduit, int idPrecedent, String texte, Date date) {
 		this.idUtilisateur = idUtilisateur;
 		this.idProduit = idProduit;
-		this.id = GestionnaireId.giveNewIdCommentaire();
 		this.texte = texte;
-		this.date = new Date();
+		this.date = date;
 		this.idPrecedent = idPrecedent;
+	}
+	
+	// Constructeur pour l'update, le findById et le findAll	
+	public Commentaire(Date date, int idUtilisateur, int idProduit, int id, int idPrecedent, String texte) {
+		super();
+		this.date = date;
+		this.idUtilisateur = idUtilisateur;
+		this.idProduit = idProduit;
+		this.id = id;
+		this.idPrecedent = idPrecedent;
+		this.texte = texte;
 	}
 
 	// Les getters et les setters classiques

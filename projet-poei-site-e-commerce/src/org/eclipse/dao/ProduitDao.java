@@ -19,9 +19,8 @@ public class ProduitDao implements Dao<Produit> {
 
 		if (c != null) {
 			try {
-				
 				PreparedStatement ps = c.prepareStatement(
-						"INSERT INTO Produit (designation,prixUnit,quantiteStock,urlImage,descriptionProduit,dateDebut,idUtilisateur) VALUES (?,?,?,?,?,?,?); ",
+						"INSERT INTO Produit (designation,prixUnit,quantiteStock,urlImage,descriptionProduit,dateDebut,idUtilisateur) VALUES (?,?,?,?,?,?,?);",
 						PreparedStatement.RETURN_GENERATED_KEYS);
 				ps.setString(1, produit.getDesignation());
 				ps.setDouble(2, produit.getPrixUnitaire());
@@ -58,7 +57,6 @@ public class ProduitDao implements Dao<Produit> {
 
 	public void remove(Produit produit) {
 		Connection c = MyConnection.getConnection();
-		
 
 		if (c != null) {
 			try {
@@ -73,7 +71,7 @@ public class ProduitDao implements Dao<Produit> {
 				ps.setInt(1, produit.getId());
 				ps.executeUpdate();
 
-				ps = c.prepareStatement("UPDATE LigneCommande SET idProduit=NULL WHERE idProduit=? ");
+				ps = c.prepareStatement("UPDATE LigneCommande SET idProduit=NULL WHERE idProduit=?;");
 				ps.setInt(1, produit.getId());
 				ps.executeUpdate();
 
@@ -95,7 +93,7 @@ public class ProduitDao implements Dao<Produit> {
 		
 		if (c != null) {
 			try {
-				PreparedStatement ps = c.prepareStatement("DELETE FROM ProduitCategorie WHERE idProduit=?; ");
+				PreparedStatement ps = c.prepareStatement("DELETE FROM ProduitCategorie WHERE idProduit=?;");
 				ps.setInt(1, produit.getId());
 				int nbr = ps.executeUpdate();
 				if (nbr != produit.getIdCategories().size()) {
@@ -112,22 +110,22 @@ public class ProduitDao implements Dao<Produit> {
 					}
 				}
 				
-				ps = c.prepareStatement("SELECT id FROM LignePanier WHERE quantiteSouhaitee>?");
+				ps = c.prepareStatement("SELECT id FROM LignePanier WHERE quantiteSouhaitee>?;");
 				ps.setInt(1, produit.getQuantiteEnStock());
 				ResultSet result = ps.executeQuery();
 				while (result.next()) {
 					int idLignePanier = result.getInt("id");
 					
-					PreparedStatement ps2 = c.prepareStatement("UPDATE LignePanier SET quantiteSouhaitee=? WHERE id=?");
+					PreparedStatement ps2 = c.prepareStatement("UPDATE LignePanier SET quantiteSouhaitee=? WHERE id=?;");
 					ps2.setInt(1, produit.getQuantiteEnStock());
 					ps2.setInt(2, idLignePanier);
-					nbr = ps.executeUpdate();
+					nbr = ps2.executeUpdate();
 					if (nbr != 1) {
 						System.err.println("Erreur : Absence de modification dans la table LignePanier");
 					}
 				}
 				
-				ps = c.prepareStatement("UPDATE Produit SET designation=?, prixUnit=?, quantiteStock=?, urlImage=?, descriptionProduit=? WHERE id=?; ");
+				ps = c.prepareStatement("UPDATE Produit SET designation=?, prixUnit=?, quantiteStock=?, urlImage=?, descriptionProduit=? WHERE id=?;");
 				ps.setString(1, produit.getDesignation());
 				ps.setDouble(2, produit.getPrixUnitaire());
 				ps.setInt(3, produit.getQuantiteEnStock());
@@ -150,7 +148,6 @@ public class ProduitDao implements Dao<Produit> {
 		Connection c = MyConnection.getConnection();
 		if (c != null) {
 			try {
-				
 				PreparedStatement ps = c.prepareStatement("SELECT * FROM Produit WHERE id=?;");
 				ps.setInt(1, id);
 				ResultSet result = ps.executeQuery();
@@ -170,7 +167,7 @@ public class ProduitDao implements Dao<Produit> {
 					PreparedStatement ps2 = c.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
 					ps2.setInt(1, id);
 					ResultSet result2 = ps2.executeQuery();
-					while(result.next()) {
+					while(result2.next()) {
 						int idCategorie = result2.getInt("idCategorie");
 						idCategories.add(idCategorie);
 					}
@@ -178,7 +175,7 @@ public class ProduitDao implements Dao<Produit> {
 					PreparedStatement ps3 = c.prepareStatement("SELECT id FROM LigneCommande WHERE idProduit=?;");
 					ps3.setInt(1, id);
 					ResultSet result3 = ps3.executeQuery();
-					while(result.next()) {
+					while(result3.next()) {
 						int idLigneCommande = result3.getInt("id");
 						idLignesCommande.add(idLigneCommande);
 					}
@@ -220,7 +217,7 @@ public class ProduitDao implements Dao<Produit> {
 					PreparedStatement ps2 = c.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
 					ps2.setInt(1, id);
 					ResultSet result2 = ps2.executeQuery();
-					while(result.next()) {
+					while(result2.next()) {
 						int idCategorie = result2.getInt("idCategorie");
 						idCategories.add(idCategorie);
 					}
@@ -228,7 +225,7 @@ public class ProduitDao implements Dao<Produit> {
 					PreparedStatement ps3 = c.prepareStatement("SELECT id FROM LigneCommande WHERE idProduit=?;");
 					ps3.setInt(1, id);
 					ResultSet result3 = ps3.executeQuery();
-					while(result.next()) {
+					while(result3.next()) {
 						int idLigneCommande = result3.getInt("id");
 						idLignesCommande.add(idLigneCommande);
 					}
@@ -244,6 +241,27 @@ public class ProduitDao implements Dao<Produit> {
 			}
 		}
 		return null;
+	}
+
+	public void removeByVendeur(int idUtilisateur) {
+		Connection c = MyConnection.getConnection();
+		if (c != null) {
+			try {
+				PreparedStatement ps = c.prepareStatement("SELECT id FROM Produit WHERE idUtilisateur=?;");
+				ps.setInt(1, idUtilisateur);
+				ResultSet result = ps.executeQuery();
+				
+				while (result.next()) {
+					int id = result.getInt("id");
+					
+				    Produit produit = findById(id);
+				    remove(produit);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

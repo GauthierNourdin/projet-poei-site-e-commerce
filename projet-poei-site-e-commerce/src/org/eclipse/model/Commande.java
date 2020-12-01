@@ -13,14 +13,28 @@ public class Commande {
 	private Date dateDeCommande;
 
 	// Les constructeurs
+	// Constructeur vide
 	public Commande() {
-		this.dateDeCommande = new Date();
 	}
 	
-	public Commande(int idClient) {
-		this.id = GestionnaireId.giveNewIdCommande();
+	// Constructeur pour le delete
+	public Commande(int id) {
+		this.id = id;
+	}	
+	
+	// Constructeur pour le save
+	public Commande(int idClient, ArrayList<Integer> idLignesCommande, Date dateDeCommande) {
 		this.idClient = idClient;
-		this.dateDeCommande = new Date();
+		this.idLignesCommande = idLignesCommande;
+		this.dateDeCommande = dateDeCommande;
+	}	
+	
+	// Constructeur pour l'update, le findById et le findAll
+	public Commande(int id, int idClient, ArrayList<Integer> idLignesCommande, Date dateDeCommande) {
+		this.id = id;
+		this.idClient = idClient;
+		this.idLignesCommande = idLignesCommande;
+		this.dateDeCommande = dateDeCommande;
 	}
 
 	// Les getters et les setters classiques

@@ -13,10 +13,17 @@ public class Adresse {
 	private int idUtilisateur;
 	private int id;
 	
-	// Le constructeur
+	// Les constructeurs
+	// Constructeur vide
 	public Adresse() {
 	}
 	
+	// Constructeur pour le delete
+	public Adresse(int id) {
+		this.id = id;
+	}
+	
+	// Constructeur pour le save
 	public Adresse(String numeroDansRue, String rue, String ville, String codePostal, String pays,
 			String complementAdresse, int idUtilisateur) {
 		this.numeroDansRue = numeroDansRue;
@@ -26,7 +33,19 @@ public class Adresse {
 		this.pays = pays;
 		this.complementAdresse = complementAdresse;
 		this.idUtilisateur = idUtilisateur;
-		this.id = GestionnaireId.giveNewIdAdresse();
+	}
+	
+	// Constructeur pour l'update, le findById et le findAll	
+	public Adresse(String numeroDansRue, String rue, String ville, String codePostal, String pays,
+			String complementAdresse, int idUtilisateur, int id) {
+		this.numeroDansRue = numeroDansRue;
+		this.rue = rue;
+		this.ville = ville;
+		this.codePostal = codePostal;
+		this.pays = pays;
+		this.complementAdresse = complementAdresse;
+		this.idUtilisateur = idUtilisateur;
+		this.id = id;
 	}
 
 	// Les getters et les setters classiques

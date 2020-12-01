@@ -43,18 +43,20 @@ public class Produit {
 		this.idLignesCommande = idLignesCommande;
 	}
 
-	// Constructeur pour le save
+	// Constructeur pour le save	
 	public Produit(String designation, double prixUnitaire, int quantiteEnStock, String urlImage,
-			String descriptionProduit, int idVendeur, ArrayList<Integer> idCategories) {
+			String descriptionProduit, int idVendeur, Date dateDebut, ArrayList<Integer> idCategories,
+			ArrayList<Integer> idLignesCommande) {
+		super();
 		this.designation = designation;
 		this.prixUnitaire = prixUnitaire;
 		this.quantiteEnStock = quantiteEnStock;
 		this.urlImage = urlImage;
 		this.descriptionProduit = descriptionProduit;
 		this.idVendeur = idVendeur;
+		this.dateDebut = dateDebut;
 		this.idCategories = idCategories;
-		this.dateDebut = new Date();
-		this.idCategories = idCategories;
+		this.idLignesCommande = idLignesCommande;
 	}
 
 	// Les getters et les setters classiques

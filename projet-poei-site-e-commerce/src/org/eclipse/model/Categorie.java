@@ -5,15 +5,27 @@ public class Categorie {
 	
 	// Les attributs
 	int id;
-	String categorie;
+	String nom;
 
 	// Les constructeurs
+	// Constructeur vide
 	public Categorie() {
 	}
 	
-	public Categorie(String categorie) {
-		this.id = GestionnaireId.giveNewIdCategorie();
-		this.categorie = categorie;
+	// Constructeur pour le delete
+	public Categorie(int id) {
+		this.id = id;
+	}
+
+	// Constructeur pour le save
+	public Categorie(String nom) {
+		this.nom = nom;
+	}	
+	
+	// Constructeur pour le delete, le findById et le findAll 
+	public Categorie(int id, String nom) {
+		this.id = id;
+		this.nom = nom;
 	}
 
 	// Les getters et les setters classiques
@@ -25,17 +37,17 @@ public class Categorie {
 		this.id = id;
 	}
 
-	public String getCategorie() {
-		return this.categorie;
+	public String getNom() {
+		return this.nom;
 	}
 
-	public void setCategorie(String categorie) {
-		this.categorie = categorie;
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
 	// La methode "toString" sert uniquement au debuggage.
 	public String toString() {
-		return "Categorie [id=" + this.id + ", categorie=" + this.categorie + "]";
+		return "Categorie [id=" + this.id + ", nom=" + this.nom + "]";
 	}
 
 }

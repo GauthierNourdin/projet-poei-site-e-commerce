@@ -141,7 +141,42 @@ Connection c = MyConnection.getConnection();
 					Commande commande = new Commande(id, idClient, idLignesCommande, dateDeCommande);
 					commandes.add(commande);
 				}
+				return commandes;
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	public ArrayList<Commande> findByClient(int idClient) {
+		Connection c = MyConnection.getConnection();
+		if (c != null) {
+			try {
+				ArrayList<Commande> commandes = new ArrayList<Commande>();
 				
+				PreparedStatement ps = c.prepareStatement("SELECT * FROM Commande WHERE idUtilisateur=?;");
+				ps.setInt(1, idClient);
+				ResultSet result = ps.executeQuery();
+				
+				while (result.next()) {
+					int id = result.getInt("id");
+					Date dateDeCommande = result.getDate("dateCommande");
+					
+					ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
+					
+					PreparedStatement ps2 = c.prepareStatement("SELECT id FROM LigneCommande WHERE idCommande=?;");
+					ps2.setInt(1, id);
+					ResultSet result2 = ps2.executeQuery();
+					while(result2.next()) {
+						int idLigneCommande = result2.getInt("id");
+						idLignesCommande.add(idLigneCommande);
+					}
+					
+					Commande commande = new Commande(id, idClient, idLignesCommande, dateDeCommande);
+					commandes.add(commande);
+				}
 				return commandes;
 
 			} catch (SQLException e) {

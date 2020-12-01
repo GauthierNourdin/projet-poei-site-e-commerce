@@ -165,6 +165,7 @@ public class CommentaireDao implements Dao<Commentaire> {
 		return null;
 	}
 
+	// Méthode pour supprimer tous les commentaires relatifs à un produit.
 	public void removeByProduit(int idProduit) {
 		Connection c = MyConnection.getConnection();
 
@@ -188,6 +189,37 @@ public class CommentaireDao implements Dao<Commentaire> {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	// Retourne tous les commentaires d'un produit. Les commentaires sont complets.
+	public ArrayList<Commentaire> findByProduit(int idProduit) {
+		Connection c = MyConnection.getConnection();
+		if (c != null) {
+			try {
+				ArrayList<Commentaire> commentaires = new ArrayList<Commentaire>();
+
+				PreparedStatement ps = c.prepareStatement("SELECT * FROM Commentaire WHERE idProduit=?;");
+				ps.setInt(1, idProduit);
+				ResultSet result = ps.executeQuery();
+
+				while (result.next()) {
+					int id = result.getInt("id");
+					Date date = result.getDate("dateCommentaire");
+					String texte = result.getString("texte");
+					int idPrecedent = result.getInt("idCommentairePrecedent");
+					int idUtilisateur = result.getInt("idUtilisateur");
+
+					Commentaire commentaire = new Commentaire(date, idUtilisateur, idProduit, id, idPrecedent, texte);
+					commentaires.add(commentaire);
+				}
+
+				return commentaires;
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 
 }

@@ -190,4 +190,76 @@ public class VendeurDao implements Dao<Vendeur> {
 		return null;
 	}
 
+	// Recherche d'utilisateur par identifiant de connexion. Renvoie un vendeur avec seulement un id.
+	public Vendeur findByIdentifiantConnexion(String identifiantConnexion) {
+		Connection c = MyConnection.getConnection();
+		if (c != null) {
+			try {
+				
+				PreparedStatement ps = c.prepareStatement("SELECT id FROM Utilisateur WHERE identifiantConnexion = BINARY ?;");
+				ps.setString(1, identifiantConnexion);
+				ResultSet result = ps.executeQuery();
+				
+				if (result.next()) {
+					int idUtilisateur = result.getInt("id");
+				
+					Vendeur vendeur = new Vendeur(idUtilisateur);
+					return vendeur;
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	// Recherche de vendeur par identifiant de connexion et mot de passe. Renvoie un vendeur complet.
+	public Vendeur findByIdentifiantConnexionAndMotDePasse(String identifiantConnexion, String motDePasse) {
+		Connection c = MyConnection.getConnection();
+		if (c != null) {
+			try {
+				
+				PreparedStatement ps = c.prepareStatement("SELECT * FROM Utilisateur WHERE identifiantConnexion = BINARY ? AND motDePasse = BINARY ? AND typeU LIKE 'vendeur';");
+				ps.setString(1, identifiantConnexion);
+				ps.setString(2, motDePasse);
+				ResultSet result = ps.executeQuery();
+				
+				if (result.next()) {
+					int id = result.getInt("id");
+					String nom = result.getString("nom");
+					String prenom = result.getString("prenom");
+					String adresseMail = result.getString("adresseMail");
+					String numeroTelephone = result.getString("numeroTelephone");
+					
+					ArrayList<Integer> idAdresses = new ArrayList<Integer>();
+					ArrayList<Integer> idProduits = new ArrayList<Integer>();
+					
+					PreparedStatement ps2 = c.prepareStatement("SELECT id FROM Adresse WHERE idUtilisateur=?;");
+					ps2.setInt(1, id);
+					ResultSet result2 = ps2.executeQuery();
+					while(result2.next()) {
+						int idAdresse = result2.getInt("id");
+						idAdresses.add(idAdresse);
+					}
+					
+					PreparedStatement ps3 = c.prepareStatement("SELECT id FROM Produit WHERE idUtilisateur=?;");
+					ps3.setInt(1, id);
+					ResultSet result3 = ps3.executeQuery();
+					while(result3.next()) {
+						int idProduit = result3.getInt("id");
+						idProduits.add(idProduit);
+					}
+					
+					Vendeur vendeur = new Vendeur(id, nom, prenom, adresseMail, numeroTelephone, identifiantConnexion, motDePasse, idAdresses, idProduits);
+					return vendeur;
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
 }

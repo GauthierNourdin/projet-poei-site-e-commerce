@@ -117,6 +117,30 @@ Connection c = MyConnection.getConnection();
 					Categorie categorie = new Categorie(id, nom);
 					categories.add(categorie);
 				}
+				return categories;
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	// Recherche de catégorie par nom. Renvoie une catégorie avec seulement un id.
+	public Categorie findByNom(String nom) {
+		Connection c = MyConnection.getConnection();
+		if (c != null) {
+			try {
+				PreparedStatement ps = c.prepareStatement("SELECT id FROM Categorie WHERE categorie = BINARY ?;");
+				ps.setString(1, nom);
+				ResultSet result = ps.executeQuery();
+				
+				if (result.next()) {
+					int id = result.getInt("id");
+					
+					Categorie categorie = new Categorie(id);
+					return categorie;
+				}
 
 			} catch (SQLException e) {
 				e.printStackTrace();

@@ -132,4 +132,60 @@ public class LigneCommandeDao implements Dao<LigneCommande> {
 		return null;
 	}
 
+	public ArrayList<LigneCommande> findByCommande(int idCommande) {
+		Connection c = MyConnection.getConnection();
+		if (c != null) {
+			try {
+				ArrayList<LigneCommande> lignesCommande = new ArrayList<LigneCommande>();
+				
+				PreparedStatement ps = c.prepareStatement("SELECT * FROM LigneCommande WHERE idCommande=?;");
+				ps.setInt(1, idCommande);
+				ResultSet result = ps.executeQuery();
+				
+				while (result.next()) {
+					int id = result.getInt("id");
+					int quantiteCommandee = result.getInt("quantiteCommande");
+					double prixUnitaire = result.getDouble("prixUnit");
+					int idProduit = result.getInt("idProduit");
+					
+					LigneCommande ligneCommande = new LigneCommande(id, quantiteCommandee, idCommande, idProduit, prixUnitaire);
+					lignesCommande.add(ligneCommande);
+				}
+				return lignesCommande;
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	public ArrayList<LigneCommande> findByProduit(int idProduit) {
+		Connection c = MyConnection.getConnection();
+		if (c != null) {
+			try {
+				ArrayList<LigneCommande> lignesCommande = new ArrayList<LigneCommande>();
+				
+				PreparedStatement ps = c.prepareStatement("SELECT * FROM LigneCommande WHERE idProduit=?;");
+				ps.setInt(1, idProduit);
+				ResultSet result = ps.executeQuery();
+				
+				while (result.next()) {
+					int id = result.getInt("id");
+					int quantiteCommandee = result.getInt("quantiteCommande");
+					double prixUnitaire = result.getDouble("prixUnit");
+					int idCommande = result.getInt("idCommande");
+					
+					LigneCommande ligneCommande = new LigneCommande(id, quantiteCommandee, idCommande, idProduit, prixUnitaire);
+					lignesCommande.add(ligneCommande);
+				}
+				return lignesCommande;
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
 }

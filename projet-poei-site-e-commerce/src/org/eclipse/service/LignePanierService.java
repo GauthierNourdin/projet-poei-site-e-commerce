@@ -1,79 +1,86 @@
 package org.eclipse.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
+import org.eclipse.dao.LignePanierDao;
 import org.eclipse.model.LignePanier;
 
 public class LignePanierService {
-	/*
-	 * Cet attribut ne doit etre initialise qu'une seule fois. Le rendre
-	 * statique permet de le generer au debut de l'execution.
-	 */
-	private static ArrayList<LignePanier> lignesPanier = new ArrayList<LignePanier>(Arrays.asList(
-			new LignePanier(3, 1, 2)
-			));
+	private LignePanierDao lignePanierDao = new LignePanierDao();
 
-	// Constructeur prive pour eviter de creer des instances.
-	private LignePanierService() {
-	}
-
-	// Le getter statique et le setter statique adaptes, ne servent qu'aux tests et au débuggage.
-	public static ArrayList<LignePanier> getLignesPaniers() {
-		return lignesPanier;
-	}
-
-	public static void setLignesPaniers(ArrayList<LignePanier> argLignesPaniers) {
-		lignesPanier = argLignesPaniers;
-	}
-
-	// Methode statique pour ajouter une ligne de panier dans la liste
-	public static void save(LignePanier lignePanier) throws Exception {
-		if (lignesPanier.contains(lignePanier)) {
-			throw new Exception("La ligne de panier appartient deja a la liste");
-		} else {
-			lignesPanier.add(lignePanier);
+	// Méthode pour ajouter une ligne de panier dans la liste
+	public LignePanier save(LignePanier lignePanier) throws Exception {
+		if (lignePanier.getIdProduit() == 0) {
+			throw new Exception("Erreur : idProduit manquant !");
 		}
-	}
-
-	// Methode statique pour retirer une ligne de panier de la liste
-	public static void remove(LignePanier lignePanier) throws Exception {
-		if (lignesPanier.contains(lignePanier)) {
-			lignesPanier.remove(lignePanier);
-		} else {
-			throw new Exception("La ligne de panier n'appartient pas a la liste");
+		if (lignePanier.getIdClient() == 0) {
+			throw new Exception("Erreur : idClient manquant !");
 		}
+		return lignePanierDao.save(lignePanier);
 	}
 
-	// Methode statique pour mettre a jour une ligne de panier
-	public static void update(LignePanier lignePanier) throws Exception {
-		for (LignePanier lignPani : lignesPanier) {
-			if (lignPani.getId() == lignePanier.getId()) {
-				lignPani = lignePanier;
-				return;
-			}
+	// Méthode pour retirer une ligne de panier de la liste
+	public void remove(LignePanier lignePanier) throws Exception {
+		if (lignePanierDao.findById(lignePanier.getId()) == null) {
+			throw new Exception("Erreur : la ligne de panier n'appartient pas a la base de données");
 		}
-		throw new Exception("La ligne de panier n'appartient pas a la liste");
+		lignePanierDao.remove(lignePanier);
 	}
 
-	// Methode statique pour rendre la liste complete (convention de nommage)
-	public static ArrayList<LignePanier> findAll() {
-		return lignesPanier;
-	}
-
-	// Methode statique pour trouver dans la liste une ligne de panier d'id connu
-	public static LignePanier findById(int id) {
-		for (LignePanier lignPani : lignesPanier) {
-			if (lignPani.getId() == id) {
-				return lignPani;
-			}
+	// Méthode pour mettre a jour une ligne de panier
+	public LignePanier update(LignePanier lignePanier) throws Exception {
+		if (lignePanier.getIdProduit() == 0) {
+			throw new Exception("Erreur : idProduit manquant !");
 		}
-		return null;
+		if (lignePanier.getIdClient() == 0) {
+			throw new Exception("Erreur : idClient manquant !");
+		}
+		if (lignePanierDao.findById(lignePanier.getId()) == null) {
+			throw new Exception("Erreur : la ligne de panier n'appartient pas a la base de données");
+		}
+		return lignePanierDao.update(lignePanier);
+	}
+
+	// Méthode pour rendre la liste complete des lignes de panier
+	public ArrayList<LignePanier> findAll() {
+		return (ArrayList<LignePanier>) lignePanierDao.findAll();
+	}
+
+	// Méthode pour trouver dans la BdD une ligne de panier d'id connu
+	public LignePanier findById(int id) {
+		return lignePanierDao.findById(id);
 	}
 	
-	// La methode sert uniquement au debuggage.
-	public static String affichageDebuggage() {
-		return "LignePanierService [lignesPanier=" + lignesPanier + "]";
+	// Méthode pour trouver toutes les lignes de panier d'un client
+	public ArrayList<LignePanier> findByClient(int idClient) {
+		return lignePanierDao.findByClient(idClient);
+	}
+	
+	// Méthode pour trouver une ligne de panier d'un client concernant un produit
+	public LignePanier findByClientAndProduit(int idClient, int idProduit) {
+		return lignePanierDao.findByClientAndProduit(idClient, idProduit);
+	}
+	
+	/*
+	 * Méthode pour vérifier que la quantité souhaitée d'une ligne de panier ne
+	 * dépasse pas la quantité en stock du produit correspondant. Retourne la
+	 * ligne de panier (corrigée, le cas échéant).
+	 */
+	public LignePanier checkQuantiteSouhaitee(LignePanier lignePanier) throws Exception {
+		if (lignePanier.getIdProduit() == 0) {
+			throw new Exception("Erreur : idProduit manquant !");
+		}
+		if (lignePanier.getIdClient() == 0) {
+			throw new Exception("Erreur : idClient manquant !");
+		}
+		if (lignePanierDao.findById(lignePanier.getId()) == null) {
+			throw new Exception("Erreur : la ligne de panier n'appartient pas a la base de données");
+		}
+		return lignePanierDao.checkQuantiteSouhaitee(lignePanier);
 	}
 
+	// Méthode pour retirer toutes les lignes de panier d'un client
+	public void removeByClient(int idClient) {
+		lignePanierDao.removeByClient(idClient);
+	};
 }

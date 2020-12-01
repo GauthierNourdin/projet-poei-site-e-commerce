@@ -90,7 +90,6 @@ public class ProduitDao implements Dao<Produit> {
 
 	public Produit update(Produit produit) {
 		Connection c = MyConnection.getConnection();
-		
 		if (c != null) {
 			try {
 				PreparedStatement ps = c.prepareStatement("DELETE FROM ProduitCategorie WHERE idProduit=?;");
@@ -243,6 +242,7 @@ public class ProduitDao implements Dao<Produit> {
 		return null;
 	}
 
+	// Méthode pour retirer tous les produits d'un vendeur
 	public void removeByVendeur(int idUtilisateur) {
 		Connection c = MyConnection.getConnection();
 		if (c != null) {
@@ -262,6 +262,356 @@ public class ProduitDao implements Dao<Produit> {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	// Méthode pour trouver tous les produits disponibles
+	public ArrayList<Produit> findDisponibles() {
+		Connection c = MyConnection.getConnection();
+		if (c != null) {
+			try {
+				ArrayList<Produit> produits = new ArrayList<Produit>();
+				
+				Statement statement = c.createStatement();
+				String request = "SELECT * FROM Produit WHERE quantiteStock>0;";
+				ResultSet result = statement.executeQuery(request);
+				
+				while (result.next()) {
+					int id = result.getInt("id");
+					String designation = result.getString("designation");
+					double prixUnitaire = result.getDouble("prixUnit");
+					int quantiteStock = result.getInt("quantiteStock");
+					String urlImage = result.getString("urlImage");
+					String descriptionProduit = result.getString("descriptionProduit");
+					Date dateDebut = result.getDate("dateDebut");
+					int idVendeur = result.getInt("idUtilisateur");
+					
+					ArrayList<Integer> idCategories = new ArrayList<Integer>(); 
+					ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
+					
+					PreparedStatement ps2 = c.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
+					ps2.setInt(1, id);
+					ResultSet result2 = ps2.executeQuery();
+					while(result2.next()) {
+						int idCategorie = result2.getInt("idCategorie");
+						idCategories.add(idCategorie);
+					}
+					
+					PreparedStatement ps3 = c.prepareStatement("SELECT id FROM LigneCommande WHERE idProduit=?;");
+					ps3.setInt(1, id);
+					ResultSet result3 = ps3.executeQuery();
+					while(result3.next()) {
+						int idLigneCommande = result3.getInt("id");
+						idLignesCommande.add(idLigneCommande);
+					}
+					
+					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage, descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
+					produits.add(produit);
+				}
+				
+				return produits;
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	// Méthode pour trouver tous les produits indisponibles
+	public ArrayList<Produit> findIndisponibles() {
+		Connection c = MyConnection.getConnection();
+		if (c != null) {
+			try {
+				ArrayList<Produit> produits = new ArrayList<Produit>();
+				
+				Statement statement = c.createStatement();
+				String request = "SELECT * FROM Produit WHERE quantiteStock=0;";
+				ResultSet result = statement.executeQuery(request);
+				
+				while (result.next()) {
+					int id = result.getInt("id");
+					String designation = result.getString("designation");
+					double prixUnitaire = result.getDouble("prixUnit");
+					int quantiteStock = result.getInt("quantiteStock");
+					String urlImage = result.getString("urlImage");
+					String descriptionProduit = result.getString("descriptionProduit");
+					Date dateDebut = result.getDate("dateDebut");
+					int idVendeur = result.getInt("idUtilisateur");
+					
+					ArrayList<Integer> idCategories = new ArrayList<Integer>(); 
+					ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
+					
+					PreparedStatement ps2 = c.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
+					ps2.setInt(1, id);
+					ResultSet result2 = ps2.executeQuery();
+					while(result2.next()) {
+						int idCategorie = result2.getInt("idCategorie");
+						idCategories.add(idCategorie);
+					}
+					
+					PreparedStatement ps3 = c.prepareStatement("SELECT id FROM LigneCommande WHERE idProduit=?;");
+					ps3.setInt(1, id);
+					ResultSet result3 = ps3.executeQuery();
+					while(result3.next()) {
+						int idLigneCommande = result3.getInt("id");
+						idLignesCommande.add(idLigneCommande);
+					}
+					
+					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage, descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
+					produits.add(produit);
+				}
+				
+				return produits;
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	// Méthode pour trouver tous les produits d'un vendeur
+	public ArrayList<Produit> findByVendeur(int idVendeur) {
+		Connection c = MyConnection.getConnection();
+		if (c != null) {
+			try {
+				ArrayList<Produit> produits = new ArrayList<Produit>();
+				
+				PreparedStatement ps = c.prepareStatement("SELECT * FROM Produit WHERE idUtilisateur=?;");
+				ps.setInt(1, idVendeur);
+				ResultSet result = ps.executeQuery();
+				
+				while (result.next()) {
+					int id = result.getInt("id");
+					String designation = result.getString("designation");
+					double prixUnitaire = result.getDouble("prixUnit");
+					int quantiteStock = result.getInt("quantiteStock");
+					String urlImage = result.getString("urlImage");
+					String descriptionProduit = result.getString("descriptionProduit");
+					Date dateDebut = result.getDate("dateDebut");
+					
+					ArrayList<Integer> idCategories = new ArrayList<Integer>(); 
+					ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
+					
+					PreparedStatement ps2 = c.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
+					ps2.setInt(1, id);
+					ResultSet result2 = ps2.executeQuery();
+					while(result2.next()) {
+						int idCategorie = result2.getInt("idCategorie");
+						idCategories.add(idCategorie);
+					}
+					
+					PreparedStatement ps3 = c.prepareStatement("SELECT id FROM LigneCommande WHERE idProduit=?;");
+					ps3.setInt(1, id);
+					ResultSet result3 = ps3.executeQuery();
+					while(result3.next()) {
+						int idLigneCommande = result3.getInt("id");
+						idLignesCommande.add(idLigneCommande);
+					}
+					
+					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage, descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
+					produits.add(produit);
+				}
+				
+				return produits;
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	// Méthode pour trouver tous les produits disponibles d'un vendeur	
+	public ArrayList<Produit> findDisponiblesByVendeur(int idVendeur) {
+		Connection c = MyConnection.getConnection();
+		if (c != null) {
+			try {
+				ArrayList<Produit> produits = new ArrayList<Produit>();
+				
+				PreparedStatement ps = c.prepareStatement("SELECT * FROM Produit WHERE idUtilisateur=? AND quantiteStock>0;");
+				ps.setInt(1, idVendeur);
+				ResultSet result = ps.executeQuery();
+				
+				while (result.next()) {
+					int id = result.getInt("id");
+					String designation = result.getString("designation");
+					double prixUnitaire = result.getDouble("prixUnit");
+					int quantiteStock = result.getInt("quantiteStock");
+					String urlImage = result.getString("urlImage");
+					String descriptionProduit = result.getString("descriptionProduit");
+					Date dateDebut = result.getDate("dateDebut");
+					
+					ArrayList<Integer> idCategories = new ArrayList<Integer>(); 
+					ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
+					
+					PreparedStatement ps2 = c.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
+					ps2.setInt(1, id);
+					ResultSet result2 = ps2.executeQuery();
+					while(result2.next()) {
+						int idCategorie = result2.getInt("idCategorie");
+						idCategories.add(idCategorie);
+					}
+					
+					PreparedStatement ps3 = c.prepareStatement("SELECT id FROM LigneCommande WHERE idProduit=?;");
+					ps3.setInt(1, id);
+					ResultSet result3 = ps3.executeQuery();
+					while(result3.next()) {
+						int idLigneCommande = result3.getInt("id");
+						idLignesCommande.add(idLigneCommande);
+					}
+					
+					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage, descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
+					produits.add(produit);
+				}
+				
+				return produits;
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	// Méthode pour trouver tous les produits indisponibles d'un vendeur
+	public ArrayList<Produit> findIndisponiblesByVendeur(int idVendeur) {
+		Connection c = MyConnection.getConnection();
+		if (c != null) {
+			try {
+				ArrayList<Produit> produits = new ArrayList<Produit>();
+				
+				PreparedStatement ps = c.prepareStatement("SELECT * FROM Produit WHERE idUtilisateur=? AND quantiteStock=0;");
+				ps.setInt(1, idVendeur);
+				ResultSet result = ps.executeQuery();
+				
+				while (result.next()) {
+					int id = result.getInt("id");
+					String designation = result.getString("designation");
+					double prixUnitaire = result.getDouble("prixUnit");
+					int quantiteStock = result.getInt("quantiteStock");
+					String urlImage = result.getString("urlImage");
+					String descriptionProduit = result.getString("descriptionProduit");
+					Date dateDebut = result.getDate("dateDebut");
+					
+					ArrayList<Integer> idCategories = new ArrayList<Integer>(); 
+					ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
+					
+					PreparedStatement ps2 = c.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
+					ps2.setInt(1, id);
+					ResultSet result2 = ps2.executeQuery();
+					while(result2.next()) {
+						int idCategorie = result2.getInt("idCategorie");
+						idCategories.add(idCategorie);
+					}
+					
+					PreparedStatement ps3 = c.prepareStatement("SELECT id FROM LigneCommande WHERE idProduit=?;");
+					ps3.setInt(1, id);
+					ResultSet result3 = ps3.executeQuery();
+					while(result3.next()) {
+						int idLigneCommande = result3.getInt("id");
+						idLignesCommande.add(idLigneCommande);
+					}
+					
+					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage, descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
+					produits.add(produit);
+				}
+				
+				return produits;
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	// Méthode pour trouver les produits par nom (inclut la sous-chaîne)
+	public ArrayList<Produit> findByNom(String argNom) {
+		Connection c = MyConnection.getConnection();
+		if (c != null) {
+			try {
+				ArrayList<Produit> produits = new ArrayList<Produit>();
+				
+				PreparedStatement ps = c.prepareStatement("SELECT * FROM Produit WHERE designation LIKE ?");
+				ps.setString(1, "%" + argNom + "%");
+				ResultSet result = ps.executeQuery();
+				
+				while (result.next()) {
+					int id = result.getInt("id");
+					String designation = result.getString("designation");
+					double prixUnitaire = result.getDouble("prixUnit");
+					int quantiteStock = result.getInt("quantiteStock");
+					String urlImage = result.getString("urlImage");
+					String descriptionProduit = result.getString("descriptionProduit");
+					Date dateDebut = result.getDate("dateDebut");
+					int idVendeur = result.getInt("idUtilisateur");
+					
+					ArrayList<Integer> idCategories = new ArrayList<Integer>(); 
+					ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
+					
+					PreparedStatement ps2 = c.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
+					ps2.setInt(1, id);
+					ResultSet result2 = ps2.executeQuery();
+					while(result2.next()) {
+						int idCategorie = result2.getInt("idCategorie");
+						idCategories.add(idCategorie);
+					}
+					
+					PreparedStatement ps3 = c.prepareStatement("SELECT id FROM LigneCommande WHERE idProduit=?;");
+					ps3.setInt(1, id);
+					ResultSet result3 = ps3.executeQuery();
+					while(result3.next()) {
+						int idLigneCommande = result3.getInt("id");
+						idLignesCommande.add(idLigneCommande);
+					}
+					
+					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage, descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
+					produits.add(produit);
+				}
+				
+				return produits;
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	// Méthode pour trouver les produits d'une catégorie
+	public ArrayList<Produit> findByCategorie(int idCategorie) {
+		Connection c = MyConnection.getConnection();
+		if (c != null) {
+			try {
+				ArrayList<Produit> produits = new ArrayList<Produit>();
+				
+				PreparedStatement ps = c.prepareStatement("SELECT idProduit FROM ProduitCategorie WHERE idCategorie=?;");
+				ps.setInt(1, idCategorie);
+				ResultSet result = ps.executeQuery();
+				
+				while (result.next()) {
+					int idProduit = result.getInt("id");
+					
+					Produit produit = findById(idProduit);
+					if (produit != null) {
+						produits.add(produit);
+					}
+				}
+				return produits;
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	/* Méthode pour trouver les produits appartenant à plusieurs catégories
+	 * Recherche d'algorithme en cours !
+	 */
+	public ArrayList<Produit> findByCategories(ArrayList<Integer> idCategories) {
+		return null;
 	}
 
 }

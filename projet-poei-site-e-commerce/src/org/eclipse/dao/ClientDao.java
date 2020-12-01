@@ -207,6 +207,88 @@ public class ClientDao implements Dao<Client> {
 					Client client = new Client(id, nom, prenom, adresseMail, numeroTelephone, identifiantConnexion, motDePasse, idAdresses, idCommandes, idLignesPanier);
 					clients.add(client);
 				}
+				return clients;
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	// Recherche d'utilisateur par identifiant de connexion. Renvoie un client avec seulement un id.
+	public Client findByIdentifiantConnexion(String identifiantConnexion) {
+		Connection c = MyConnection.getConnection();
+		if (c != null) {
+			try {
+				
+				PreparedStatement ps = c.prepareStatement("SELECT id FROM Utilisateur WHERE identifiantConnexion = BINARY ?;");
+				ps.setString(1, identifiantConnexion);
+				ResultSet result = ps.executeQuery();
+				
+				if (result.next()) {
+					int idUtilisateur = result.getInt("id");
+				
+					Client client = new Client(idUtilisateur);
+					return client;
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	// Recherche de client par identifiant de connexion et mot de passe. Renvoie un client complet.
+	public Client findByIdentifiantConnexionAndMotDePasse(String identifiantConnexion, String motDePasse) {
+		Connection c = MyConnection.getConnection();
+		if (c != null) {
+			try {
+				
+				PreparedStatement ps = c.prepareStatement("SELECT * FROM Utilisateur WHERE identifiantConnexion = BINARY ? AND motDePasse = BINARY ? AND typeU LIKE 'client';");
+				ps.setString(1, identifiantConnexion);
+				ps.setString(2, motDePasse);
+				ResultSet result = ps.executeQuery();
+				
+				if (result.next()) {
+					int id = result.getInt("id");
+					String nom = result.getString("nom");
+					String prenom = result.getString("prenom");
+					String adresseMail = result.getString("adresseMail");
+					String numeroTelephone = result.getString("numeroTelephone");
+					
+					ArrayList<Integer> idAdresses = new ArrayList<Integer>(); 
+					ArrayList<Integer> idCommandes = new ArrayList<Integer>();
+					ArrayList<Integer> idLignesPanier = new ArrayList<Integer>();
+					
+					PreparedStatement ps2 = c.prepareStatement("SELECT id FROM Adresse WHERE idUtilisateur=?;");
+					ps2.setInt(1, id);
+					ResultSet result2 = ps2.executeQuery();
+					while(result2.next()) {
+						int idAdresse = result2.getInt("id");
+						idAdresses.add(idAdresse);
+					}
+					
+					PreparedStatement ps3 = c.prepareStatement("SELECT id FROM Commande WHERE idUtilisateur=?;");
+					ps3.setInt(1, id);
+					ResultSet result3 = ps3.executeQuery();
+					while(result3.next()) {
+						int idCommande = result3.getInt("id");
+						idCommandes.add(idCommande);
+					}
+					
+					PreparedStatement ps4 = c.prepareStatement("SELECT id FROM LignesPanier WHERE idUtilisateur=?;");
+					ps4.setInt(1, id);
+					ResultSet result4 = ps4.executeQuery();
+					while(result4.next()) {
+						int idLignePanier = result4.getInt("id");
+						idLignesPanier.add(idLignePanier);
+					}
+					
+					Client client = new Client(id, nom, prenom, adresseMail, numeroTelephone, identifiantConnexion, motDePasse, idAdresses, idCommandes, idLignesPanier);
+					return client;
+				}
 
 			} catch (SQLException e) {
 				e.printStackTrace();

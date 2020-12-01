@@ -137,6 +137,39 @@ public class AdresseDao implements Dao<Adresse> {
 					Adresse adresse = new Adresse(numeroDansRue, rue, ville, codePostal, pays, complementAdresse, idUtilisateur, id);
 					adresses.add(adresse);
 				}
+				return adresses;
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	// Recherche d'adresse d'un utilisateur. Renvoie une liste d'adresses complètes.
+	public List<Adresse> findByUtilisateur(int idUtilisateur) {
+		Connection c = MyConnection.getConnection();
+		if (c != null) {
+			try {
+				ArrayList<Adresse> adresses = new ArrayList<Adresse>();
+				
+				PreparedStatement ps = c.prepareStatement("SELECT * FROM Adresse WHERE idUtilisateur=?;");
+				ps.setInt(1, idUtilisateur);
+				ResultSet result = ps.executeQuery();
+				
+				while (result.next()) {
+					int id = result.getInt("id");
+					String numeroDansRue = result.getString("numeroDansRue");
+					String rue = result.getString("rue");
+					String ville = result.getString("ville");
+					String codePostal = result.getString("codePostal");
+					String pays = result.getString("pays");
+					String complementAdresse = result.getString("complementAdresse");
+					
+					Adresse adresse = new Adresse(numeroDansRue, rue, ville, codePostal, pays, complementAdresse, idUtilisateur, id);
+					adresses.add(adresse);
+				}
+				return adresses;
 
 			} catch (SQLException e) {
 				e.printStackTrace();

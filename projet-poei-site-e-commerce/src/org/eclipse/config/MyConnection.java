@@ -7,7 +7,10 @@ import java.sql.SQLException;
 public class MyConnection {
 	private static String url = "jdbc:mysql://localhost:3306/projet-e-commerce?useSSL=false&serverTimezone=UTC";
 	private static String utilisateur = "root";
+	// Version PC DEMOS
 	private static String motDePasse = "root";
+	// Version PC Personnel
+//	private static String motDePasse = "Mekkah!PCX637?Yggdrasil";
 	private static Connection connexion = null;
 
 	private MyConnection() {

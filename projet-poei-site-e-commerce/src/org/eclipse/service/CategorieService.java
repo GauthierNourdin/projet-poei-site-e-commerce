@@ -1,85 +1,51 @@
 package org.eclipse.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
+import org.eclipse.dao.CategorieDao;
 import org.eclipse.model.Categorie;
 
 public class CategorieService {
-	/*
-	 * Cet attribut ne doit etre initialise qu'une seule fois. Le rendre
-	 * statique permet de le generer au debut de l'execution.
-	 */
-	private static ArrayList<Categorie> categories = new ArrayList<Categorie>(Arrays.asList(
-			new Categorie("figurine"),
-			new Categorie("jeu video"),
-			new Categorie("livre"),
-			new Categorie("poster"),
-			new Categorie("bande dessinee"),
-			new Categorie("film"),
-			new Categorie("reproduction d'arme")
-			));
+	private CategorieDao categorieDao = new CategorieDao();
 
-	// Constructeur prive pour eviter de creer des instances.
-	private CategorieService() {
-	}
-
-	// Le getter statique et le setter statique adaptes, ne servent qu'aux tests et au débuggage.
-	public static ArrayList<Categorie> getCategories() {
-		return categories;
-	}
-
-	public static void setCategories(ArrayList<Categorie> argCategories) {
-		categories = argCategories;
-	}
-
-	// Methode statique pour ajouter une categorie dans la liste
-	public static void save(Categorie categorie) throws Exception {
-		if (categories.contains(categorie)) {
-			throw new Exception("La categorie appartient deja a la liste");
-		} else {
-			categories.add(categorie);
+	// Methode pour ajouter une categorie dans la BdD
+	public Categorie save(Categorie categorie) throws Exception {
+		String nom = categorie.getNom();
+		nom = nom.toLowerCase();
+		categorie.setNom(nom);
+		if (categorieDao.findByNom(categorie.getNom()) != null) {
+			throw new Exception("Erreur : cette categorie est déjà référencée dans la base de données !");
 		}
+		return categorieDao.save(categorie);
 	}
 
-	// Méthode statique pour retirer une commande de la liste
-	public static void remove(Categorie categorie) throws Exception {
-		if (categories.contains(categorie)) {
-			categories.remove(categorie);
-		} else {
-			throw new Exception("La categorie n'appartient pas a la liste");
+	// Méthode pour retirer une commande de la BdD
+	public void remove(Categorie categorie) throws Exception {
+		if (categorieDao.findById(categorie.getId()) == null) {
+			throw new Exception("Erreur : la categorie n'appartient pas à la base de données !");
 		}
+		categorieDao.remove(categorie);
 	}
 
-	// Methode statique pour mettre a jour une commande
-	public static void update(Categorie categorie) throws Exception {
-		for (Categorie cate : categories) {
-			if (cate.getId() == categorie.getId()) {
-				cate = categorie;
-				return;
-			}
+	// Methode pour mettre a jour une commande dans la BdD
+	public Categorie update(Categorie categorie) throws Exception {
+		String nom = categorie.getNom();
+		nom = nom.toLowerCase();
+		categorie.setNom(nom);
+		if (categorieDao.findById(categorie.getId()) == null) {
+			throw new Exception("Erreur : la categorie n'appartient pas à la base de données !");
 		}
-		throw new Exception("La categorie n'appartient pas a la liste");
+		return categorieDao.update(categorie);
 	}
 
-	// Méthode statique pour rendre la liste complete (convention de nommage)
-	public static ArrayList<Categorie> findAll() {
-		return categories;
+	// Méthode pour rendre la liste complete des catégories
+	public ArrayList<Categorie> findAll() {
+		return (ArrayList<Categorie>) categorieDao.findAll();
 	}
 
-	// Methode statique pour trouver dans la liste une categorie d'id connu
-	public static Categorie findById(int id) {
-		for (Categorie cate : categories) {
-			if (cate.getId() == id) {
-				return cate;
-			}
-		}
-		return null;
-	}
-
-	// La methode sert uniquement au debuggage.
-	public static String affichageDebuggage() {
-		return "ClientService [categories=" + categories + "]";
+	// Methode pour trouver dans la BdD une categorie d'id connu
+	public Categorie findById(int id) {
+		return categorieDao.findById(id);
 	}
 	
 }

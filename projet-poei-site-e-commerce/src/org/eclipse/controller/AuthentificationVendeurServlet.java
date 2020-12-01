@@ -24,7 +24,9 @@ public class AuthentificationVendeurServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String identifiant = request.getParameter("identifiant");
 		String motDePasse = request.getParameter("motDePasse");
-		Vendeur vendeur = VendeurService.connectionVendeur(identifiant, motDePasse);
+		
+		VendeurService vendeurService = new VendeurService();
+		Vendeur vendeur = vendeurService.connectionVendeur(identifiant, motDePasse);
 		
 		if (vendeur != null) {
 			HttpSession session = request.getSession();

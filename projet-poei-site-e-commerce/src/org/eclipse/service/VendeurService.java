@@ -42,6 +42,11 @@ public class VendeurService {
 		return vendeurDao.findById(id);
 	}
 
+	// Recherche d'utilisateur par identifiant de connexion.
+	public Vendeur findByIdentifiantConnexion(String identifiantConnexion) {
+		return vendeurDao.findByIdentifiantConnexion(identifiantConnexion);
+	}
+	
 	/*
 	 * Methode pour autoriser la connection d'un vendeur (en retournant son objet
 	 * associé)

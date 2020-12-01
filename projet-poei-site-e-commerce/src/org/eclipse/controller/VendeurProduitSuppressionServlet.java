@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import org.eclipse.model.Produit;
 import org.eclipse.model.Vendeur;
 import org.eclipse.service.ProduitService;
-import org.eclipse.service.VendeurService;
 
 @WebServlet("/vendeur/produit/suppression")
 public class VendeurProduitSuppressionServlet extends HttpServlet {
@@ -22,7 +21,8 @@ public class VendeurProduitSuppressionServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request.getParameter("idproduit") != null) {
 			int idProduit = Integer.parseInt(request.getParameter("idproduit"));
-			Produit produit = ProduitService.findById(idProduit);
+			ProduitService produitService = new ProduitService();
+			Produit produit = produitService.findById(idProduit);
 			request.setAttribute("produit", produit);
 		}
 		this.getServletContext().getRequestDispatcher("/WEB-INF/vendeur/produit/suppression.jsp").forward(request, response);
@@ -34,12 +34,13 @@ public class VendeurProduitSuppressionServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Vendeur vendeur = (Vendeur) session.getAttribute("vendeur");
 		int idProduit = Integer.parseInt(request.getParameter("idproduit"));
-		Produit produit = ProduitService.findById(idProduit);
+		ProduitService produitService = new ProduitService();
+		Produit produit = produitService.findById(idProduit);
 		request.setAttribute("produit", produit);
 		
 		if(vendeur.getIdentifiantConnexion().equals(identifiant) && vendeur.getMotDePasse().equals(motDePasse) ) {
 			try {
-				ProduitService.remove(produit);
+				produitService.remove(produit);
 			} catch (Exception e) {
 				e.printStackTrace();
 				request.setAttribute("erreurSuppression", e.getMessage());
@@ -50,7 +51,7 @@ public class VendeurProduitSuppressionServlet extends HttpServlet {
 				ArrayList<Integer> idProduits = vendeur.getIdProduits();
 				idProduits.remove(Integer.valueOf(produit.getId()));
 				vendeur.setIdProduits(idProduits);
-				VendeurService.update(vendeur);
+				session.setAttribute("vendeur", vendeur);
 			} catch (Exception e) {
 				e.printStackTrace();
 				request.setAttribute("erreurSuppression", e.getMessage());

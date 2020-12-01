@@ -20,8 +20,6 @@ public class DeconnexionClientServlet extends HttpServlet {
 		request.setAttribute("nom", client.getNom());
 		request.setAttribute("prenom", client.getPrenom());
 		session.removeAttribute("client");
-		session.removeAttribute("panier");
-		session.removeAttribute("lignespanier");
 		this.getServletContext().getRequestDispatcher("/WEB-INF/client/deconnexion.jsp").forward(request, response);
 	}
 

@@ -47,6 +47,11 @@ public class ClientService {
 		return clientDao.findById(id);
 	}
 
+	// Recherche d'utilisateur par identifiant de connexion.
+	public Client findByIdentifiantConnexion(String identifiantConnexion) {
+		return clientDao.findByIdentifiantConnexion(identifiantConnexion);
+	}
+	
 	/*
 	 * Methode pour autoriser la connection d'un client (en retournant son objet
 	 * associé)

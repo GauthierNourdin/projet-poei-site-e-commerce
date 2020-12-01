@@ -2,6 +2,7 @@ package org.eclipse.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import org.eclipse.model.Produit;
 import org.eclipse.model.Vendeur;
 import org.eclipse.service.ProduitService;
-import org.eclipse.service.VendeurService;
 
 @WebServlet("/vendeur/produits")
 public class VendeurProduitsServlet extends HttpServlet {
@@ -22,7 +22,8 @@ public class VendeurProduitsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Vendeur vendeur = (Vendeur) session.getAttribute("vendeur");
-		ArrayList<Produit> produits = ProduitService.findByVendeur(vendeur.getIdVendeur());
+		ProduitService produitService = new ProduitService();
+		ArrayList<Produit> produits = produitService.findByVendeur(vendeur.getIdUtilisateur());
 		request.setAttribute("produits", produits);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/vendeur/produits.jsp").forward(request, response);
 	}
@@ -56,20 +57,20 @@ public class VendeurProduitsServlet extends HttpServlet {
 			descriptionProduit = "";
 		}
 		if (testValidite) {
-			Produit produit = new Produit(designation, prixUnitaire, quantiteEnStock, urlImage, descriptionProduit, vendeur.getIdVendeur(), new ArrayList<Integer>());
+			Produit produit = new Produit(designation, prixUnitaire, quantiteEnStock, urlImage, descriptionProduit, vendeur.getIdUtilisateur(), new Date(), new ArrayList<Integer>(), new ArrayList<Integer>());
 			try {
-				ProduitService.save(produit);
+				ProduitService produitService = new ProduitService();
+				Produit nouveauProduit = produitService.save(produit);
+				if (nouveauProduit == null) {
+					throw new Exception("Erreur : absence de sauvegarde du nouveau produit !");
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			ArrayList<Integer> idProduits = vendeur.getIdProduits();
 			idProduits.add(produit.getId());
 			vendeur.setIdProduits(idProduits);
-			try {
-				VendeurService.update(vendeur);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			session.setAttribute("vendeur", vendeur);
 		} else {
 			request.setAttribute("designationsaisie",designation);
 			request.setAttribute("prixunitairesaisie",prixUnitaire);

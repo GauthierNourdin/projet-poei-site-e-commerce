@@ -29,7 +29,8 @@ public class SuppressionClientServlet extends HttpServlet {
 			try {
 				session.setAttribute("nom", client.getNom());
 				session.setAttribute("prenom", client.getPrenom());
-				ClientService.remove(client);
+				ClientService clientService = new ClientService();
+				clientService.remove(client);
 				this.getServletContext().getRequestDispatcher("/WEB-INF/client/confirmationsuppression.jsp").forward(request, response);
 			} catch (Exception e) {
 				session.setAttribute("erreurSuppression", e.getMessage());

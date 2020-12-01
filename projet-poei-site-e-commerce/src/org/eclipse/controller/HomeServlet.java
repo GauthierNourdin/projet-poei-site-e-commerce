@@ -17,7 +17,8 @@ public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Produit> produits = ProduitService.findDisponibles();
+		ProduitService produitService = new ProduitService();
+		ArrayList<Produit> produits = produitService.findDisponibles();
 		request.setAttribute("produits", produits);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/home/home.jsp").forward(request, response);
 	}
@@ -25,9 +26,10 @@ public class HomeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Méthode pour rechercher par nom un produit
 		String nom = request.getParameter("nom");
+		ProduitService produitService = new ProduitService();
 		
-		ArrayList<Produit> produits = ProduitService.findDisponibles();
-		produits = ProduitService.filterName(produits, nom);
+		ArrayList<Produit> produits = produitService.findDisponibles();
+		produits = produitService.filterName(produits, nom);
 		request.setAttribute("produits", produits);
 		request.setAttribute("nomSaisi", nom);
 		

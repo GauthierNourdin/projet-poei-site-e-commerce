@@ -23,7 +23,9 @@ public class AuthentificationClientServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String identifiant = request.getParameter("identifiant");
 		String motDePasse = request.getParameter("motDePasse");
-		Client client = ClientService.connectionClient(identifiant, motDePasse);
+		ClientService clientService = new ClientService();
+		
+		Client client = clientService.connectionClient(identifiant, motDePasse);
 		
 		if (client != null) {
 			HttpSession session = request.getSession();

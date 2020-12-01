@@ -2,7 +2,6 @@ package org.eclipse.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -86,11 +85,10 @@ public class InscriptionClientServlet extends HttpServlet {
 		if(complementAdresse == null)
 			complementAdresse = "";
 		if(testValidite) {
-			Adresse adresse = new Adresse(numeroDansRue, rue, ville, codePostal, pays, complementAdresse, 0);
-			Client client = new Client(nom, prenom, adresseMail, numeroTelephone, identifiantConnexion, motDePasse, new ArrayList<Integer>(Arrays.asList(adresse.getId())));
-			adresse.setIdUtilisateur(client.getIdClient());
+			Client client = new Client(nom, prenom, adresseMail, numeroTelephone, identifiantConnexion, motDePasse, new ArrayList<Integer>());
 			try {
-				AdresseService.save(adresse);
+				ClientService clientService = new ClientService();
+				client = clientService.save(client);
 			} catch (Exception e) {
 				e.printStackTrace();
 				request.setAttribute("prenomsaisie", prenom);
@@ -108,8 +106,26 @@ public class InscriptionClientServlet extends HttpServlet {
 				request.setAttribute("erreurinscription", e.getMessage());
 				this.getServletContext().getRequestDispatcher("/WEB-INF/client/inscription.jsp").forward(request, response);
 			}
+			if (client == null) {
+				request.setAttribute("prenomsaisie", prenom);
+				request.setAttribute("nomsaisie", nom);
+				request.setAttribute("emailsaisie", adresseMail);
+				request.setAttribute("identifiantsaisie", identifiantConnexion);
+				request.setAttribute("telephonesaisie", numeroTelephone);
+				request.setAttribute("passwordsaisie", motDePasse);
+				request.setAttribute("numeroruesaisie", numeroDansRue);
+				request.setAttribute("nomruesaisie", rue);
+				request.setAttribute("complementadressesaisie", complementAdresse);
+				request.setAttribute("villesaisie", ville);
+				request.setAttribute("codepostalsaisie", codePostal);
+				request.setAttribute("payssaisie", pays);
+				request.setAttribute("erreurinscription", "Erreur : absence de sauvagarde du client dans la base de données");
+				this.getServletContext().getRequestDispatcher("/WEB-INF/client/inscription.jsp").forward(request, response);
+			}
+			Adresse adresse = new Adresse(numeroDansRue, rue, ville, codePostal, pays, complementAdresse, client.getIdUtilisateur());
 			try {
-				ClientService.save(client);
+				AdresseService adresseService = new AdresseService();
+				adresse = adresseService.save(adresse);
 			} catch (Exception e) {
 				e.printStackTrace();
 				request.setAttribute("prenomsaisie", prenom);
@@ -127,6 +143,26 @@ public class InscriptionClientServlet extends HttpServlet {
 				request.setAttribute("erreurinscription", e.getMessage());
 				this.getServletContext().getRequestDispatcher("/WEB-INF/client/inscription.jsp").forward(request, response);
 			}
+			if (adresse == null) {
+				request.setAttribute("prenomsaisie", prenom);
+				request.setAttribute("nomsaisie", nom);
+				request.setAttribute("emailsaisie", adresseMail);
+				request.setAttribute("identifiantsaisie", identifiantConnexion);
+				request.setAttribute("telephonesaisie", numeroTelephone);
+				request.setAttribute("passwordsaisie", motDePasse);
+				request.setAttribute("numeroruesaisie", numeroDansRue);
+				request.setAttribute("nomruesaisie", rue);
+				request.setAttribute("complementadressesaisie", complementAdresse);
+				request.setAttribute("villesaisie", ville);
+				request.setAttribute("codepostalsaisie", codePostal);
+				request.setAttribute("payssaisie", pays);
+				request.setAttribute("erreurinscription", "Erreur : absence de sauvagarde de l'adresse dans la base de données");
+				this.getServletContext().getRequestDispatcher("/WEB-INF/client/inscription.jsp").forward(request, response);
+			}
+			ArrayList<Integer> idAdresses = new ArrayList<Integer>();
+			idAdresses.add(adresse.getId());
+			client.setIdAdresses(idAdresses);
+
 			HttpSession session = request.getSession();
 			session.setAttribute("client", client);
 			response.sendRedirect("../home");
@@ -164,7 +200,8 @@ public class InscriptionClientServlet extends HttpServlet {
 		return false;
 	}
 	protected boolean testIdentifiantConnexion(String identifiantConnexion) {
-		if (identifiantConnexion != null && identifiantConnexion.length() > 3)
+		ClientService clientService = new ClientService();
+		if (identifiantConnexion != null && identifiantConnexion.length() > 3 && clientService.findByIdentifiantConnexion(identifiantConnexion) == null)
 			return true;
 		return false;
 	}

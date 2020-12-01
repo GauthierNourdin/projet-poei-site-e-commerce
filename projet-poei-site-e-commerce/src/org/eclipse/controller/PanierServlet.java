@@ -14,7 +14,6 @@ import org.eclipse.model.Client;
 import org.eclipse.model.LignePanier;
 import org.eclipse.model.Produit;
 import org.eclipse.service.ClientService;
-import org.eclipse.service.LignePanierService;
 import org.eclipse.service.ProduitService;
 
 @WebServlet("/client/panier")
@@ -31,31 +30,36 @@ public class PanierServlet extends HttpServlet {
 		Client client = (Client) session.getAttribute("client");
 
 		try {
-			ClientService.verifierPanier(client);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		for (int idLignePanier : client.getIdLignesPanier()) {
-			LignePanier lignePanier = LignePanierService.findById(idLignePanier);
-			if (lignePanier != null) {
-				Produit produit = ProduitService.findById(lignePanier.getIdProduit());
-				if (produit != null) {
-					LignePanierAffichage lignePanierAffichage = new LignePanierAffichage(lignePanier.getId(),
-							lignePanier.getQuantiteSouhaitee(), produit.getPrixUnitaire(), produit.getDesignation(),
-							produit.getUrlImage());
-					lignesPanierAffichage.add(lignePanierAffichage);
-					nombreArticles += lignePanier.getQuantiteSouhaitee();
-					prixTotal += lignePanier.getQuantiteSouhaitee() * produit.getPrixUnitaire();
+			ClientService clientService = new ClientService();
+			ArrayList<LignePanier> lignesPanier = clientService.verifierPanier(client.getIdUtilisateur());
+			
+			for (LignePanier lignePanier : lignesPanier) {
+				if (lignePanier != null) {
+					ProduitService produitService = new ProduitService();
+					Produit produit = produitService.findById(lignePanier.getIdProduit());
+					if (produit != null) {
+						LignePanierAffichage lignePanierAffichage = new LignePanierAffichage(lignePanier.getId(),
+								lignePanier.getQuantiteSouhaitee(), produit.getPrixUnitaire(), produit.getDesignation(),
+								produit.getUrlImage());
+						lignesPanierAffichage.add(lignePanierAffichage);
+						nombreArticles += lignePanier.getQuantiteSouhaitee();
+						prixTotal += lignePanier.getQuantiteSouhaitee() * produit.getPrixUnitaire();
+					}
 				}
 			}
+		
+			request.setAttribute("lignesPanier", lignesPanierAffichage);
+			request.setAttribute("nombreArticles", nombreArticles);
+			request.setAttribute("prixTotal", prixTotal);
+	
+			this.getServletContext().getRequestDispatcher("/WEB-INF/client/panier.jsp").forward(request, response);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.sendRedirect("../home");
 		}
 		
-		request.setAttribute("lignesPanier", lignesPanierAffichage);
-		request.setAttribute("nombreArticles", nombreArticles);
-		request.setAttribute("prixTotal", prixTotal);
 
-		this.getServletContext().getRequestDispatcher("/WEB-INF/client/panier.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -65,19 +69,18 @@ public class PanierServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		Client client = (Client) session.getAttribute("client");
+		ClientService clientService = new ClientService();
 		
 		if (viderPanier != null) { // Condition pour vider le panier 
-			
 			try {
-				ClientService.viderPanier(client);
+				clientService.viderPanier(client.getIdUtilisateur());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
 		} else if (validerPanier != null) { // Condition pour valider le panier
-			
 			try {
-				ClientService.validerPanier(client);
+				clientService.validerPanier(client.getIdUtilisateur());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -18,7 +18,8 @@ public class VendeurProduitModificationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request.getParameter("idproduit") != null) {
 			int idProduit = Integer.parseInt(request.getParameter("idproduit"));
-			Produit produit = ProduitService.findById(idProduit);
+			ProduitService produitService = new ProduitService();
+			Produit produit = produitService.findById(idProduit);
 			request.setAttribute("produit", produit);
 		}
 		this.getServletContext().getRequestDispatcher("/WEB-INF/vendeur/produit/modification.jsp").forward(request, response);
@@ -29,7 +30,8 @@ public class VendeurProduitModificationServlet extends HttpServlet {
 		double prixUnitaire = Double.parseDouble(request.getParameter("prixunitaire"));
 		int quantiteEnStock = Integer.parseInt(request.getParameter("quantiteenstock"));
 		int idProduit = Integer.parseInt(request.getParameter("idproduit"));
-		Produit produit = ProduitService.findById(idProduit);
+		ProduitService produitService = new ProduitService();
+		Produit produit = produitService.findById(idProduit);
 		String urlImage = request.getParameter("urlimage");
 		String descriptionProduit = request.getParameter("descriptionproduit");
 		boolean testValidite = true;
@@ -62,7 +64,10 @@ public class VendeurProduitModificationServlet extends HttpServlet {
 		} 
 		produit.setDescriptionProduit(descriptionProduit);
 		try {
-			ProduitService.update(produit);
+			Produit produitMisAJour = produitService.update(produit);
+			if (produitMisAJour == null) {
+				throw new Exception("Erreur : Absence de mise à jour du produit");
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

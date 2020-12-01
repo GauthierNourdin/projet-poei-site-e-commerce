@@ -29,7 +29,8 @@ public class SuppressionVendeurServlet extends HttpServlet {
 			try {
 				session.setAttribute("nom", vendeur.getNom());
 				session.setAttribute("prenom", vendeur.getPrenom());
-				VendeurService.retirerVendeur(vendeur);
+				VendeurService vendeurService = new VendeurService();
+				vendeurService.remove(vendeur);
 				this.getServletContext().getRequestDispatcher("/WEB-INF/vendeur/confirmationsuppression.jsp").forward(request, response);
 			} catch (Exception e) {
 				session.setAttribute("erreurSuppression", e.getMessage());

@@ -24,8 +24,10 @@ public class VendeurProduitSuppressionServlet extends HttpServlet {
 			ProduitService produitService = new ProduitService();
 			Produit produit = produitService.findById(idProduit);
 			request.setAttribute("produit", produit);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/vendeur/produit/modification.jsp").forward(request, response);
+			return;
 		}
-		this.getServletContext().getRequestDispatcher("/WEB-INF/vendeur/produit/suppression.jsp").forward(request, response);
+		response.sendRedirect("../produits");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

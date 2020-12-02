@@ -41,15 +41,19 @@
 <c:forEach items="${ produits }" var="produit">
 	<c:url var="pagemodification" value="/vendeur/produit/modification?idproduit=${ produit['id'] }"></c:url>
 	<c:url var="pagesuppression" value="/vendeur/produit/suppression?idproduit=${ produit['id'] }"></c:url>
+	<c:url var="pagehistorique" value="/vendeur/produit/historiquecommandes?idproduit=${ produit['id'] }"></c:url>
+	<c:url var="pagecommentaire" value="/vendeur/produit/commentaire?idproduit=${ produit['id'] }"></c:url>
 	<div class="media">
 	  <img src="<c:url value="${ produit['urlImage'] }"/>" alt="${ produit['designation'] }" class="align-self-center mr-3" style="width:150px;">
 	  <div class="media-body">
 	    <h4>${ produit['designation'] }</h4>
-	    <p>${ produit['prixUnitaire'] }€</p>
+	    <p>${ produit['prixUnitaire'] } €</p>
 	    <p>${ produit['quantiteEnStock'] } en stock</p>
 	    <p>${ produit['descriptionProduit'] }</p>
 	    <a href="${ pagemodification }" class="btn btn-primary" role="button"><i class="fas fa-edit"></i></a>
 	    <a href="${ pagesuppression }" class="btn btn-danger" role="button"><i class="fas fa-trash-alt"></i></a>
+	    <a href="${ pagehistorique }" class="btn btn-primary" role="button"><i class="fas fa-calendar-alt"></i></a>
+	    <a href="${ pagecommentaire }" class="btn btn-primary" role="button"><i class="fas fa-comments"></i></a>
 	  </div>
 	</div>
 </c:forEach>

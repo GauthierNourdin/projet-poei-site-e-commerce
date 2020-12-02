@@ -14,6 +14,7 @@ import org.eclipse.model.Client;
 import org.eclipse.model.LignePanier;
 import org.eclipse.model.Produit;
 import org.eclipse.service.ClientService;
+import org.eclipse.service.LignePanierService;
 import org.eclipse.service.ProduitService;
 
 @WebServlet("/client/panier")
@@ -70,15 +71,17 @@ public class PanierServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Client client = (Client) session.getAttribute("client");
 		ClientService clientService = new ClientService();
+		LignePanierService lignePanierService = new LignePanierService();
+		ArrayList<LignePanier> lignesPanier = lignePanierService.findByClient(client.getIdUtilisateur());
 		
-		if (viderPanier != null) { // Condition pour vider le panier 
+		if (viderPanier != null && lignesPanier.size() > 0) { // Condition pour vider le panier 
 			try {
 				clientService.viderPanier(client.getIdUtilisateur());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
-		} else if (validerPanier != null) { // Condition pour valider le panier
+		} else if (validerPanier != null && lignesPanier.size() > 0) { // Condition pour valider le panier
 			try {
 				clientService.validerPanier(client.getIdUtilisateur());
 			} catch (Exception e) {

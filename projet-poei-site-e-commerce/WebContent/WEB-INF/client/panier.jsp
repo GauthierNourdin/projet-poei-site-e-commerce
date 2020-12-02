@@ -27,23 +27,26 @@
      <c:forEach items="${ lignesPanier }" var="lignepanier">
      	<tr id="lignepanier${ lignepanier['id'] }">
      	  <td>
-     	  	<img src="<c:url value="${ produit['urlImage'] }"/>" alt="${ produit['designation'] }" width="64" height="64">
-     	  	<p><c:out value="${ lignepanier['designation'] }"/></p>
+     	    <c:url var="pageproduit" value="/produit/produit?idproduit=${ lignepanier['idProduit'] }"></c:url>
+     	  	<a href="${ pageproduit }">
+     	  		<img src="<c:url value="${ lignepanier['urlImage'] }"/>" alt="${ lignepanier['designation'] }" width="96" height="96"/>
+     	  		<span><c:out value="${ lignepanier['designation'] }"/></span>
+     	  	</a>
      	  </td>
      	  <td>
      	    <button onclick="enleverUnExemplaire(${ lignepanier['id'] })"><i class="fas fa-minus-square"></i></button>
      	  	<form class="form-inline">
-     	  	<input type="number" id="quantitesouhaitee${ lignepanier['id'] }" name="quantitesouhaitee${ lignepanier['id'] }" value="${ lignepanier['quantiteeSouhaitee'] } oninput=changerNombreExemplaires(${ lignepanier['id'] })">
+     	  	<input type="number" id="quantitesouhaitee${ lignepanier['id'] }" name="quantitesouhaitee${ lignepanier['id'] }" value="${ lignepanier['quantiteSouhaitee'] }" oninput="changerNombreExemplaires(${ lignepanier['id'] })">
      	    </form>
      	    <button onclick="ajouterUnExemplaire(${ lignepanier['id'] })"><i class="fas fa-plus-square"></i></button>
      	    <button onclick="retirerLignePanier(${ lignepanier['id'] })">Retirer du panier</button>
      	    <p id="messagequantitesouhaitee${ lignepanier['id'] }"></p>
      	  </td>
      	  <td>
-     	  	<p id="prixunit${ lignepanier['id'] }">${ lignepanier['prixUnit'] }</p>€
+     	  	<p id="prixunit${ lignepanier['id'] }">${ lignepanier['prixUnitaire'] } €</p>
      	  	<p id="messageprixunit${ lignepanier['id'] }"></p>
      	  </td>
-     	  <td><p id="prixproduit${ lignepanier['id'] }">${ lignepanier['prixProduit'] }</p>€</td>
+     	  <td><p id="prixproduit${ lignepanier['id'] }">${ lignepanier['prixUnitaire'] * lignepanier['quantiteSouhaitee'] } €</p></td>
      	<tr>
      </c:forEach>
    </tbody>
@@ -54,11 +57,11 @@
 </div>
 <div style="text-align:right;">
     <form class="form-inline" action="${ pageContext.request.contextPath }/client/panier" method="post">
-    <input type="hidden" id="viderpanier" name="viderpanier" value="${ sessionScope.client['idClient'] }">
+    <input type="hidden" id="viderpanier" name="viderpanier" value="${ sessionScope.client['idUtilisateur'] }">
 	<button type="submit" class="btn btn-primary mb-2">Vider le panier</button>
 	</form>
 	<form class="form-inline" action="${ pageContext.request.contextPath }/client/panier" method="post">
-	<input type="hidden" id="validerpanier" name="validerpanier" value="${ sessionScope.client['idClient'] }">
+	<input type="hidden" id="validerpanier" name="validerpanier" value="${ sessionScope.client['idUtilisateur'] }">
 	<button type="submit" class="btn btn-primary mb-2">Valider le panier</button>
 	</form>
 </div>

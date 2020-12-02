@@ -1,6 +1,6 @@
 package org.eclipse.model;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class Commande {

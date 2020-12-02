@@ -39,8 +39,8 @@ public class PanierServlet extends HttpServlet {
 					Produit produit = produitService.findById(lignePanier.getIdProduit());
 					if (produit != null) {
 						LignePanierAffichage lignePanierAffichage = new LignePanierAffichage(lignePanier.getId(),
-								lignePanier.getQuantiteSouhaitee(), produit.getPrixUnitaire(), produit.getDesignation(),
-								produit.getUrlImage());
+								produit.getId(), lignePanier.getQuantiteSouhaitee(), produit.getPrixUnitaire(),
+								produit.getDesignation(), produit.getUrlImage());
 						lignesPanierAffichage.add(lignePanierAffichage);
 						nombreArticles += lignePanier.getQuantiteSouhaitee();
 						prixTotal += lignePanier.getQuantiteSouhaitee() * produit.getPrixUnitaire();

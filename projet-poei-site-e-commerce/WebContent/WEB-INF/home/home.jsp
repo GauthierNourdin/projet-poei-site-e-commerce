@@ -17,7 +17,7 @@
 	</div>
 	<input type="submit" value="Rechercher"/>
 </form>
-<p>Prochainement</p>
+<hr>
 <div class="card-columns"> <%-- pas satisfaisant, remplace par flex --%>
 	<c:forEach items="${ produits }" var="produit">
 	<c:url var="pageproduit" value="/produit/produit?idproduit=${ produit['id'] }"></c:url>

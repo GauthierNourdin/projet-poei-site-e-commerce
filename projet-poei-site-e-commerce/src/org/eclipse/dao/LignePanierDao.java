@@ -194,7 +194,7 @@ public class LignePanierDao implements Dao<LignePanier> {
 		if (c != null) {
 			try {
 				PreparedStatement ps = c
-						.prepareStatement("SELECT * FROM LignePanier WHERE idClient=? AND idProduit=?;");
+						.prepareStatement("SELECT * FROM LignePanier WHERE idUtilisateur=? AND idProduit=?;");
 				ps.setInt(1, idClient);
 				ps.setInt(2, idProduit);
 				ResultSet result = ps.executeQuery();

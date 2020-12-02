@@ -10,7 +10,7 @@ public class LigneCommande {
 	private int idProduit;
 	private double prixUnitaire;
 
-	// Les constructeur
+	// Les constructeurs
 	// Constructeur vide
 	public LigneCommande() {
 	}

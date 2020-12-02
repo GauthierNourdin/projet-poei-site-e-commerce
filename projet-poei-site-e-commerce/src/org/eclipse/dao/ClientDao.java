@@ -19,7 +19,7 @@ public class ClientDao implements Dao<Client> {
 		if (c != null) {
 			try {
 				PreparedStatement ps = c.prepareStatement(
-						"INSERT INTO Utilisateur (nom,prenom,adresseMail,numeroTelephone,identifiantConnexion,motDePasse,type) VALUES (?,?,?,?,?,?,'client');",
+						"INSERT INTO Utilisateur (nom,prenom,adresseMail,numeroTelephone,identifiantConnexion,motDePasse,typeU) VALUES (?,?,?,?,?,?,'client');",
 						PreparedStatement.RETURN_GENERATED_KEYS);
 				ps.setString(1, client.getNom());
 				ps.setString(2, client.getPrenom());
@@ -138,7 +138,7 @@ public class ClientDao implements Dao<Client> {
 						idCommandes.add(idCommande);
 					}
 					
-					PreparedStatement ps4 = c.prepareStatement("SELECT id FROM Produit WHERE idUtilisateur=?;");
+					PreparedStatement ps4 = c.prepareStatement("SELECT id FROM LignePanier WHERE idUtilisateur=?;");
 					ps4.setInt(1, id);
 					ResultSet result4 = ps4.executeQuery();
 					while(result4.next()) {
@@ -196,7 +196,7 @@ public class ClientDao implements Dao<Client> {
 						idCommandes.add(idCommande);
 					}
 					
-					PreparedStatement ps4 = c.prepareStatement("SELECT id FROM Produit WHERE idUtilisateur=?;");
+					PreparedStatement ps4 = c.prepareStatement("SELECT id FROM LignePanier WHERE idUtilisateur=?;");
 					ps4.setInt(1, id);
 					ResultSet result4 = ps4.executeQuery();
 					while(result4.next()) {
@@ -278,7 +278,7 @@ public class ClientDao implements Dao<Client> {
 						idCommandes.add(idCommande);
 					}
 					
-					PreparedStatement ps4 = c.prepareStatement("SELECT id FROM LignesPanier WHERE idUtilisateur=?;");
+					PreparedStatement ps4 = c.prepareStatement("SELECT id FROM LignePanier WHERE idUtilisateur=?;");
 					ps4.setInt(1, id);
 					ResultSet result4 = ps4.executeQuery();
 					while(result4.next()) {

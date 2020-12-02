@@ -1,7 +1,7 @@
 package org.eclipse.service;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 import org.eclipse.dao.ClientDao;
 import org.eclipse.model.Client;
@@ -124,7 +124,7 @@ public class ClientService {
 		ArrayList<LignePanier> lignesPanier = verifierPanier(idClient);
 		
 		ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
-		Commande commande = new Commande(idClient, idLignesCommande, new Date());
+		Commande commande = new Commande(idClient, idLignesCommande, new Date(System.currentTimeMillis()));
 		commande = commandeService.save(commande);
 		if (commande == null) {
 			throw new Exception("Erreur : La nouvelle commande n'a pas été sauvegardée");

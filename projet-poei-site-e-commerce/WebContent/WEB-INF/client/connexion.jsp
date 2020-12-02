@@ -18,7 +18,7 @@
 			<label for="motDePasse">Mot de passe</label> 
 			<input type="password" id="motDePasse" name="motDePasse" required>
 		</div>
-		<div><c:out value="${erreurDeConnexion}"/></div>
+		<div><c:out value="${erreurConnexion}"/></div>
 		<input type="submit" value="Se connecter" />
 	</form>
 </body>

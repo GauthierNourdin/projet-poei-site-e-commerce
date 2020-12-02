@@ -22,8 +22,8 @@ public class CommandeDao implements Dao<Commande> {
 				PreparedStatement ps = c.prepareStatement(
 						"INSERT INTO Commande (dateCommande,idUtilisateur) VALUES (?,?);",
 						PreparedStatement.RETURN_GENERATED_KEYS);
-				ps.setDate(1, (Date) commande.getDateDeCommande());
-				ps.setInt(2, commande.getIdClient());				
+				ps.setDate(1, commande.getDateDeCommande());
+				ps.setInt(2, commande.getIdClient());
 				ps.executeUpdate();
 				ResultSet resultat = ps.getGeneratedKeys();
 				if (resultat.next()) {

@@ -1,7 +1,7 @@
 package org.eclipse.model;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 public class Produit {
 	/** Classe decrivant les produits vendus sur le site */

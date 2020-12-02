@@ -5,6 +5,7 @@ public class LignePanierAffichage {
 	
 	// Attributs
 	private int id;
+	private int idProduit;
 	private int quantiteSouhaitee;
 	private double prixUnitaire;
 	private String designation;
@@ -13,10 +14,10 @@ public class LignePanierAffichage {
 	public LignePanierAffichage() {
 	}
 
-	public LignePanierAffichage(int id, int quantiteSouhaitee, double prixUnitaire, String designation,
+	public LignePanierAffichage(int id, int idProduit, int quantiteSouhaitee, double prixUnitaire, String designation,
 			String urlImage) {
-		super();
 		this.id = id;
+		this.idProduit = idProduit;
 		this.quantiteSouhaitee = quantiteSouhaitee;
 		this.prixUnitaire = prixUnitaire;
 		this.designation = designation;
@@ -29,6 +30,14 @@ public class LignePanierAffichage {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public int getIdProduit() {
+		return idProduit;
+	}
+
+	public void setIdProduit(int idProduit) {
+		this.idProduit = idProduit;
 	}
 
 	public int getQuantiteSouhaitee() {
@@ -65,7 +74,7 @@ public class LignePanierAffichage {
 
 	// La méthode toString ne sert qu'au débuggage
 	public String toString() {
-		return "LignePanierAffichage [id=" + this.id + ", quantiteSouhaitee=" + this.quantiteSouhaitee + ", prixUnitaire="
+		return "LignePanierAffichage [id=" + this.id + ", idProduit=" + this.idProduit + ", quantiteSouhaitee=" + this.quantiteSouhaitee + ", prixUnitaire="
 				+ this.prixUnitaire + ", designation=" + this.designation + ", urlImage=" + this.urlImage + "]";
 	}
 	

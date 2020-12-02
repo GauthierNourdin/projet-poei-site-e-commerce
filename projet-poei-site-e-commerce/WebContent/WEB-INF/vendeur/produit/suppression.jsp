@@ -11,7 +11,7 @@
 <%@ include file="/html/choixheader.html"%>
 <h2>Attention la suppression de produit est définitive et fortement déconseillée. Pour confirmer vueillez rentrer vos identifiants.</h2>
 <div class="media">
-	<img src="${ produit['urlImage'] }" alt="Image manquante" class="align-self-center mr-3" style="width:150px;">
+	<img src="<c:url value="${ produit['urlImage'] }"/>" alt="Image manquante" class="align-self-center mr-3" style="width:150px;">
 	<div class="media-body">
 	    <h4>${ produit['designation'] }</h4>
 	    <p>${ produit['prixUnitaire'] }€</p>

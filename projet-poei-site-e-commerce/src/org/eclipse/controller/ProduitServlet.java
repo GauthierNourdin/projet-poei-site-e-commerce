@@ -37,27 +37,29 @@ public class ProduitServlet extends HttpServlet {
 				 */
 				HttpSession session = request.getSession();
 				Client client = (Client) session.getAttribute("client");
-
-				try {
-					ClientService clientService = new ClientService();
-					clientService.verifierPanier(client.getIdUtilisateur());
-					
-					LignePanierService lignePanierService = new LignePanierService();
-					LignePanier lignePanierProduit = lignePanierService.findByClientAndProduit(client.getIdUtilisateur(), idProduit);
-					if (lignePanierProduit != null) {
-						request.setAttribute("lignepanier", lignePanierProduit);
+				if (client != null) {
+				
+					try {
+						ClientService clientService = new ClientService();
+						clientService.verifierPanier(client.getIdUtilisateur());
+						
+						LignePanierService lignePanierService = new LignePanierService();
+						LignePanier lignePanierProduit = lignePanierService.findByClientAndProduit(client.getIdUtilisateur(), idProduit);
+						if (lignePanierProduit != null) {
+							request.setAttribute("lignepanier", lignePanierProduit);
+						}
+	
+					} catch (Exception e) {
+						e.printStackTrace();
+						response.sendRedirect("../home");
 					}
-
-				} catch (Exception e) {
-					e.printStackTrace();
-					response.sendRedirect("../home");
 				}
-
 				this.getServletContext().getRequestDispatcher("/WEB-INF/produit/produit.jsp").forward(request,
 						response);
 			}
-		}
+		} else {
 		response.sendRedirect("../home");
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

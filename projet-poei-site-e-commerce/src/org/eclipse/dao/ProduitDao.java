@@ -27,7 +27,7 @@ public class ProduitDao implements Dao<Produit> {
 				ps.setInt(3, produit.getQuantiteEnStock());
 				ps.setString(4, produit.getUrlImage());
 				ps.setString(5, produit.getDescriptionProduit());
-				ps.setDate(6, (Date) produit.getDateDebut());
+				ps.setDate(6, produit.getDateDebut());
 				ps.setInt(7, produit.getIdVendeur());				
 				ps.executeUpdate();
 				ResultSet resultat = ps.getGeneratedKeys();

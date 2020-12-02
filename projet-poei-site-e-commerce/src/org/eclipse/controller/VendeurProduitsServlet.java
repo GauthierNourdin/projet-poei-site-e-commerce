@@ -2,7 +2,7 @@ package org.eclipse.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -57,7 +57,7 @@ public class VendeurProduitsServlet extends HttpServlet {
 			descriptionProduit = "";
 		}
 		if (testValidite) {
-			Produit produit = new Produit(designation, prixUnitaire, quantiteEnStock, urlImage, descriptionProduit, vendeur.getIdUtilisateur(), new Date(), new ArrayList<Integer>(), new ArrayList<Integer>());
+			Produit produit = new Produit(designation, prixUnitaire, quantiteEnStock, urlImage, descriptionProduit, vendeur.getIdUtilisateur(), new Date(System.currentTimeMillis()), new ArrayList<Integer>(), new ArrayList<Integer>());
 			try {
 				ProduitService produitService = new ProduitService();
 				Produit nouveauProduit = produitService.save(produit);

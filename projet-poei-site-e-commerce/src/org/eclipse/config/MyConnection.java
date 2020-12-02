@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MyConnection {
-	private static String url = "jdbc:mysql://localhost:3306/projet-e-commerce?useSSL=false&serverTimezone=UTC";
+	private static String url = "jdbc:mysql://localhost:3306/projet_e_commerce?useSSL=false&serverTimezone=UTC";
 	private static String utilisateur = "root";
 	// Version PC DEMOS
 	private static String motDePasse = "root";

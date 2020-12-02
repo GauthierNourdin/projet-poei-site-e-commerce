@@ -10,4 +10,13 @@
 <body>
 <%@ include file="/html/choixheader.html"%>
 </body>
+<div class="media">
+	<img src="<c:url value="${ produit['urlImage'] }"/>" alt="Image manquante" class="align-self-center mr-3" style="width:150px;">
+	<div class="media-body">
+	    <h4>${ produit['designation'] }</h4>
+	    <p>${ produit['prixUnitaire'] }€</p>
+	    <p>${ produit['quantiteEnStock'] } en stock</p>
+	    <p>${ produit['descriptionProduit'] }</p>
+	</div>
+</div>
 </html>

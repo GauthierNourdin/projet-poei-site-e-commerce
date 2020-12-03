@@ -15,26 +15,26 @@ import javax.servlet.http.HttpSession;
 import org.eclipse.model.Client;
 import org.eclipse.model.Vendeur;
 
-@WebFilter({"/client/*"})
+@WebFilter("/client/*")
 public class ClientFilter implements Filter {
 
 	public void destroy() {
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-//		HttpServletRequest req = (HttpServletRequest) request;
-//		HttpServletResponse res = (HttpServletResponse) response;
-//		HttpSession session = req.getSession();
-//		Client clientConnected = (Client) session.getAttribute("client");
-//		Vendeur vendeurConnected = (Vendeur) session.getAttribute("vendeur");
-//		String chemin = req.getServletPath();
-//		if (vendeurConnected == null && (clientConnected != null || chemin.equals("/client/connexion") || chemin.equals("/client/inscription"))) {
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse res = (HttpServletResponse) response;
+		HttpSession session = req.getSession();
+		Client clientConnected = (Client) session.getAttribute("client");
+		Vendeur vendeurConnected = (Vendeur) session.getAttribute("vendeur");
+		String chemin = req.getServletPath();
+		if (vendeurConnected == null && (clientConnected != null || chemin.equals("/client/connexion") || chemin.equals("/client/inscription"))) {
 			chain.doFilter(request, response);
-//		} else if (vendeurConnected != null) {
-//			res.sendRedirect(req.getContextPath() + "/vendeur/produits");
-//		} else {
-//			res.sendRedirect(req.getContextPath());
-//		}
+		} else if (vendeurConnected != null) {
+			res.sendRedirect(req.getContextPath() + "/vendeur/produits");
+		} else {
+			res.sendRedirect(req.getContextPath());
+		}
 		
 	}
 

@@ -9,16 +9,18 @@
 <%@ include file="/html/head.jsp"%>
 <body>
 <%@ include file="/html/choixheader.html"%>
-<div class="media">
-	<img src="<c:url value="${ produit['urlImage'] }"/>" alt="Image manquante" class="align-self-center mr-3" style="width:150px;">
-	<div class="media-body">
-	    <h4><c:out value="${ produit['designation'] }"/></h4>
-	    <p><c:out value="${ produit['prixUnitaire'] }"/> €</p>
-	    <p><c:out value="${ produit['quantiteEnStock'] }"/> en stock</p>
-	    <p><c:out value="${ produit['descriptionProduit'] }"/></p>
+<main>
+	<div class="media">
+		<img src="<c:url value="${ produit['urlImage'] }"/>" alt="Image manquante" class="align-self-center mr-3" style="width:150px;">
+		<div class="media-body">
+		    <h4><c:out value="${ produit['designation'] }"/></h4>
+		    <p><c:out value="${ produit['prixUnitaire'] }"/> €</p>
+		    <p><c:out value="${ produit['quantiteEnStock'] }"/> en stock</p>
+		    <p><c:out value="${ produit['descriptionProduit'] }"/></p>
+		</div>
 	</div>
-</div>
-<c:url var="retourproduits" value="/vendeur/produits"></c:url>
-<a href="${ retourproduits }">Retour à mes produits</a>
+	<c:url var="retourproduits" value="/vendeur/produits"></c:url>
+	<a href="${ retourproduits }">Retour à mes produits</a>
+</main>
 </body>
 </html>

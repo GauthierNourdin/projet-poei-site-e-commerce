@@ -9,5 +9,7 @@
 <%@ include file="/html/head.jsp"%>
 <body>
 <%@ include file="/html/choixheader.html"%>
+<main>
+</main>
 </body>
 </html>

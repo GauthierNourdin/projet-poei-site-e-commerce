@@ -1,5 +1,28 @@
 @charset "UTF-8";
 
 h2{
-	background-color:teal;
+	background-color:#9fffff;
+}
+
+table{
+	border-collapse: collapse;
+	border: 1px solid #0000d0;
+}
+
+td, th{
+	text-align: center;
+	padding: 15px;
+	border: 1px solid #0000d0;
+}
+
+main{
+	padding: 20px;
+}
+
+.texte-carte{
+	text-align: center;
+}
+
+.image-carte{
+	padding: 0px;
 }

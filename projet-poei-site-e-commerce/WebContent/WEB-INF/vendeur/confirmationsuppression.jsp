@@ -9,8 +9,10 @@
 <%@ include file="/html/head.jsp"%>
 <body>
 <%@ include file="/html/choixheader.html"%>
-<p><c:out value="Au revoir ${ prenom } ${ nom } ! Votre compte a ete bien supprime !"></c:out><p>
-<c:url var="retourhome" value="/home"></c:url>
-<p><a href="${ retourhome }">Retour à la page d'accueil</a></p>
+<main>
+	<p><c:out value="Au revoir ${ prenom } ${ nom } ! Votre compte a ete bien supprime !"></c:out><p>
+	<c:url var="retourhome" value="/home"></c:url>
+	<p><a href="${ retourhome }">Retour à la page d'accueil</a></p>
+</main>
 </body>
 </html>

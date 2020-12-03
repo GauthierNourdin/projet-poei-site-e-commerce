@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ProduitControlerQuantiteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Méthode appelée par javax pour contrôler dynamiquement la quantité de produit demandée
 	}
 

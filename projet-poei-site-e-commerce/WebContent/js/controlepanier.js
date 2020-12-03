@@ -22,41 +22,92 @@ function getXMLHttpRequest() {
 	return xhr;
 }
 
-function validerNom() {
-	var nom = document.getElementById("nom");
-	var url = "SearchPersonne?nom=" + escape(nom.value);
-	requete = getXMLHttpRequest();
+function ajouterUnExemplaire(idLignePanier) {
+	let inputId = "quantitesouhaitee" + escape(idLignePanier);
+	let nombreExemplaires = parseInt(document.getElementById(inputId).value);
+	nombreExemplaires = nombreExemplaires + 1;
+	
+	let url = "panier/changerquantite?idlignepanier=" + escape(idLignePanier) + "&quantitesouhaitee=" + quantiteSouhaitee;
+	
+	let requete = getXMLHttpRequest();
 	requete.open("GET", url, true);
-	requete.onreadystatechange = displayMessageNom;
+	requete.onreadystatechange = afficherNombreExemplaires(idLignePanier);
 	requete.send();
 }
 
-function displayMessageNom() {
-	var message = "";
-	if ((requete.readyState == 4) && (requete.status == 200)) {
-		var messageTag = requete.responseXML.getElementsByTagName("message")[0];
-		message = messageTag.childNodes[0].nodeValue;
-		mdiv = document.getElementById("validationNom");
-		mdiv.innerHTML = message;
+function enleverUnExemplaire(idLignePanier) {
+	let inputId = "quantitesouhaitee" + escape(idLignePanier);
+	let nombreExemplaires = parseInt(document.getElementById(inputId).value);
+	if (nombreExemplaires > 2) {
+		nombreExemplaires = nombreExemplaires - 1;
+		
+		let url = "panier/changerquantite?idlignepanier=" + escape(idLignePanier) + "&quantitesouhaitee=" + quantiteSouhaitee;
+	
+		let requete = getXMLHttpRequest();
+		requete.open("GET", url, true);
+		requete.onreadystatechange = afficherNombreExemplaires(idLignePanier);
+		requete.send();
 	}
 }
 
-function ajouterUnExemplaire(idLignePanier) {
-	document.getElementById('textbox_id').value
-document.getElementById("mytext").value = "My value";
-}
-
-function enleverUnExemplaire(idLignePanier) {
-
-
-}
-
 function retirerLignePanier(idLignePanier) {
-
-
+	let url = "panier/retirerligne?idlignepanier=" + escape(idLignePanier);
+	
+	let requete = getXMLHttpRequest();
+	requete.open("GET", url, true);
+	requete.onreadystatechange = effacerLignePanier(idLignePanier);
+	requete.send();
 }
 
 function changerNombreExemplaires(idLignePanier) {
+	let inputId = "quantitesouhaitee" + escape(idLignePanier);
+	let quantiteSouhaitee = parseInt(document.getElementById(inputId).value);
+	
+	let url = "panier/changerquantite?idlignepanier=" + escape(idLignePanier) + "&quantitesouhaitee=" + quantiteSouhaitee;
+	
+	let requete = getXMLHttpRequest();
+	requete.open("GET", url, true);
+	requete.onreadystatechange = afficherNombreExemplaires(idLignePanier);
+	requete.send();
+}
 
+function afficherNombreExemplaires(idLignePanier) {
+	let nombreExemplaireValide = "";
+	if ((requete.readyState == 4) && (requete.status == 200)) {
+		let messageTag = requete.responseXML.getElementsByTagName("nombreexemplairesvalide")[0];
+		nombreExemplaireValide = messageTag.childNodes[0].nodeValue;
+		
+		if (nombreExemplaireValide == "-1") {
+			let messageId = "messagequantitesouhaitee" + escape(idLignePanier);
+			let containerMessage = document.getElementById(messageId);
+			containerMessage.innerHTML = "Changement de quantité souhaitée validée !";
+		} else {
+			let inputId = "quantitesouhaitee" + escape(idLignePanier);
+			document.getElementById(inputId).value = nombreExemplaireValide;
+		
+			let messageId = "messagequantitesouhaitee" + escape(idLignePanier);
+			let containerMessage = document.getElementById(messageId);
+			containerMessage.innerHTML = "Echec du changement de quantité souhaitée validée !";
+		}
+	}
+}
 
+function effacerLignePanier(idLignePanier) {
+	let confirmation = "";
+	if ((requete.readyState == 4) && (requete.status == 200)) {
+		let messageTag = requete.responseXML.getElementsByTagName("confirmation")[0];
+		confirmation = messageTag.childNodes[0].nodeValue;
+		
+		let mdiv = document.getElementById("messagesuppressionlignepanier");
+		
+		if (confirmation == "true") {
+			let ligneTableauId = "lignepanier" + escape(idLignePanier);
+			let lignePanier = document.getElementById(ligneTableauId);
+			lignePanier.remove();
+			mdiv.innerHTML = "La ligne de panier a bien été supprimée !";
+		} else {
+			mdiv.innerHTML = "Erreur : la ligne de panier n'a pas pu être supprimée !";
+		}
+		
+	}
 }

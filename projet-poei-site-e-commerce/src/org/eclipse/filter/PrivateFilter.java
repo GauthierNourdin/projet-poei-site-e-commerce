@@ -29,15 +29,18 @@ public class PrivateFilter implements Filter {
 		Client clientConnected = (Client) session.getAttribute("client");
 		Vendeur vendeurConnected = (Vendeur) session.getAttribute("vendeur");
 		String chemin = req.getServletPath();
-		
-//		if (clientConnected != null || vendeurConnected != null || chemin.equals("") || chemin.equals("/index") || chemin.equals("/home")
-//				|| chemin.equals("/produit/produit") || chemin.equals("/client/connexion")
-//				|| chemin.equals("/vendeur/connexion") || chemin.equals("/client/inscription")
-//				|| chemin.equals("/vendeur/inscription") || chemin.equals("/panier/panier"))
+
+		if (clientConnected != null || vendeurConnected != null || chemin.equals("") || chemin.equals("/")
+				|| chemin.equals("/index") || chemin.equals("/home") || chemin.equals("/produit/produit")
+				|| chemin.equals("/client/connexion") || chemin.equals("/vendeur/connexion")
+				|| chemin.equals("/client/inscription") || chemin.equals("/vendeur/inscription")
+				|| chemin.equals("/client/deconnexion") || chemin.equals("/vendeur/deconnexion")
+				|| chemin.equals("/client/confirmationsuppression") || chemin.equals("/vendeur/confirmationsuppression")
+				|| chemin.endsWith(".jpg") || chemin.endsWith(".css") || chemin.endsWith(".jsp")
+				|| chemin.endsWith(".html") || chemin.endsWith(".js"))
 			chain.doFilter(request, response);
-//		else
-//			System.out.println(req.getContextPath());
-//			res.sendRedirect(req.getContextPath());
+		else
+			res.sendRedirect(req.getContextPath() + "/home");
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {

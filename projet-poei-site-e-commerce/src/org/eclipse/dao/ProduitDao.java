@@ -28,7 +28,7 @@ public class ProduitDao implements Dao<Produit> {
 				ps.setString(4, produit.getUrlImage());
 				ps.setString(5, produit.getDescriptionProduit());
 				ps.setDate(6, produit.getDateDebut());
-				ps.setInt(7, produit.getIdVendeur());				
+				ps.setInt(7, produit.getIdVendeur());
 				ps.executeUpdate();
 				ResultSet resultat = ps.getGeneratedKeys();
 				if (resultat.next()) {
@@ -98,7 +98,7 @@ public class ProduitDao implements Dao<Produit> {
 				if (nbr != produit.getIdCategories().size()) {
 					System.err.println("Erreur : Absence de suppression dans la table ProduitCategorie");
 				}
-						
+
 				for (int idCategorie : produit.getIdCategories()) {
 					ps = c.prepareStatement("INSERT INTO ProduitCategorie (idProduit,idCategorie) VALUES (?,?);");
 					ps.setInt(1, produit.getId());
@@ -108,14 +108,20 @@ public class ProduitDao implements Dao<Produit> {
 						System.err.println("Erreur : Absence d'ajout dans la table ProduitCategorie");
 					}
 				}
-				
+
+				/*
+				 * Code de sécurité pour vérifier lors de la mise à jour d'un produit (restock,
+				 * nouvelle commande...) que la quantité souhaitée dans tous les paniers ne
+				 * dépasse pas la nouvelle quantité en stock.
+				 */
 				ps = c.prepareStatement("SELECT id FROM LignePanier WHERE quantiteSouhaitee>?;");
 				ps.setInt(1, produit.getQuantiteEnStock());
 				ResultSet result = ps.executeQuery();
 				while (result.next()) {
 					int idLignePanier = result.getInt("id");
-					
-					PreparedStatement ps2 = c.prepareStatement("UPDATE LignePanier SET quantiteSouhaitee=? WHERE id=?;");
+
+					PreparedStatement ps2 = c
+							.prepareStatement("UPDATE LignePanier SET quantiteSouhaitee=? WHERE id=?;");
 					ps2.setInt(1, produit.getQuantiteEnStock());
 					ps2.setInt(2, idLignePanier);
 					nbr = ps2.executeUpdate();
@@ -123,8 +129,9 @@ public class ProduitDao implements Dao<Produit> {
 						System.err.println("Erreur : Absence de modification dans la table LignePanier");
 					}
 				}
-				
-				ps = c.prepareStatement("UPDATE Produit SET designation=?, prixUnit=?, quantiteStock=?, urlImage=?, descriptionProduit=? WHERE id=?;");
+
+				ps = c.prepareStatement(
+						"UPDATE Produit SET designation=?, prixUnit=?, quantiteStock=?, urlImage=?, descriptionProduit=? WHERE id=?;");
 				ps.setString(1, produit.getDesignation());
 				ps.setDouble(2, produit.getPrixUnitaire());
 				ps.setInt(3, produit.getQuantiteEnStock());
@@ -150,7 +157,7 @@ public class ProduitDao implements Dao<Produit> {
 				PreparedStatement ps = c.prepareStatement("SELECT * FROM Produit WHERE id=?;");
 				ps.setInt(1, id);
 				ResultSet result = ps.executeQuery();
-				
+
 				if (result.next()) {
 					String designation = result.getString("designation");
 					double prixUnitaire = result.getDouble("prixUnit");
@@ -159,27 +166,29 @@ public class ProduitDao implements Dao<Produit> {
 					String descriptionProduit = result.getString("descriptionProduit");
 					Date dateDebut = result.getDate("dateDebut");
 					int idVendeur = result.getInt("idUtilisateur");
-					
-					ArrayList<Integer> idCategories = new ArrayList<Integer>(); 
+
+					ArrayList<Integer> idCategories = new ArrayList<Integer>();
 					ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
-					
-					PreparedStatement ps2 = c.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
+
+					PreparedStatement ps2 = c
+							.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
 					ps2.setInt(1, id);
 					ResultSet result2 = ps2.executeQuery();
-					while(result2.next()) {
+					while (result2.next()) {
 						int idCategorie = result2.getInt("idCategorie");
 						idCategories.add(idCategorie);
 					}
-					
+
 					PreparedStatement ps3 = c.prepareStatement("SELECT id FROM LigneCommande WHERE idProduit=?;");
 					ps3.setInt(1, id);
 					ResultSet result3 = ps3.executeQuery();
-					while(result3.next()) {
+					while (result3.next()) {
 						int idLigneCommande = result3.getInt("id");
 						idLignesCommande.add(idLigneCommande);
 					}
-					
-					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage, descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
+
+					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage,
+							descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
 					return produit;
 				}
 
@@ -195,11 +204,11 @@ public class ProduitDao implements Dao<Produit> {
 		if (c != null) {
 			try {
 				ArrayList<Produit> produits = new ArrayList<Produit>();
-				
+
 				Statement statement = c.createStatement();
 				String request = "SELECT * FROM Produit;";
 				ResultSet result = statement.executeQuery(request);
-				
+
 				while (result.next()) {
 					int id = result.getInt("id");
 					String designation = result.getString("designation");
@@ -209,30 +218,32 @@ public class ProduitDao implements Dao<Produit> {
 					String descriptionProduit = result.getString("descriptionProduit");
 					Date dateDebut = result.getDate("dateDebut");
 					int idVendeur = result.getInt("idUtilisateur");
-					
-					ArrayList<Integer> idCategories = new ArrayList<Integer>(); 
+
+					ArrayList<Integer> idCategories = new ArrayList<Integer>();
 					ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
-					
-					PreparedStatement ps2 = c.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
+
+					PreparedStatement ps2 = c
+							.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
 					ps2.setInt(1, id);
 					ResultSet result2 = ps2.executeQuery();
-					while(result2.next()) {
+					while (result2.next()) {
 						int idCategorie = result2.getInt("idCategorie");
 						idCategories.add(idCategorie);
 					}
-					
+
 					PreparedStatement ps3 = c.prepareStatement("SELECT id FROM LigneCommande WHERE idProduit=?;");
 					ps3.setInt(1, id);
 					ResultSet result3 = ps3.executeQuery();
-					while(result3.next()) {
+					while (result3.next()) {
 						int idLigneCommande = result3.getInt("id");
 						idLignesCommande.add(idLigneCommande);
 					}
-					
-					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage, descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
+
+					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage,
+							descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
 					produits.add(produit);
 				}
-				
+
 				return produits;
 
 			} catch (SQLException e) {
@@ -250,12 +261,12 @@ public class ProduitDao implements Dao<Produit> {
 				PreparedStatement ps = c.prepareStatement("SELECT id FROM Produit WHERE idUtilisateur=?;");
 				ps.setInt(1, idUtilisateur);
 				ResultSet result = ps.executeQuery();
-				
+
 				while (result.next()) {
 					int id = result.getInt("id");
-					
-				    Produit produit = findById(id);
-				    remove(produit);
+
+					Produit produit = findById(id);
+					remove(produit);
 				}
 
 			} catch (SQLException e) {
@@ -270,11 +281,11 @@ public class ProduitDao implements Dao<Produit> {
 		if (c != null) {
 			try {
 				ArrayList<Produit> produits = new ArrayList<Produit>();
-				
+
 				Statement statement = c.createStatement();
 				String request = "SELECT * FROM Produit WHERE quantiteStock>0;";
 				ResultSet result = statement.executeQuery(request);
-				
+
 				while (result.next()) {
 					int id = result.getInt("id");
 					String designation = result.getString("designation");
@@ -284,30 +295,32 @@ public class ProduitDao implements Dao<Produit> {
 					String descriptionProduit = result.getString("descriptionProduit");
 					Date dateDebut = result.getDate("dateDebut");
 					int idVendeur = result.getInt("idUtilisateur");
-					
-					ArrayList<Integer> idCategories = new ArrayList<Integer>(); 
+
+					ArrayList<Integer> idCategories = new ArrayList<Integer>();
 					ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
-					
-					PreparedStatement ps2 = c.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
+
+					PreparedStatement ps2 = c
+							.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
 					ps2.setInt(1, id);
 					ResultSet result2 = ps2.executeQuery();
-					while(result2.next()) {
+					while (result2.next()) {
 						int idCategorie = result2.getInt("idCategorie");
 						idCategories.add(idCategorie);
 					}
-					
+
 					PreparedStatement ps3 = c.prepareStatement("SELECT id FROM LigneCommande WHERE idProduit=?;");
 					ps3.setInt(1, id);
 					ResultSet result3 = ps3.executeQuery();
-					while(result3.next()) {
+					while (result3.next()) {
 						int idLigneCommande = result3.getInt("id");
 						idLignesCommande.add(idLigneCommande);
 					}
-					
-					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage, descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
+
+					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage,
+							descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
 					produits.add(produit);
 				}
-				
+
 				return produits;
 
 			} catch (SQLException e) {
@@ -323,11 +336,11 @@ public class ProduitDao implements Dao<Produit> {
 		if (c != null) {
 			try {
 				ArrayList<Produit> produits = new ArrayList<Produit>();
-				
+
 				Statement statement = c.createStatement();
 				String request = "SELECT * FROM Produit WHERE quantiteStock=0;";
 				ResultSet result = statement.executeQuery(request);
-				
+
 				while (result.next()) {
 					int id = result.getInt("id");
 					String designation = result.getString("designation");
@@ -337,30 +350,32 @@ public class ProduitDao implements Dao<Produit> {
 					String descriptionProduit = result.getString("descriptionProduit");
 					Date dateDebut = result.getDate("dateDebut");
 					int idVendeur = result.getInt("idUtilisateur");
-					
-					ArrayList<Integer> idCategories = new ArrayList<Integer>(); 
+
+					ArrayList<Integer> idCategories = new ArrayList<Integer>();
 					ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
-					
-					PreparedStatement ps2 = c.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
+
+					PreparedStatement ps2 = c
+							.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
 					ps2.setInt(1, id);
 					ResultSet result2 = ps2.executeQuery();
-					while(result2.next()) {
+					while (result2.next()) {
 						int idCategorie = result2.getInt("idCategorie");
 						idCategories.add(idCategorie);
 					}
-					
+
 					PreparedStatement ps3 = c.prepareStatement("SELECT id FROM LigneCommande WHERE idProduit=?;");
 					ps3.setInt(1, id);
 					ResultSet result3 = ps3.executeQuery();
-					while(result3.next()) {
+					while (result3.next()) {
 						int idLigneCommande = result3.getInt("id");
 						idLignesCommande.add(idLigneCommande);
 					}
-					
-					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage, descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
+
+					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage,
+							descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
 					produits.add(produit);
 				}
-				
+
 				return produits;
 
 			} catch (SQLException e) {
@@ -376,11 +391,11 @@ public class ProduitDao implements Dao<Produit> {
 		if (c != null) {
 			try {
 				ArrayList<Produit> produits = new ArrayList<Produit>();
-				
+
 				PreparedStatement ps = c.prepareStatement("SELECT * FROM Produit WHERE idUtilisateur=?;");
 				ps.setInt(1, idVendeur);
 				ResultSet result = ps.executeQuery();
-				
+
 				while (result.next()) {
 					int id = result.getInt("id");
 					String designation = result.getString("designation");
@@ -389,30 +404,32 @@ public class ProduitDao implements Dao<Produit> {
 					String urlImage = result.getString("urlImage");
 					String descriptionProduit = result.getString("descriptionProduit");
 					Date dateDebut = result.getDate("dateDebut");
-					
-					ArrayList<Integer> idCategories = new ArrayList<Integer>(); 
+
+					ArrayList<Integer> idCategories = new ArrayList<Integer>();
 					ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
-					
-					PreparedStatement ps2 = c.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
+
+					PreparedStatement ps2 = c
+							.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
 					ps2.setInt(1, id);
 					ResultSet result2 = ps2.executeQuery();
-					while(result2.next()) {
+					while (result2.next()) {
 						int idCategorie = result2.getInt("idCategorie");
 						idCategories.add(idCategorie);
 					}
-					
+
 					PreparedStatement ps3 = c.prepareStatement("SELECT id FROM LigneCommande WHERE idProduit=?;");
 					ps3.setInt(1, id);
 					ResultSet result3 = ps3.executeQuery();
-					while(result3.next()) {
+					while (result3.next()) {
 						int idLigneCommande = result3.getInt("id");
 						idLignesCommande.add(idLigneCommande);
 					}
-					
-					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage, descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
+
+					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage,
+							descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
 					produits.add(produit);
 				}
-				
+
 				return produits;
 
 			} catch (SQLException e) {
@@ -422,17 +439,18 @@ public class ProduitDao implements Dao<Produit> {
 		return null;
 	}
 
-	// Méthode pour trouver tous les produits disponibles d'un vendeur	
+	// Méthode pour trouver tous les produits disponibles d'un vendeur
 	public ArrayList<Produit> findDisponiblesByVendeur(int idVendeur) {
 		Connection c = MyConnection.getConnection();
 		if (c != null) {
 			try {
 				ArrayList<Produit> produits = new ArrayList<Produit>();
-				
-				PreparedStatement ps = c.prepareStatement("SELECT * FROM Produit WHERE idUtilisateur=? AND quantiteStock>0;");
+
+				PreparedStatement ps = c
+						.prepareStatement("SELECT * FROM Produit WHERE idUtilisateur=? AND quantiteStock>0;");
 				ps.setInt(1, idVendeur);
 				ResultSet result = ps.executeQuery();
-				
+
 				while (result.next()) {
 					int id = result.getInt("id");
 					String designation = result.getString("designation");
@@ -441,30 +459,32 @@ public class ProduitDao implements Dao<Produit> {
 					String urlImage = result.getString("urlImage");
 					String descriptionProduit = result.getString("descriptionProduit");
 					Date dateDebut = result.getDate("dateDebut");
-					
-					ArrayList<Integer> idCategories = new ArrayList<Integer>(); 
+
+					ArrayList<Integer> idCategories = new ArrayList<Integer>();
 					ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
-					
-					PreparedStatement ps2 = c.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
+
+					PreparedStatement ps2 = c
+							.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
 					ps2.setInt(1, id);
 					ResultSet result2 = ps2.executeQuery();
-					while(result2.next()) {
+					while (result2.next()) {
 						int idCategorie = result2.getInt("idCategorie");
 						idCategories.add(idCategorie);
 					}
-					
+
 					PreparedStatement ps3 = c.prepareStatement("SELECT id FROM LigneCommande WHERE idProduit=?;");
 					ps3.setInt(1, id);
 					ResultSet result3 = ps3.executeQuery();
-					while(result3.next()) {
+					while (result3.next()) {
 						int idLigneCommande = result3.getInt("id");
 						idLignesCommande.add(idLigneCommande);
 					}
-					
-					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage, descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
+
+					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage,
+							descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
 					produits.add(produit);
 				}
-				
+
 				return produits;
 
 			} catch (SQLException e) {
@@ -480,11 +500,12 @@ public class ProduitDao implements Dao<Produit> {
 		if (c != null) {
 			try {
 				ArrayList<Produit> produits = new ArrayList<Produit>();
-				
-				PreparedStatement ps = c.prepareStatement("SELECT * FROM Produit WHERE idUtilisateur=? AND quantiteStock=0;");
+
+				PreparedStatement ps = c
+						.prepareStatement("SELECT * FROM Produit WHERE idUtilisateur=? AND quantiteStock=0;");
 				ps.setInt(1, idVendeur);
 				ResultSet result = ps.executeQuery();
-				
+
 				while (result.next()) {
 					int id = result.getInt("id");
 					String designation = result.getString("designation");
@@ -493,30 +514,32 @@ public class ProduitDao implements Dao<Produit> {
 					String urlImage = result.getString("urlImage");
 					String descriptionProduit = result.getString("descriptionProduit");
 					Date dateDebut = result.getDate("dateDebut");
-					
-					ArrayList<Integer> idCategories = new ArrayList<Integer>(); 
+
+					ArrayList<Integer> idCategories = new ArrayList<Integer>();
 					ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
-					
-					PreparedStatement ps2 = c.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
+
+					PreparedStatement ps2 = c
+							.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
 					ps2.setInt(1, id);
 					ResultSet result2 = ps2.executeQuery();
-					while(result2.next()) {
+					while (result2.next()) {
 						int idCategorie = result2.getInt("idCategorie");
 						idCategories.add(idCategorie);
 					}
-					
+
 					PreparedStatement ps3 = c.prepareStatement("SELECT id FROM LigneCommande WHERE idProduit=?;");
 					ps3.setInt(1, id);
 					ResultSet result3 = ps3.executeQuery();
-					while(result3.next()) {
+					while (result3.next()) {
 						int idLigneCommande = result3.getInt("id");
 						idLignesCommande.add(idLigneCommande);
 					}
-					
-					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage, descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
+
+					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage,
+							descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
 					produits.add(produit);
 				}
-				
+
 				return produits;
 
 			} catch (SQLException e) {
@@ -532,11 +555,11 @@ public class ProduitDao implements Dao<Produit> {
 		if (c != null) {
 			try {
 				ArrayList<Produit> produits = new ArrayList<Produit>();
-				
+
 				PreparedStatement ps = c.prepareStatement("SELECT * FROM Produit WHERE designation LIKE ?");
 				ps.setString(1, "%" + argNom + "%");
 				ResultSet result = ps.executeQuery();
-				
+
 				while (result.next()) {
 					int id = result.getInt("id");
 					String designation = result.getString("designation");
@@ -546,30 +569,32 @@ public class ProduitDao implements Dao<Produit> {
 					String descriptionProduit = result.getString("descriptionProduit");
 					Date dateDebut = result.getDate("dateDebut");
 					int idVendeur = result.getInt("idUtilisateur");
-					
-					ArrayList<Integer> idCategories = new ArrayList<Integer>(); 
+
+					ArrayList<Integer> idCategories = new ArrayList<Integer>();
 					ArrayList<Integer> idLignesCommande = new ArrayList<Integer>();
-					
-					PreparedStatement ps2 = c.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
+
+					PreparedStatement ps2 = c
+							.prepareStatement("SELECT idCategorie FROM ProduitCategorie WHERE idProduit=?;");
 					ps2.setInt(1, id);
 					ResultSet result2 = ps2.executeQuery();
-					while(result2.next()) {
+					while (result2.next()) {
 						int idCategorie = result2.getInt("idCategorie");
 						idCategories.add(idCategorie);
 					}
-					
+
 					PreparedStatement ps3 = c.prepareStatement("SELECT id FROM LigneCommande WHERE idProduit=?;");
 					ps3.setInt(1, id);
 					ResultSet result3 = ps3.executeQuery();
-					while(result3.next()) {
+					while (result3.next()) {
 						int idLigneCommande = result3.getInt("id");
 						idLignesCommande.add(idLigneCommande);
 					}
-					
-					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage, descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
+
+					Produit produit = new Produit(id, designation, prixUnitaire, quantiteStock, urlImage,
+							descriptionProduit, idVendeur, dateDebut, idCategories, idLignesCommande);
 					produits.add(produit);
 				}
-				
+
 				return produits;
 
 			} catch (SQLException e) {
@@ -585,14 +610,15 @@ public class ProduitDao implements Dao<Produit> {
 		if (c != null) {
 			try {
 				ArrayList<Produit> produits = new ArrayList<Produit>();
-				
-				PreparedStatement ps = c.prepareStatement("SELECT idProduit FROM ProduitCategorie WHERE idCategorie=?;");
+
+				PreparedStatement ps = c
+						.prepareStatement("SELECT idProduit FROM ProduitCategorie WHERE idCategorie=?;");
 				ps.setInt(1, idCategorie);
 				ResultSet result = ps.executeQuery();
-				
+
 				while (result.next()) {
 					int idProduit = result.getInt("id");
-					
+
 					Produit produit = findById(idProduit);
 					if (produit != null) {
 						produits.add(produit);
@@ -607,7 +633,8 @@ public class ProduitDao implements Dao<Produit> {
 		return null;
 	}
 
-	/* Méthode pour trouver les produits appartenant à plusieurs catégories
+	/*
+	 * Méthode pour trouver les produits appartenant à plusieurs catégories
 	 * Recherche d'algorithme en cours !
 	 */
 	public ArrayList<Produit> findByCategories(ArrayList<Integer> idCategories) {

@@ -11,8 +11,10 @@
 </head>
 <body>
 <%@ include file="/html/choixheader.html"%>
-<h2>Bienvenue cher visiteur !</h2>
-<c:url var="retourhome" value="/home"></c:url>
-<p><a href="${ retourhome }">Aller a la page d'accueil</a></p>
+<main>
+	<h2>Bienvenue cher visiteur sur FictionMania !</h2>
+	<c:url var="retourhome" value="/home"></c:url>
+	<p><a href="${ retourhome }">Visiter la page d'accueil</a></p>
+</main>
 </body>
 </html>

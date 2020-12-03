@@ -9,6 +9,7 @@
 <%@ include file="/html/head.jsp"%>
 <body>
 <%@ include file="/html/choixheader.html"%>
+<main>
 	<form method="post" action="${ pageContext.request.contextPath }/client/connexion">
 		<div>
 			<label for="identifiant">Identifiant de connexion</label> 
@@ -21,5 +22,6 @@
 		<div><c:out value="${erreurConnexion}"/></div>
 		<input type="submit" value="Se connecter" />
 	</form>
+</main>
 </body>
 </html>

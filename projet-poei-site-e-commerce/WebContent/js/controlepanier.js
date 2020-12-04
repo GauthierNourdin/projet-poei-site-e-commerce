@@ -24,28 +24,28 @@ function getXMLHttpRequest() {
 
 function ajouterUnExemplaire(idLignePanier) {
 	let inputId = "quantitesouhaitee" + escape(idLignePanier);
-	let nombreExemplaires = parseInt(document.getElementById(inputId).value);
-	nombreExemplaires = nombreExemplaires + 1;
+	let quantiteSouhaitee = parseInt(document.getElementById(inputId).value);
+	quantiteSouhaitee = quantiteSouhaitee + 1;
 	
 	let url = "panier/changerquantite?idlignepanier=" + escape(idLignePanier) + "&quantitesouhaitee=" + quantiteSouhaitee;
 	
 	let requete = getXMLHttpRequest();
-	requete.open("GET", url, true);
 	requete.onreadystatechange = afficherNombreExemplaires(idLignePanier);
+	requete.open("GET", url, true);	
 	requete.send();
 }
 
 function enleverUnExemplaire(idLignePanier) {
 	let inputId = "quantitesouhaitee" + escape(idLignePanier);
-	let nombreExemplaires = parseInt(document.getElementById(inputId).value);
-	if (nombreExemplaires > 2) {
-		nombreExemplaires = nombreExemplaires - 1;
+	let quantiteSouhaitee = parseInt(document.getElementById(inputId).value);
+	if (quantiteSouhaitee > 2) {
+		quantiteSouhaitee = quantiteSouhaitee - 1;
 		
 		let url = "panier/changerquantite?idlignepanier=" + escape(idLignePanier) + "&quantitesouhaitee=" + quantiteSouhaitee;
 	
 		let requete = getXMLHttpRequest();
-		requete.open("GET", url, true);
 		requete.onreadystatechange = afficherNombreExemplaires(idLignePanier);
+		requete.open("GET", url, true);
 		requete.send();
 	}
 }
@@ -54,8 +54,8 @@ function retirerLignePanier(idLignePanier) {
 	let url = "panier/retirerligne?idlignepanier=" + escape(idLignePanier);
 	
 	let requete = getXMLHttpRequest();
-	requete.open("GET", url, true);
 	requete.onreadystatechange = effacerLignePanier(idLignePanier);
+	requete.open("GET", url, true);	
 	requete.send();
 }
 
@@ -66,8 +66,8 @@ function changerNombreExemplaires(idLignePanier) {
 	let url = "panier/changerquantite?idlignepanier=" + escape(idLignePanier) + "&quantitesouhaitee=" + quantiteSouhaitee;
 	
 	let requete = getXMLHttpRequest();
-	requete.open("GET", url, true);
 	requete.onreadystatechange = afficherNombreExemplaires(idLignePanier);
+	requete.open("GET", url, true);	
 	requete.send();
 }
 

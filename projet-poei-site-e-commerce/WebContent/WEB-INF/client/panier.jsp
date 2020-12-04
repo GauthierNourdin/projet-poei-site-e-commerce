@@ -35,13 +35,21 @@
 	     	  	</a>
 	     	  </td>
 	     	  <td>
-	     	    <button onclick="enleverUnExemplaire(${ lignepanier['id'] })"><i class="fas fa-minus-square"></i></button>
-	     	  	<form class="form-inline">
-	     	  	<input type="number" id="quantitesouhaitee${ lignepanier['id'] }" name="quantitesouhaitee${ lignepanier['id'] }" value="${ lignepanier['quantiteSouhaitee'] }" oninput="changerNombreExemplaires(${ lignepanier['id'] })">
-	     	    </form>
-	     	    <button onclick="ajouterUnExemplaire(${ lignepanier['id'] })"><i class="fas fa-plus-square"></i></button>
-	     	    <button onclick="retirerLignePanier(${ lignepanier['id'] })">Retirer du panier</button>
-	     	    <p id="messagequantitesouhaitee${ lignepanier['id'] }"></p>
+	     	  	<div class="d-flex">
+	     	  		<div>
+	     	  			<button onclick="enleverUnExemplaire(${ lignepanier['id'] })"><i class="fas fa-minus-square"></i></button>
+	     	  		</div>
+			     	<div>
+			     		<form class="form-inline">
+			     	  		<input type="number" id="quantitesouhaitee${ lignepanier['id'] }" name="quantitesouhaitee${ lignepanier['id'] }" value="${ lignepanier['quantiteSouhaitee'] }" oninput="changerNombreExemplaires(${ lignepanier['id'] })">
+			     	    </form>
+			     	</div>
+			     	<div>
+			     	    <button onclick="ajouterUnExemplaire(${ lignepanier['id'] })"><i class="fas fa-plus-square"></i></button>
+			     	    <button onclick="retirerLignePanier(${ lignepanier['id'] })">Retirer du panier</button>
+			     	</div>    
+		     	</div>
+		     	<p id="messagequantitesouhaitee${ lignepanier['id'] }"></p>
 	     	  </td>
 	     	  <td>
 	     	  	<p id="prixunit${ lignepanier['id'] }">${ lignepanier['prixUnitaire'] } €</p>

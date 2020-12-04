@@ -1,6 +1,7 @@
 package org.eclipse.controller;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -49,9 +50,12 @@ public class PanierServlet extends HttpServlet {
 				}
 			}
 		
+			NumberFormat nf = NumberFormat.getInstance();
+	        nf.setMaximumFractionDigits(2);
+			
 			request.setAttribute("lignesPanier", lignesPanierAffichage);
 			request.setAttribute("nombreArticles", nombreArticles);
-			request.setAttribute("prixTotal", prixTotal);
+			request.setAttribute("prixTotal", nf.format(prixTotal));
 	
 			this.getServletContext().getRequestDispatcher("/WEB-INF/client/panier.jsp").forward(request, response);
 			

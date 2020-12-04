@@ -31,7 +31,7 @@
 	    <input type="text" class="form-control" id="inputidentifiant" name="inputidentifiant" value="${ identifiantsaisie }" required>
 	    <c:out value="${ identifianterreur }" />
 	  </div>
-	   <div class="form-group">
+	  <div class="form-group">
 	    <label for="inputtelephone">Numero de telephone</label>
 	    <input type="text" class="form-control" id="inputtelephone" name="inputtelephone" value="${ telephonesaisie }" required>
 	    <c:out value="${ telephoneerreur }" />

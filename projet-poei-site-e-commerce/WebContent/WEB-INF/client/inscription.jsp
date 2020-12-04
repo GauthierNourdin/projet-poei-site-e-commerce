@@ -72,7 +72,7 @@
 	    <input type="text" class="form-control" id="inputpays" name="inputpays" value="${ payssaisie }" required>
 	    <c:out value="${ payserreur }" />
 	  </div>
-	  <button type="submit" class="btn btn-primary">Submit</button>
+	  <button type="submit" class="btn btn-primary">S'inscrire</button>
 	</form>
 	<p><c:out value="${ erreurinscription }"/></p>
 </main>
